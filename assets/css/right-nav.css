@@ -1,0 +1,159 @@
+
+/*=============================================
+=            Right nav            =
+=============================================*/
+
+.right-nav {
+    width: 25%;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.search-feild {
+    background-color: var(--grey);
+    border: none;
+    outline: none;
+    color: var(--white);
+    height: 2.5rem;
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    border-radius: 40px;
+    font-size: 15px;
+    font-weight: 600;
+    /* position: fixed; */
+    z-index: 1;
+}
+
+.bx-search-alt-2 {
+    position: absolute;
+    top: 13px;
+    left: 13px;
+}
+
+::placeholder {
+    color: var(--white);
+    padding-left: 0px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.search-feild:focus-within {
+    border: 2px solid var(--blue);
+    background-color: var(--black);
+}
+
+.right-nav-premium-text {
+    background: var(--grey);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.right-nav-premium-text h3 {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.right-nav-premium-text h5 {
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin: 5px 0;
+    opacity: 0.8;
+    color: #999;
+}
+
+#right-nav-subscribe {
+    height: 2.3rem;
+    width: 7rem;
+    border-radius: 40px;
+    font-weight: 900;
+    font-size: 15px;
+    letter-spacing: 1px;
+    background-color: var(--blue);
+    color: var(--white);
+    border: var(--blue);
+    transition: .3s all;
+}
+
+#right-nav-subscribe:hover{
+    background-color: var(--bluehover);
+}
+
+.trending-hastags {
+    background-color: var(--grey);
+    width: 100%;
+    border-radius: 10px;
+    height: 43rem;
+    transition: .2s background;
+    position: relative;
+}
+
+.trending-hastags h1 {
+    padding: 10px;
+}
+
+.hastag {
+    padding: 10px;
+    margin-top: 20px;
+    position: relative;
+}
+
+.hastag:hover {
+    background-color: #333;
+}
+
+.hastag h6 {
+    color: #888;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.hastag h4 {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.hastag i {
+    font-size: 23px;
+    border-radius: 50%;
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.hastag i:hover {
+    background-color: rgba(79, 79, 126, 0.623);
+    color: var(--blue);
+}
+
+.hastag-more {
+    margin-top: 30px;
+    width: 100%;
+    text-align: left;
+    height: 3rem;
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-radius: 0 0 10px 10px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    transition: .3s background;
+    padding: 0 10px;
+    position: absolute;
+    bottom: 0;
+}
+
+.hastag-more:hover {
+    background-color: #333;
+    color: var(--blue);
+}
+
+/*=====  End of Right nav  ======*/

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #game-container {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            margin: 0 auto;
+            background-color: #4CAF50;
+        }
+
+        #bird {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #FF5722;
+            top: 50%;
+            left: 100px;
+            transform: translateY(-50%);
+            border-radius: 50%;
+        }
+
+        #pipe {
+            position: absolute;
+            width: 60px;
+            height: 300px;
+            background-color: #607D8B;
+            top: 50%;
+            left: 400px;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="game-container">
+        <div id="bird"></div>
+        <div id="pipe"></div>
+    </div>
+
+    <script>
+        const bird = document.getElementById('bird');
+        const pipe = document.getElementById('pipe');
+        let birdTop = 220;
+        let gravity = 2;
+        let isJumping = false;
+
+        document.addEventListener('keydown', jump);
+
+        function jump(event) {
+            if (event.keyCode === 32 && !isJumping) {
+                isJumping = true;
+                let jumpCount = 0;
+                const jumpInterval = setInterval(() => {
+                    if (jumpCount < 20) {
+                        birdTop -= 10;
+                        bird.style.top = birdTop + 'px';
+                        jumpCount++;
+                    } else {
+                        clearInterval(jumpInterval);
+                        isJumping = false;
+                    }
+                }, 20);
+            }
+        }
+
+        function gameLoop() {
+            birdTop += gravity;
+            bird.style.top = birdTop + 'px';
+
+            const pipeLeft = parseInt(window.getComputedStyle(pipe).getPropertyValue('left'));
+
+            if (pipeLeft > -60) {
+                pipe.style.left = pipeLeft - 5 + 'px';
+            } else {
+                pipe.style.left = 400 + 'px';
+            }
+
+            if (
+                (birdTop < 0) ||
+                (birdTop > 560) ||
+                ((pipeLeft < 100) && (pipeLeft > 40) && ((birdTop < 150) || (birdTop > 400)))
+            ) {
+                alert('Game Over!');
+                birdTop = 220;
+                pipe.style.left = '400px';
+            }
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        gameLoop();
+
+    </script>
+</body>
+
+</html>
