@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Home / X</title>
+    <link id="title-logo" rel="icon" type="image/x-icon" href="https://pbs.twimg.com/profile_images/1683325380441128960/yRsRRjGO_400x400.jpg">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/left-nav.css">
+    <link rel="stylesheet" href="assets/css/mid-ele.css">
+    <link rel="stylesheet" href="assets/css/right-nav.css">
+    <link rel="stylesheet" href="assets/css/home.css">
+</head>
+
+<body>
+    <div class="whole-page">
+        <section class="left-nav">
+            <div class="main-top-buttons">
+                <button class="nav-link"><img src="https://pbs.twimg.com/profile_images/1683325380441128960/yRsRRjGO_400x400.jpg" class="X-logo-org" alt=X-logo-org"></button>
+                <button class="nav-link" onclick="Dispaly('home')"><i class='bx bx-home-alt'></i><span
+                        class="nav-link-icon">Home</span></button>
+                <button class="nav-link" onclick="Dispaly('explore')"><i class='bx bx-search'></i><span
+                        class="nav-link-icon">Explore</span></button>
+                <button class="nav-link" onclick="Dispaly('notifications')"><i class='bx bx-bell'></i><span
+                        class="nav-link-icon">Notifications</span></button>
+                <button class="nav-link" onclick="Dispaly('messages')"><i class='bx bx-envelope'></i><span
+                        class="nav-link-icon">Messages</span></button>
+                <button class="nav-link" onclick="Dispaly('lists')"><i class='bx bx-food-menu'></i><span
+                        class="nav-link-icon">lists</span></button>
+                <button class="nav-link" onclick="Dispaly('communities')"><i class='bx bx-user-plus'></i><span
+                        class="nav-link-icon">Communities</span></button>
+                <button class="nav-link" onclick="Dispaly('premium')"><img src="https://pbs.twimg.com/profile_images/1683325380441128960/yRsRRjGO_400x400.jpg" class="X-logo-org" alt="X-logo-org"><span
+                        class="nav-link-icon">Premium</span></button>
+                <button class="nav-link" onclick="Dispaly('profile')"><i class='bx bx-user'></i><span
+                        class="nav-link-icon">Profile</i></span></button>
+                <button class="nav-link" onclick="Dispaly('more')"><i class='bx bx-dots-horizontal-rounded'></i><span
+                        class="nav-link-icon">More</span></button>
+                <button class="nav-link" id="post-btn">Post</button>
+            </div>
+            <div class="lastbutton nav-link">
+                <div class="img"><img
+                        src="https://imgs.search.brave.com/3jPQ7-D_SmheFuu2NgYZcwM8OY4Gx2mfYNF8RpEVXVY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/MDgyMTQ3NTExOTYt/YmNmZDRjYTYwZjkx/P2l4bGliPXJiLTQu/MC4zJml4aWQ9TTN3/eE1qQTNmREI4TUh4/elpXRnlZMmg4Tm54/OGRYTmxjaVV5TUhC/eWIyWnBiR1Y4Wlc1/OE1IeDhNSHg4ZkRB/PSZ3PTEwMDAmcT04/MA.jpeg"
+                        alt="User Image"></div>
+                <div class="username">
+                    <h5>Madhav_Pb03 <span><i class='bx bxs-lock'></i></span> </h5>
+                    <h6>@MadhavPb03</h6>
+                </div>
+                <div class="span" onclick="console.log('menu')"><i class='bx bx-dots-horizontal-rounded'></i></div>
+            </div>
+        </section>
+
+        <section class="mid-ele">
+
+            <section class="section" id="home">
+                <div class="mid-ele-top-nav">
+                    <h1>Home</h1>
+                    <div class="mid-ele-foryou">
+                        <a href="#">For you</a>
+                        <a href="#">Following</a>
+                    </div>
+                </div>
+
+                <div class="whats-happening-post">
+                    <div class="first-div-img-content">
+                        <div class="img"><img
+                            src="https://imgs.search.brave.com/3jPQ7-D_SmheFuu2NgYZcwM8OY4Gx2mfYNF8RpEVXVY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/MDgyMTQ3NTExOTYt/YmNmZDRjYTYwZjkx/P2l4bGliPXJiLTQu/MC4zJml4aWQ9TTN3/eE1qQTNmREI4TUh4/elpXRnlZMmg4Tm54/OGRYTmxjaVV5TUhC/eWIyWnBiR1Y4Wlc1/OE1IeDhNSHg4ZkRB/PSZ3PTEwMDAmcT04/MA.jpeg"
+                                alt="User Image">
+                            </div>
+                        </div>
+                        <div class="right-nav-happening">
+                            <div class="content-to-post">
+                                <button class="everyone">
+                                    Everyone &blacktriangledown;
+                                </button>
+                                <input type="text" placeholder="What’s happening?!" class="happening-text">
+                                <button class="everyone-can-reply">
+                                    <i class='bx bx-globe'></i> Everyone can reply
+                                </button>
+                            </div>
+                            <div class="content-buttons">
+                                <div class="last-logos-happening">
+                                    <i class='bx bx-image' ></i>
+                                    <i class='bx bx-poll' ></i>
+                                    <i class='bx bx-smile' ></i>
+                                    <i class='bx bx-list-plus' ></i>
+                                    <i class='bx bx-location-plus' ></i>
+                                </div>
+                                <button class="post-happening">Post</button>
+                            </div>
+                        </div>
+                </div>
+            </section>
+
+            <section class="section" id="explore">
+                <h1>explaore</h1>
+            </section>
+
+            <section class="section" id="notifications">
+                <h1>notifications</h1>
+            </section>
+
+            <section class="section" id="messages">
+                <h1>messages</h1>
+            </section>
+
+            <section class="section" id="lists">
+                <h1>lists</h1>
+            </section>
+
+            <section class="section" id="communities">
+                <h1>communities</h1>
+            </section>
+
+            <section class="section" id="premium">
+                <h1>premium</h1>
+            </section>
+
+            <section class="section" id="profile">
+                <h1>profile</h1>
+            </section>
+
+            <section class="section" id="more">
+                <h1>more</h1>
+            </section>
+
+            <section class="section" id="post">
+                <h1>psot</h1>
+            </section>
+
+        </section>
+
+        <section class="right-nav">
+            <input type="list" placeholder="Search" class="search-feild"><i class='bx bx-search-alt-2'></i>
+
+            <div class="right-nav-premium-text">
+                <h3>Subscribe to Premium</h3>
+                <h5>Subscribe to unlock new features and if eligible, receive a share of ads revenue.</h5>
+                <button id="right-nav-subscribe">Subscribe</button>
+            </div>
+
+            <div class="trending-hastags">
+                <h1>What’s happening</h1>
+
+                <div class="hastag">
+                    <h6>cys</h6>
+                    <h4>dfsa</h4>
+                    <h6>fds</h6>
+                    <i class='bx bx-dots-horizontal-rounded'></i>
+                </div>
+                <div class="hastag">
+                    <h6>cys</h6>
+                    <h4>dfsa</h4>
+                    <h6>fds</h6>
+                    <i class='bx bx-dots-horizontal-rounded'></i>
+                </div>
+                <div class="hastag">
+                    <h6>cys</h6>
+                    <h4>dfsa</h4>
+                    <h6>fds</h6>
+                    <i class='bx bx-dots-horizontal-rounded'></i>
+                </div>
+                <div class="hastag">
+                    <h6>cys</h6>
+                    <h4>dfsa</h4>
+                    <h6>fds</h6>
+                    <i class='bx bx-dots-horizontal-rounded'></i>
+                </div>
+                <div class="hastag">
+                    <h6>cys</h6>
+                    <h4>dfsa</h4>
+                    <h6>fds</h6>
+                    <i class='bx bx-dots-horizontal-rounded'></i>
+                </div>
+                <button class="hastag-more">Show More</button>
+            </div>
+        </section>
+    </div>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/Authentication.js"></script>
+</body>
+
+</html>
