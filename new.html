@@ -2,102 +2,96 @@
 <html lang="en">
 
 <head>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
-
-        #game-container {
-            position: relative;
-            width: 400px;
-            height: 600px;
-            margin: 0 auto;
-            background-color: #4CAF50;
-        }
-
-        #bird {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background-color: #FF5722;
-            top: 50%;
-            left: 100px;
-            transform: translateY(-50%);
-            border-radius: 50%;
-        }
-
-        #pipe {
-            position: absolute;
-            width: 60px;
-            height: 300px;
-            background-color: #607D8B;
-            top: 50%;
-            left: 400px;
-            transform: translateY(-50%);
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Email/Password Authentication</title>
 </head>
 
 <body>
-    <div id="game-container">
-        <div id="bird"></div>
-        <div id="pipe"></div>
-    </div>
+    <h1>Signup and Login</h1>
 
-    <script>
-        const bird = document.getElementById('bird');
-        const pipe = document.getElementById('pipe');
-        let birdTop = 220;
-        let gravity = 2;
-        let isJumping = false;
+    <!-- Signup Form -->
+    <form id="signup-form">
+        <input type="email" id="signup-email" placeholder="Email" required>
+        <input type="password" id="signup-password" placeholder="Password" required>
+        <button type="submit">Sign Up</button>
+    </form>
 
-        document.addEventListener('keydown', jump);
+    <!-- Login Form -->
+    <form id="login-form">
+        <input type="email" id="login-email" placeholder="Email" required>
+        <input type="password" id="login-password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
 
-        function jump(event) {
-            if (event.keyCode === 32 && !isJumping) {
-                isJumping = true;
-                let jumpCount = 0;
-                const jumpInterval = setInterval(() => {
-                    if (jumpCount < 20) {
-                        birdTop -= 10;
-                        bird.style.top = birdTop + 'px';
-                        jumpCount++;
-                    } else {
-                        clearInterval(jumpInterval);
-                        isJumping = false;
-                    }
-                }, 20);
-            }
-        }
+    <!-- Display User Information -->
+    <div id="user-info"></div>
 
-        function gameLoop() {
-            birdTop += gravity;
-            bird.style.top = birdTop + 'px';
 
-            const pipeLeft = parseInt(window.getComputedStyle(pipe).getPropertyValue('left'));
 
-            if (pipeLeft > -60) {
-                pipe.style.left = pipeLeft - 5 + 'px';
-            } else {
-                pipe.style.left = 400 + 'px';
-            }
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
 
-            if (
-                (birdTop < 0) ||
-                (birdTop > 560) ||
-                ((pipeLeft < 100) && (pipeLeft > 40) && ((birdTop < 150) || (birdTop > 400)))
-            ) {
-                alert('Game Over!');
-                birdTop = 220;
-                pipe.style.left = '400px';
-            }
+        const firebaseConfig = {
+            apiKey: "AIzaSyBcneYiFbviyIBXPBGCKfNX-zEOapoCBds",
+            authDomain: "twitter-clone-9a7f8.firebaseapp.com",
+            databaseURL: "https://twitter-clone-9a7f8-default-rtdb.firebaseio.com",
+            projectId: "twitter-clone-9a7f8",
+            storageBucket: "twitter-clone-9a7f8.appspot.com",
+            messagingSenderId: "322582318985",
+            appId: "1:322582318985:web:8447fe2c3208620f6ddb58"
+        };
 
-            requestAnimationFrame(gameLoop);
-        }
+        // Initialize Firebase
+        const firebaseApp = initializeApp(firebaseConfig);
 
-        gameLoop();
+        // Get references to the Auth and Database services
+        const auth = getAuth(firebaseApp);
+        const db = getDatabase(firebaseApp);
 
+        // Signup Form
+        const signupForm = document.getElementById('signup-form');
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    // Store user information in the database
+                    const userData = {
+                        email: user.email,
+                        uid: user.uid
+                    };
+                    const userRef = ref(db, 'users/' + user.uid);
+                    set(userRef, userData);
+                    alert('You have successfully signed up!');
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        });
+
+        // Login Form
+        const loginForm = document.getElementById('login-form');
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    const userInfo = `Logged in as: ${user.email}`;
+                    document.getElementById('user-info').textContent = userInfo;
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        });
     </script>
 </body>
 

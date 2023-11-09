@@ -28,18 +28,15 @@
         <div class="loginDiv">
             <form action="" id="SignUpForm">
                 <h3 id="LoginHeading">Sign-Up</h3>
-                <input type="text" placeholder="Name" class="InputFeild" id="SignUpName">
-                <input type="number" placeholder="Mo. Number" class="InputFeild" id="SignUpNumber">
-                <input type="email" placeholder="Email" class="InputFeild" id="SignUpEmail">
-                <input type="password" placeholder="Password" class="InputFeild" id="SignUpPass">
+                <input type="text" placeholder="Name" class="InputFeild" id="SignUpName" required>
+                <input type="text" placeholder="Username" class="InputFeild" id="SignUpUsername" required>
+                <input type="email" placeholder="Email" class="InputFeild" id="SignUpEmail" required>
+                <input type="password" placeholder="Password" class="InputFeild" id="SignUpPass" required>
                 <button href="" id="signupButton" type="submit">Sign-Up</button>
             </form>
             <h4>Already have an account <a href="Login.html">Login</a></h4>
         </div>
     </div>
-    <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js" type="module"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-database.js" type="module"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js" type="module"></script>
     <script type="module" src="assets/js/script.js"></script>
     <script type="module" src="assets/js/Authentication.js"></script>
 </body>

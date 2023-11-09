@@ -6,13 +6,14 @@
 .mid-ele {
     display: flex;
     flex-direction: column;
-    height: 70rem;
-    width: 60%;
+    min-height: 100vh;
+    width: calc(100% - 25vw + 20vw);
     border-left: 1px solid var(--grey);
     border-right: 1px solid var(--grey);
     border-bottom: 1px solid var(--grey);
     border-radius: 10px;
     margin-bottom: 20px;
+    position: relative;
 }
 
 #home {
