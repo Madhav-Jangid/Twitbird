@@ -1,3 +1,8 @@
+#home{
+    display: none;
+    flex-direction: column;
+}
+
 .mid-ele-top-nav{
     position: relative;
     display: flex;

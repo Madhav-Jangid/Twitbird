@@ -7,15 +7,16 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    width: 20vw;
+    width: 30vw;
+    max-width: 250px;
     height: 100vh;
     padding: 10px 0;
     position: relative;
 }
 
-.main-top-buttons{
+/* .main-top-buttons{
     margin-right: 40px;
-}
+} */
 
 .nav-link {
     display: flex;
@@ -35,11 +36,22 @@
     cursor: pointer;
 }
 
-.nav-link:focus-within {
+.nav-link:focus-within{
     font-weight: 900;
     font-size: 30px;
     color: var(--blue);
+}
 
+.nav-link:focus-within svg path{
+    stroke: var(--blue);
+}
+
+#menuLeftNav{
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    left: 500px;
+    top: 50px;
 }
 
 .nav-link-icon {

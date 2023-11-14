@@ -9,7 +9,20 @@ function Dispaly(sect){
     sectionclass.forEach((item) =>{
         item.style.display = 'none';
     }) 
-    section.style.display = 'block';
+    section.style.display = 'flex';
     
     document.title = capitalize(sect)+' / X';
+}
+
+var flag = true
+function ViewLeftNav(){
+    var leftNav = document.querySelector('.left-nav');   
+    if(flag){
+        // leftNav.style.position = 'absolute';
+        leftNav.style.left = '-200px';
+    }else{
+        // leftNav.style.position = 'absolute';
+        leftNav.style.left = '0';
+    }
+    flag = !flag;
 }

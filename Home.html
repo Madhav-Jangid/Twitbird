@@ -21,7 +21,8 @@
     <div class="whole-page">
         <section class="left-nav">
             <div class="main-top-buttons">
-                <button class="nav-link"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                <button class="nav-link" id="menuLeftNav" onclick="ViewLeftNav()"><i class="bx bx-menu"></i></button>
+                <button class="nav-link" onclick="Dispaly('Xmain')" id="firstXsvg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M3 21L10.5484 13.4516M21 3L13.4516 10.5484M13.4516 10.5484L8 3H3L10.5484 13.4516M13.4516 10.5484L21 21H16L10.5484 13.4516"
@@ -51,21 +52,34 @@
                         class="nav-link-icon">More</span></button>
                 <button class="nav-link" id="post-btn">Post</button>
             </div>
-            <div class="lastbutton nav-link">
+            <div class="lastbutton nav-link"  onclick="Dispaly('profile')">
                 <div class="img"><img
                         src="https://imgs.search.brave.com/3jPQ7-D_SmheFuu2NgYZcwM8OY4Gx2mfYNF8RpEVXVY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/MDgyMTQ3NTExOTYt/YmNmZDRjYTYwZjkx/P2l4bGliPXJiLTQu/MC4zJml4aWQ9TTN3/eE1qQTNmREI4TUh4/elpXRnlZMmg4Tm54/OGRYTmxjaVV5TUhC/eWIyWnBiR1Y4Wlc1/OE1IeDhNSHg4ZkRB/PSZ3PTEwMDAmcT04/MA.jpeg"
                         alt="User Image"></div>
                 <div class="username">
-                    <h5 id="HomeUserName" class="UserNameMain">Madhav_Pb03<span><i class='bx bxs-lock'></i></span> </h5>
-                    <h6 class="useridhome">@MadhavPb03</h6>
+                    <h5 id="HomeUserName" class="ProfileTopNavName">Name<span><i class='bx bxs-lock'></i></span>
+                    </h5>
+                    <h6 class="useridhome">username</h6>
                 </div>
                 <div class="span" onclick="console.log('menu')"><i class='bx bx-dots-horizontal-rounded'></i></div>
             </div>
         </section>
 
         <section class="mid-ele">
+            <section class="section" id="Xmain">
+                <svg width="120" height="120" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M3 21L10.5484 13.4516M21 3L13.4516 10.5484M13.4516 10.5484L8 3H3L10.5484 13.4516M13.4516 10.5484L21 21H16L10.5484 13.4516"
+                    stroke="#fff" stroke-width="1.5" stroke-linecap="" stroke-linejoin="round" />
+            </svg>
 
-            <section class="section" id="home" >
+                <h1 id="Greatings"  style="text-align: center;">Welcome at Madhav's ' X ' Clone.</h1>
+                <h6 style="text-align: center; color: grey;">Don't Forgot to give your Suggestions.. </h6>
+            </section>
+
+
+            <section class="section" id="home">
                 <div class="mid-ele-top-nav">
                     <h1>Home</h1>
                     <div class="mid-ele-foryou">
@@ -129,24 +143,27 @@
                 <h1>premium</h1>
             </section>
 
-            <section class="section" id="profile" >
+            <section class="section" id="profile">
                 <div class="topNavProfile">
                     <i class='bx bxs-left-arrow-alt'></i>
-                    <h2 class="UserNameMain" id="ProfileTopNavName">Madhav</h2>
+                    <h2 class="ProfileTopNavName" id="ProfileTopNavName"></h2>
                 </div>
 
                 <div class="profileBanner">
-                    <img id="profileBanner" src="https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Banner">
-                    <img src="https://plus.unsplash.com/premium_photo-1672857822411-ad82b8180078?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fFByb2ZpbGUlMjBJTWFnZXxlbnwwfHwwfHx8MA%3D%3D" id="ProfilePicture" alt="">
+                    <img id="profileBanner"
+                        src="https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Banner">
+                    <img src="https://plus.unsplash.com/premium_photo-1672857822411-ad82b8180078?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fFByb2ZpbGUlMjBJTWFnZXxlbnwwfHwwfHx8MA%3D%3D"
+                        id="ProfilePicture" alt="">
                 </div>
 
                 <div class="ProfileDetails">
-                    <h2 class="UserNameMain">Madhav_Pb03</h2>
-                    <h5 class="useridhome">@MadhavPbo3</h5>
+                    <h2 class="ProfileTopNavName"></h2>
+                    <h5 class="useridhome"></h5>
 
                     <div class="socialCont">
                         <h3 id="profileFollowing">4<span>Following</span></h3>
-                        
+
                         <h3 id="profileFollowers">4<span>Followers</span></h3>
                     </div>
                     <hr>
@@ -211,7 +228,9 @@
         </section>
     </div>
     <script src="assets/js/script.js"></script>
-    <script src="assets/js/Authentication.js" type="module"></script>
+    <!-- <script type="module" src="assets/js/Authentication.js"></script> -->
+    <script type="module" src="assets/js/Home.js"></script>
+
 </body>
 
 </html>

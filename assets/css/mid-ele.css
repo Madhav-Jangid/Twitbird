@@ -7,13 +7,18 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    width: calc(100% - 25vw + 20vw);
+    width: 100%;
+    max-width: 500px;
     border-left: 1px solid var(--grey);
     border-right: 1px solid var(--grey);
     border-bottom: 1px solid var(--grey);
     border-radius: 10px;
     margin-bottom: 20px;
     position: relative;
+}
+
+#Xmain{
+    animation: .3s slideTop ease-in;
 }
 
 #home {

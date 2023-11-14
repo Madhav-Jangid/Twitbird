@@ -45,7 +45,7 @@ body {
 .whole-page {
     background-color: var(--black);
     width: 100%;
-    max-width: 80vw;
+    max-width: 1000px;
     display: flex;
     justify-content: space-evenly;
 }
@@ -54,6 +54,16 @@ body {
 .right-nav{
     display: block;
 }
+
+#Xmain{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 20px;
+}
+
 
 @keyframes slideTop {
     0% {
@@ -66,29 +76,25 @@ body {
 }
 
 
-@media (max-width:900px) {
+@media (max-width:840px) {
     .whole-page{
         max-width: 100vw;
     }
 
-    .main-top-buttons {
-        margin-right: 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-    }
-    
-    .whole-page .left-nav .nav-link{
-        /* margin: 0 10px; */
+    .left-nav{
+        align-items: end;
     }
 
-    .whole-page .right-nav,
-    .whole-page .left-nav span{
+    .main-top-buttons {
+        margin-right: 0;
+    }
+
+    .whole-page .right-nav{
         display: none;
     }
 
     .whole-page .mid-ele{
-        width: 100vw;
+        max-width: 100%;
     }
 
     #post-btn{
@@ -107,7 +113,11 @@ body {
         max-width: 100vw;
     }
 
-    .whole-page .left-nav,
+    .whole-page .left-nav{
+        width: 70px;
+    }
+
+    .whole-page .left-nav span,
     .whole-page .right-nav{
         display: none;
     }
@@ -116,4 +126,10 @@ body {
         width: 100vw;
     }
     
+}
+
+@media (max-width:450px) {
+    .whole-page .left-nav{
+        display: none;
+    }
 }
