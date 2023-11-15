@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>Home / X</title>
+    <title>Madhav's Clone</title>
     <link id="title-logo" rel="icon" type="image/x-icon"
         href="https://pbs.twimg.com/profile_images/1683325380441128960/yRsRRjGO_400x400.jpg">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="assets/css/home.css">
     <link rel="stylesheet" href="assets/css/profile.css">
     <link rel="stylesheet" href="assets/css/more.css">
+    <link rel="stylesheet" href="assets/css/Explore.css">
+    <link rel="stylesheet" href="assets/css/notification.css">
+    <link rel="stylesheet" href="assets/css/messages.css">
 </head>
 
 <body>
@@ -22,8 +25,8 @@
         <section class="left-nav">
             <div class="main-top-buttons">
                 <button class="nav-link" id="menuLeftNav" onclick="ViewLeftNav()"><i class="bx bx-menu"></i></button>
-                <button class="nav-link" onclick="Dispaly('Xmain')" id="firstXsvg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
+                <button class="nav-link" onclick="Dispaly('Xmain')" id="firstXsvg"><svg width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M3 21L10.5484 13.4516M21 3L13.4516 10.5484M13.4516 10.5484L8 3H3L10.5484 13.4516M13.4516 10.5484L21 21H16L10.5484 13.4516"
                             stroke="#fff" stroke-width="1.5" stroke-linecap="" stroke-linejoin="round" />
@@ -50,57 +53,72 @@
                         class="nav-link-icon">Profile</i></span></button>
                 <button class="nav-link" onclick="Dispaly('more')"><i class='bx bx-dots-horizontal-rounded'></i><span
                         class="nav-link-icon">More</span></button>
-                <button class="nav-link" id="post-btn">Post</button>
+                <button class="nav-link" id="post-btn">
+                    <p>Post</p>
+                    <span>
+                        <svg viewBox="0 0 24 24"
+                            class="r-jwli3a r-4qtqp9 r-yyyyoo r-1472mwg r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-lrsllp">
+                            <g>
+                                <path
+                                    d="M23 3c-6.62-.1-10.38 2.421-13.05 6.03C7.29 12.61 6 17.331 6 22h2c0-1.007.07-2.012.19-3H12c4.1 0 7.48-3.082 7.94-7.054C22.79 10.147 23.17 6.359 23 3zm-7 8h-1.5v2H16c.63-.016 1.2-.08 1.72-.188C16.95 15.24 14.68 17 12 17H8.55c.57-2.512 1.57-4.851 3-6.78 2.16-2.912 5.29-4.911 9.45-5.187C20.95 8.079 19.9 11 16 11zM4 9V6H1V4h3V1h2v3h3v2H6v3H4z">
+                                </path>
+                            </g>
+                        </svg>
+                    </span>
+                </button>
             </div>
-            <div class="lastbutton nav-link"  onclick="Dispaly('profile')">
-                <div class="img"><img
+            <div class="lastbutton nav-link" onclick="Dispaly('profile')">
+                <div class="imgBottom"><img
                         src="https://imgs.search.brave.com/3jPQ7-D_SmheFuu2NgYZcwM8OY4Gx2mfYNF8RpEVXVY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/MDgyMTQ3NTExOTYt/YmNmZDRjYTYwZjkx/P2l4bGliPXJiLTQu/MC4zJml4aWQ9TTN3/eE1qQTNmREI4TUh4/elpXRnlZMmg4Tm54/OGRYTmxjaVV5TUhC/eWIyWnBiR1Y4Wlc1/OE1IeDhNSHg4ZkRB/PSZ3PTEwMDAmcT04/MA.jpeg"
                         alt="User Image"></div>
                 <div class="username">
-                    <h5 id="HomeUserName" class="ProfileTopNavName">Name<span><i class='bx bxs-lock'></i></span>
+                    <h5 id="HomeUserName" class="ProfileTopNavName"><span></span>
                     </h5>
-                    <h6 class="useridhome">username</h6>
+                    <h6 class="useridhome"></h6>
                 </div>
-                <div class="span" onclick="console.log('menu')"><i class='bx bx-dots-horizontal-rounded'></i></div>
+                <div class="span" id="ThreeDotsProfileButton" onclick="console.log('menu')"><i
+                        class='bx bx-dots-horizontal-rounded'></i></div>
             </div>
         </section>
 
         <section class="mid-ele">
             <section class="section" id="Xmain">
-                <svg width="120" height="120" viewBox="0 0 24 24" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M3 21L10.5484 13.4516M21 3L13.4516 10.5484M13.4516 10.5484L8 3H3L10.5484 13.4516M13.4516 10.5484L21 21H16L10.5484 13.4516"
-                    stroke="#fff" stroke-width="1.5" stroke-linecap="" stroke-linejoin="round" />
-            </svg>
+                <svg width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M3 21L10.5484 13.4516M21 3L13.4516 10.5484M13.4516 10.5484L8 3H3L10.5484 13.4516M13.4516 10.5484L21 21H16L10.5484 13.4516"
+                        stroke="#fff" stroke-width="1.5" stroke-linecap="" stroke-linejoin="round" />
+                </svg>
 
-                <h1 id="Greatings"  style="text-align: center;">Welcome at Madhav's ' X ' Clone.</h1>
+                <h1 id="Greatings" style="text-align: center;">Welcome at Madhav's ' X ' Clone.</h1>
                 <h6 style="text-align: center; color: grey;">Don't Forgot to give your Suggestions.. </h6>
             </section>
 
 
             <section class="section" id="home">
+                <h1><i class='bx bxs-left-arrow-alt'></i>Home</h1>
                 <div class="mid-ele-top-nav">
-                    <h1>Home</h1>
                     <div class="mid-ele-foryou">
-                        <a href="#">For you</a>
-                        <a href="#">Following</a>
+                        <a href="#" id="ForYou">For you</a>
+                        <a href="#" id="following">Following</a>
                     </div>
                 </div>
 
                 <div class="whats-happening-post">
                     <div class="first-div-img-content">
-                        <div class="img"><img
-                                src="https://imgs.search.brave.com/3jPQ7-D_SmheFuu2NgYZcwM8OY4Gx2mfYNF8RpEVXVY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/MDgyMTQ3NTExOTYt/YmNmZDRjYTYwZjkx/P2l4bGliPXJiLTQu/MC4zJml4aWQ9TTN3/eE1qQTNmREI4TUh4/elpXRnlZMmg4Tm54/OGRYTmxjaVV5TUhC/eWIyWnBiR1Y4Wlc1/OE1IeDhNSHg4ZkRB/PSZ3PTEwMDAmcT04/MA.jpeg"
-                                alt="User Image">
-                        </div>
+
                     </div>
                     <div class="right-nav-happening">
                         <div class="content-to-post">
                             <button class="everyone">
                                 Everyone &blacktriangledown;
                             </button>
-                            <input type="text" placeholder="What’s happening?!" class="happening-text">
+                            <div class="happingPostInput">
+                                <div class="imgHappening"><img
+                                        src="https://imgs.search.brave.com/3jPQ7-D_SmheFuu2NgYZcwM8OY4Gx2mfYNF8RpEVXVY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/MDgyMTQ3NTExOTYt/YmNmZDRjYTYwZjkx/P2l4bGliPXJiLTQu/MC4zJml4aWQ9TTN3/eE1qQTNmREI4TUh4/elpXRnlZMmg4Tm54/OGRYTmxjaVV5TUhC/eWIyWnBiR1Y4Wlc1/OE1IeDhNSHg4ZkRB/PSZ3PTEwMDAmcT04/MA.jpeg"
+                                        alt="User Image">
+                                </div>
+                                <input type="text" placeholder="What’s happening?!" class="happening-text">
+                            </div>
                             <button class="everyone-can-reply">
                                 <i class='bx bx-globe'></i> Everyone can reply
                             </button>
@@ -120,33 +138,46 @@
             </section>
 
             <section class="section" id="explore">
-                <h1>explaore</h1>
+                <h1><i class='bx bxs-left-arrow-alt'></i>Explaore</h1>
+                <div class="ExploreSearchDiv">
+                    <input type="search" name="SearchExplore" id="ExploreSearch" placeholder="Explaore More...">
+                    <i class="bx bx-search" id="ExploreSearchBtn"></i>
+                </div>
+
+
             </section>
 
             <section class="section" id="notifications">
-                <h1>notifications</h1>
+                <h1><i class='bx bxs-left-arrow-alt'></i>Notifications</h1>
+                <div id="allNotifications">
+                    <h4>No Notifications Available</h4>
+                </div>
             </section>
 
             <section class="section" id="messages">
-                <h1>messages</h1>
+                <h1><i class='bx bxs-left-arrow-alt'></i>messages</h1>
+                <div id="Allmessages">
+                    No Messages Available Now
+                </div>
             </section>
 
             <section class="section" id="lists">
-                <h1>lists</h1>
+                <h1><i class='bx bxs-left-arrow-alt'></i>lists</h1>
             </section>
 
             <section class="section" id="communities">
-                <h1>communities</h1>
+                <h1><i class='bx bxs-left-arrow-alt'></i>communities</h1>
             </section>
 
             <section class="section" id="premium">
-                <h1>premium</h1>
+                <h1><i class='bx bxs-left-arrow-alt'></i>premium</h1>
+
             </section>
 
             <section class="section" id="profile">
                 <div class="topNavProfile">
                     <i class='bx bxs-left-arrow-alt'></i>
-                    <h2 class="ProfileTopNavName" id="ProfileTopNavName"></h2>
+                    <h1 class="ProfileTopNavName" id="ProfileTopNavName"></h1>
                 </div>
 
                 <div class="profileBanner">
@@ -162,21 +193,26 @@
                     <h5 class="useridhome"></h5>
 
                     <div class="socialCont">
-                        <h3 id="profileFollowing">4<span>Following</span></h3>
+                        <h3 id="profileFollowing">
+                            <Following></Following><span>Following</span>
+                        </h3>
 
-                        <h3 id="profileFollowers">4<span>Followers</span></h3>
+                        <h3 id="profileFollowers">
+                            <Followers></Followers><span>Followers</span>
+                        </h3>
                     </div>
                     <hr>
                 </div>
             </section>
 
             <section class="section" id="more">
-                <a href="" class="log-setButton" id="LogoutButton">Log-Out</a>
+                <h1><i class='bx bxs-left-arrow-alt'></i>more</h1>
+                <a href="index.html" class="log-setButton" id="LogoutButton">Log-Out</a>
                 <a href="" class="log-setButton" id="SettingsButton">Settings</a>
             </section>
 
             <section class="section" id="post">
-                <h1>psot</h1>
+                <h1><i class='bx bxs-left-arrow-alt'></i>psot</h1>
             </section>
 
         </section>
@@ -228,9 +264,6 @@
         </section>
     </div>
     <script src="assets/js/script.js"></script>
-    <!-- <script type="module" src="assets/js/Authentication.js"></script> -->
-    <script type="module" src="assets/js/Home.js"></script>
-
 </body>
 
 </html>

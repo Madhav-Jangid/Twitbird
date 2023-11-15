@@ -8,6 +8,10 @@
     border-radius: inherit;
 }
 
+#more h1{
+    margin-bottom: 10px;
+}
+
 #more a{
     color: #fff;
     text-decoration: none;

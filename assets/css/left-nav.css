@@ -10,8 +10,9 @@
     width: 30vw;
     max-width: 250px;
     height: 100vh;
-    padding: 10px 0;
+    padding: 10px;
     position: relative;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* .main-top-buttons{
@@ -69,26 +70,36 @@
     font-weight: 700;
     width: 100%;
     font-size: 20px;
-    margin-top: 10px;
+    margin: 10px 0;
 }
 
 .lastbutton {
+    margin-top: 100px;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     height: 60px;
+    position: relative;
+    background-color: #111;
+    border: 1px solid var(--blue);
 }
 
-.img {
-    height: 3rem;
-    width: 3rem;
+.lastbutton:hover{
+    background-color: #555;
+}
+
+.imgBottom {
+    height: 2.8rem;
+    width: 2.8rem;
     border: .0001em solid;
     border-radius: 50%;
     overflow: hidden;
+    position: absolute;
+    left: 9px;
 }
 
-.img img{
+.imgBottom img{
     height: 100%;
     height: 100%;
     background-position: center;
@@ -96,6 +107,7 @@
 }
 
 .username {
+    height: 3rem;
     font-size: 18px;
     padding: 0 5px;
 }
@@ -105,6 +117,22 @@
     padding: 5px 0;
 }
 
+#ThreeDotsProfileButton{
+    position: absolute;
+    right: 6px;
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#ThreeDotsProfileButton:hover{
+    background-color: rgba(79, 79, 126, 0.623);
+    color: var(--blue);
+}
+
 .nav-link:hover {
     background-color: var(--grey);
 }
@@ -112,5 +140,17 @@
 #post-btn:hover {
     background-color: var(--bluehover);
 }
+
+#post-btn span{
+    height: 100%;
+    display: none;
+}
+
+#post-btn span svg{
+    fill: #fff;
+    height: 100%;
+}
+
+
 
 /*=====  End of left nav  ======*/

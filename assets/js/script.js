@@ -18,11 +18,11 @@ var flag = true
 function ViewLeftNav(){
     var leftNav = document.querySelector('.left-nav');   
     if(flag){
-        // leftNav.style.position = 'absolute';
         leftNav.style.left = '-200px';
     }else{
-        // leftNav.style.position = 'absolute';
         leftNav.style.left = '0';
     }
     flag = !flag;
 }
+
+

@@ -97,9 +97,7 @@ body {
         max-width: 100%;
     }
 
-    #post-btn{
-        max-width: 4rem;
-    }
+    
     
 }
 
@@ -115,6 +113,7 @@ body {
 
     .whole-page .left-nav{
         width: 70px;
+        padding: 0;
     }
 
     .whole-page .left-nav span,
@@ -125,9 +124,27 @@ body {
     .whole-page .mid-ele{
         width: 100vw;
     }
-    
-}
 
+    #post-btn{
+        max-width: 4rem;
+        border-radius: 50%;
+    }   
+
+    #post-btn p{
+        display: none;
+    }
+
+    #post-btn span{
+        display: block;
+    }  
+
+
+
+    .lastbutton .username,
+    #ThreeDotsProfileButton{
+        display: none;
+    }
+}
 @media (max-width:450px) {
     .whole-page .left-nav{
         display: none;
