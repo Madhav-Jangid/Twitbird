@@ -45,7 +45,7 @@ body {
 .whole-page {
     background-color: var(--black);
     width: 100%;
-    max-width: 1000px;
+    max-width: 1100px;
     display: flex;
     justify-content: space-evenly;
 }
@@ -80,6 +80,7 @@ body {
 }
 
 
+
 @keyframes slideTop {
     0% {
         transform: translateY(100%);
@@ -111,9 +112,6 @@ body {
     .whole-page .mid-ele{
         max-width: 100%;
     }
-
-    
-    
 }
 
 
@@ -127,6 +125,7 @@ body {
     }
 
     .whole-page .left-nav{
+        display: flex;
         width: 70px;
         padding: 0;
     }

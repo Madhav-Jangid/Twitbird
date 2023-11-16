@@ -25,7 +25,7 @@
         </svg>
     </div>
     <div class="RightLoginDiv">
-        <div class="loginDiv">
+        <div class="loginDiv" id="SignupSeciton">
             <form id="SignUpForm" method="POST">
                 <h3 id="LoginHeading">Sign-Up</h3>
                 <input type="text" placeholder="Name" class="InputFeild" id="SignUpName" required>
@@ -34,10 +34,23 @@
                 <input type="password" placeholder="Password" class="InputFeild" id="SignUpPass" required>
                 <button href="" id="signupButton" type="submit">Sign-Up</button>
             </form>
-            <h4>Already have an account <a href="Login.html">Login</a></h4>
-            </div>
+            <h4>Already have an account <a onclick="DisplaySection('LoginSeciton')">Login</a></h4>
+        </div>
+
+
+        <div class="loginDiv" id="LoginSeciton" style="display: none;">
+            <form action="" id="LoginForm">
+                <h3 id="LoginHeading">Login</h3>
+                <input type="email" placeholder="Email" class="InputFeild" id="LoginEmail">
+                <input type="password" placeholder="Password" class="InputFeild" id="LoginPass">
+                <button id="loginButton" type="submit">Login</button>
+            </form>
+            <h4>Create a new account <a onclick="DisplaySection('SignupSeciton')"> Sign-up</a></h4>
+        </div>
     </div>
     <script type="module" src="assets/js/Signup.js"></script>
+    <script type="module" src="assets/js/Login.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 
 </html>
