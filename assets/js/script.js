@@ -13,7 +13,7 @@ function Dispaly(sect) {
     document.title = capitalize(sect) + ' / X';
 }
 
-var flag = true
+var flag = false
 function ViewLeftNav() {
     var leftNav = document.querySelector('.left-nav');
     if (flag) {

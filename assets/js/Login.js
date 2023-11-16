@@ -31,39 +31,39 @@ const myObject = {
     ID: '',
 };
 
+var userData = 'data';
+
+const SignInUser = (evt) => {
+    evt.preventDefault();
+    signInWithEmailAndPassword(auth, LoginEmail.value, LoginPass.value)
+        .then((credentials) => {
+            let uid = credentials.user.uid;
+            const userRef = ref(db, 'UserAuthList/' + uid);
+            get(userRef)
+                .then((snapshot) => {
+                    if (snapshot.exists()) {
+                        userData = snapshot.val();
+                        UserNameGloabal = userData.Name;
+                        NameGloabal = '@' + userData.Username;
+                        myObject.Name = UserNameGloabal;
+                        myObject.ID = NameGloabal;
+                        window.location.href = 'Home.html';
+                    } else {
+                        alert('User data does not exist');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error fetching user data:', error);
+                });
+        })
+        .catch((err) => {
+            alert(err.message);
+            console.error(err.code);
+            console.error(err.message);
+        });
+};
+
 document.addEventListener('DOMContentLoaded', function () {
-    var userData = 'data';
-
-    const SignInUser = (evt) => {
-        evt.preventDefault();
-        signInWithEmailAndPassword(auth, LoginEmail.value, LoginPass.value)
-            .then((credentials) => {
-                let uid = credentials.user.uid;
-                const userRef = ref(db, 'UserAuthList/' + uid);
-                get(userRef)
-                    .then((snapshot) => {
-                        if (snapshot.exists()) {
-                            userData = snapshot.val();
-                            UserNameGloabal = userData.Name;
-                            NameGloabal = '@' + userData.Username;
-                            myObject.Name = UserNameGloabal;
-                            myObject.ID = NameGloabal;
-                            window.location.href = 'Home.html';
-                        } else {
-                            alert('User data does not exist');
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching user data:', error);
-                    });
-            })
-            .catch((err) => {
-                alert(err.message);
-                console.error(err.code);
-                console.error(err.message);
-            });
-    };
-
     var LoginForm = document.getElementById('LoginForm');
     LoginForm.addEventListener('submit', SignInUser); // Change this line
 });

@@ -57,3 +57,47 @@
     background: #000;
     border: 2px solid var(--blue);
 }
+
+#Searchedusers{
+    width: 100%;
+    height: 100%;
+}
+
+.Searcheduser{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 5rem;
+    border-radius: 10px;
+    background-color: #222;
+    padding: 0 20px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.Searcheduser:hover{
+    background-color: #444;
+}
+
+.Searcheduser h5{
+    color: #999;
+    margin: 5px 0;
+}
+
+.Searcheduser button{
+    background-color: var(--blue);
+    border: none;
+    outline: none;
+    color: #fff;
+    width: 6rem;
+    height: 2.5rem;
+    border-radius: inherit;
+    font-weight: 900;
+    letter-spacing: 1px;
+    z-index: 10;
+}
+
+.Searcheduser button:hover{
+    background-color: var(--bluehover);
+}
