@@ -21,11 +21,11 @@ function ViewLeftNav(){
     if(flag){
         navMenu.classList.remove('fa-regular','fa-circle-xmark');
         navMenu.classList.add('bx','bx-menu');
-        leftNav.style.left = '-70px';
+        leftNav.style.display = 'none';
     }else{
         navMenu.classList.remove('bx','bx-menu');
         navMenu.classList.add('fa-regular','fa-circle-xmark');
-        leftNav.style.left = '0';
+        leftNav.style.display = 'flex';
     }
     flag = !flag;
 }

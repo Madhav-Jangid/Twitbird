@@ -162,10 +162,7 @@ body {
 }
 @media (max-width:450px) {
     .whole-page .left-nav{
-        position: absolute;
-        left: -70px;
-        background-color: #000;
-        z-index: 90;
+        display: none;
     }
     
     #navMenu{
