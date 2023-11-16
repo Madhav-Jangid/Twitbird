@@ -24,7 +24,7 @@ button,i{
     --grey: rgba(56, 66, 78, 0.54);
     --bluehover: rgb(10, 116, 182);
     --blue: rgb(0, 157, 255);
-    --profile-logo: 'https://imgs.search.brave.com/3jPQ7-D_SmheFuu2NgYZcwM8OY4Gx2mfYNF8RpEVXVY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/MDgyMTQ3NTExOTYt/YmNmZDRjYTYwZjkx/P2l4bGliPXJiLTQu/MC4zJml4aWQ9TTN3/eE1qQTNmREI4TUh4/elpXRnlZMmg4Tm54/OGRYTmxjaVV5TUhC/eWIyWnBiR1Y4Wlc1/OE1IeDhNSHg4ZkRB/PSZ3PTEwMDAmcT04/MA.jpeg';
+    --profile-logo: url('assets/images/X Profile Img.png');
 }
 
 
@@ -62,6 +62,21 @@ body {
     justify-content: center;
     height: 100vh;
     gap: 20px;
+}
+
+#navMenu{
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    height: 30px;
+    z-index: 9099090;
+    display: none;
+}
+
+#navMenu:hover{
+    background-color: #353535;
 }
 
 
@@ -147,6 +162,13 @@ body {
 }
 @media (max-width:450px) {
     .whole-page .left-nav{
-        display: none;
+        position: absolute;
+        left: -70px;
+        background-color: #000;
+        z-index: 90;
+    }
+    
+    #navMenu{
+        display: block;
     }
 }

@@ -22,6 +22,7 @@
 
 <body>
     <div class="whole-page">
+        <i onclick="ViewLeftNav()" class="bx bx-menu" id="navMenu"></i>
         <section class="left-nav">
             <div class="main-top-buttons">
                 <button class="nav-link" id="menuLeftNav" onclick="ViewLeftNav()"><i class="bx bx-menu"></i></button>
@@ -95,7 +96,7 @@
 
 
             <section class="section" id="home">
-                <h1><i class='bx bxs-left-arrow-alt'></i>Home</h1>
+                <h1>Home</h1>
                 <div class="mid-ele-top-nav">
                     <div class="mid-ele-foryou">
                         <a href="#" id="ForYou">For you</a>
@@ -138,7 +139,7 @@
             </section>
 
             <section class="section" id="explore">
-                <h1><i class='bx bxs-left-arrow-alt'></i>Explaore</h1>
+                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>Explaore</h1>
                 <div class="ExploreSearchDiv">
                     <input type="search" name="SearchExplore" id="ExploreSearch" placeholder="Explaore More...">
                     <i class="bx bx-search" id="ExploreSearchBtn"></i>
@@ -148,44 +149,41 @@
             </section>
 
             <section class="section" id="notifications">
-                <h1><i class='bx bxs-left-arrow-alt'></i>Notifications</h1>
+                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>Notifications</h1>
                 <div id="allNotifications">
                     <h4>No Notifications Available</h4>
                 </div>
             </section>
 
             <section class="section" id="messages">
-                <h1><i class='bx bxs-left-arrow-alt'></i>messages</h1>
+                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>messages</h1>
                 <div id="Allmessages">
                     No Messages Available Now
                 </div>
             </section>
 
             <section class="section" id="lists">
-                <h1><i class='bx bxs-left-arrow-alt'></i>lists</h1>
+                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>lists</h1>
             </section>
 
             <section class="section" id="communities">
-                <h1><i class='bx bxs-left-arrow-alt'></i>communities</h1>
+                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>communities</h1>
             </section>
 
             <section class="section" id="premium">
-                <h1><i class='bx bxs-left-arrow-alt'></i>premium</h1>
+                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>premium</h1>
 
             </section>
 
             <section class="section" id="profile">
                 <div class="topNavProfile">
-                    <i class='bx bxs-left-arrow-alt'></i>
+                    <i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>
                     <h1 class="ProfileTopNavName" id="ProfileTopNavName"></h1>
                 </div>
 
                 <div class="profileBanner">
-                    <img id="profileBanner"
-                        src="https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        alt="Banner">
-                    <img src="https://plus.unsplash.com/premium_photo-1672857822411-ad82b8180078?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fFByb2ZpbGUlMjBJTWFnZXxlbnwwfHwwfHx8MA%3D%3D"
-                        id="ProfilePicture" alt="">
+                    <img id="profileBanner" src="" alt="Profile Banner">
+                    <img src="assets/images/X Profile Img.png" id="ProfilePicture" alt="Profile Imgae">
                 </div>
 
                 <div class="ProfileDetails">
@@ -201,18 +199,17 @@
                             <Followers></Followers><span>Followers</span>
                         </h3>
                     </div>
-                    <hr>
                 </div>
             </section>
 
             <section class="section" id="more">
-                <h1><i class='bx bxs-left-arrow-alt'></i>more</h1>
+                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>more</h1>
                 <a href="index.html" class="log-setButton" id="LogoutButton">Log-Out</a>
                 <a href="" class="log-setButton" id="SettingsButton">Settings</a>
             </section>
 
             <section class="section" id="post">
-                <h1><i class='bx bxs-left-arrow-alt'></i>psot</h1>
+                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>psot</h1>
             </section>
 
         </section>
@@ -263,6 +260,7 @@
             </div>
         </section>
     </div>
+    <script src="https://kit.fontawesome.com/882b3374b4.js" crossorigin="anonymous"></script>
     <script src="assets/js/script.js"></script>
 </body>
 

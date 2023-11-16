@@ -3,7 +3,7 @@
     flex-direction: column;
     position: relative;
     width: 100%;
-    padding: 0 1px;
+    /* padding: 0 1px; */
 }
 
 .topNavProfile{
@@ -25,12 +25,24 @@
     height: 10rem;
     width: 100%;
     position: relative;
+    background-color: #666;
+    border-radius: 5px;
+    border: 2px solid var(--blue);
+}
+
+.progileimgDIv{
+    /* position: relative; */
+    position: absolute;
+    z-index: 1;
+    top: 60%;
+    left: 5%;
 }
 
 .profileBanner img{
     height: 100%;
     width: 100%;
     object-fit: cover;
+    border-radius: inherit;
 }
 
 #ProfilePicture{
@@ -40,11 +52,15 @@
     object-fit: cover;
     object-position: center;
     border-radius: 50%;
-    border: 3px solid var(--blue);
+    border: 2px solid var(--blue);
     position: absolute;
-    z-index: 1;
+    left: 10px;
     top: 60%;
-    left: 5%;
+}
+
+
+#ProfilePicture:hover ~ #ProfilePicturePath{
+    display: block;
 }
 
 .ProfileDetails{
@@ -60,8 +76,9 @@
 .socialCont{
     display: flex;
     width: 100%;
-    padding: 0 10px;
+    padding: 0 10px 20px 0;
     margin-top: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .socialCont h3{
