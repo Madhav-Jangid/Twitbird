@@ -17,24 +17,35 @@ const db = getDatabase();
 const auth = getAuth(app);
 
 var SignUpName = document.getElementById('SignUpName');
-var SignUpusername = document.getElementById('SignUpUsername');
+var SignUpUsername = document.getElementById('SignUpUsername');
 var SignUpEmail = document.getElementById('SignUpEmail');
 var SignUpPass = document.getElementById('SignUpPass');
 
 let userData = {}; // Initialize an empty object to store user data
 
-let RegisterUser = evt => {
+function registerUser(evt) {
     evt.preventDefault();
-    createUserWithEmailAndPassword(auth, SignUpEmail.value, SignUpPass.value)
+
+    const emailDefault = SignUpEmail.value.toLowerCase();
+    const usernameDefault = SignUpUsername.value.toLowerCase();
+
+    createUserWithEmailAndPassword(auth, emailDefault, SignUpPass.value)
         .then((credentials) => {
-            const userRef = ref(db, 'UserAuthList/' + credentials.user.uid);
-            
+            const userRef = ref(db, `UserAuthList/${credentials.user.uid}`);
+
             // Set user data in the Realtime Database
+            const defaultFollowers = 0;
+            const defaultFollowing = 0;
             set(userRef, {
                 Name: SignUpName.value,
-                Username: SignUpusername.value,
-                Email: SignUpEmail.value,
-                Password: SignUpPass.value
+                Username: usernameDefault,
+                Email: emailDefault,
+                Password: SignUpPass.value,
+                Followers: defaultFollowers,
+                Following: defaultFollowing,
+                FollowersList: [],
+                FollowingList: [],
+                Notifications: []
             });
 
             // Retrieve user data from the Realtime Database
@@ -44,33 +55,35 @@ let RegisterUser = evt => {
                         userData = snapshot.val();
                         console.log(userData); // Log the user data
                     } else {
-                        alert('User data does not exist');
+                        alert('User data does not exist after registration');
                     }
                 })
                 .catch((error) => {
                     console.error('Error fetching user data:', error);
+                    alert('Error fetching user data after registration');
                 });
 
             alert('Account Created Successfully. Now go to the login page');
-            DisplaySection('LoginSeciton');
+            displaySection('LoginSeciton');
         })
         .catch((err) => {
-            alert(err.message);
+            alert(`Error: ${err.message}`);
             console.error(err.code);
             console.error(err.message);
         });
 }
+
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('SignUpForm').addEventListener('submit', RegisterUser);
-})
+    document.getElementById('SignUpForm').addEventListener('submit', registerUser);
+});
 
-function DisplaySection(sect) {
+function displaySection(sect) {
     const section = document.getElementById(sect);
-    const sectionclass = document.querySelectorAll('.loginDiv');
+    const sectionClass = document.querySelectorAll('.loginDiv');
 
-    sectionclass.forEach((item) => {
+    sectionClass.forEach((item) => {
         item.style.display = 'none';
-    })
+    });
     section.style.display = 'flex';
 }
 

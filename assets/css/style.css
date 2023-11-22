@@ -64,6 +64,24 @@ body {
     gap: 20px;
 }
 
+#Xmain button{
+    display: none;
+    background-color: var(--blue);
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: 1px;
+    font-size: 15px;
+    border-radius: 30px;
+}
+
+#Xmain button:hover{
+    background-color: var(--bluehover);
+}
+
+
 #navMenu{
     position: fixed;
     right: 10px;
@@ -165,6 +183,11 @@ body {
     }
     
     #navMenu{
+        display: block;
+    }
+
+    
+    #ExploreXmain{
         display: block;
     }
 }

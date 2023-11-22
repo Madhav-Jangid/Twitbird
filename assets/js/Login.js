@@ -1,5 +1,3 @@
-// Your code here
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
@@ -14,69 +12,41 @@ const firebaseConfig = {
     appId: "1:309786442519:web:bcd80e8ac6be220b64d552"
 };
 
-
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 const auth = getAuth(app);
 
-
-
-var UserNameGloabal;
-var NameGloabal;
-var LoginEmail = document.getElementById('LoginEmail');
-var LoginPass = document.getElementById('LoginPass');
-
 const myObject = {
+    UID: '',
     Name: '',
     ID: '',
 };
 
-var userData = 'data';
-
-const SignInUser = (evt) => {
-    evt.preventDefault();
-    signInWithEmailAndPassword(auth, LoginEmail.value, LoginPass.value)
-        .then((credentials) => {
-            let uid = credentials.user.uid;
+document.addEventListener('DOMContentLoaded', function () {
+    const SignInUser = async (evt) => {
+        evt.preventDefault();
+        try {
+            const credentials = await signInWithEmailAndPassword(auth, LoginEmail.value, LoginPass.value);
+            const uid = credentials.user.uid;
             const userRef = ref(db, 'UserAuthList/' + uid);
-            get(userRef)
-                .then((snapshot) => {
-                    if (snapshot.exists()) {
-                        userData = snapshot.val();
-                        UserNameGloabal = userData.Name;
-                        NameGloabal = '@' + userData.Username;
-                        myObject.Name = UserNameGloabal;
-                        myObject.ID = NameGloabal;
-                        window.location.href = 'Home.html';
-                    } else {
-                        alert('User data does not exist');
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error fetching user data:', error);
-                });
-        })
-        .catch((err) => {
-            alert(err.message);
+            const snapshot = await get(userRef);
+            if (snapshot.exists()) {
+                const userData = snapshot.val();
+                myObject.UID = uid;
+                myObject.Name = userData.Name;
+                myObject.ID = '@' + userData.Username;
+                window.location.href = 'Home.html';
+            } else {
+                alert('User data does not exist');
+            }
+        } catch (err) {
+            alert(`Error: ${err.message}`);
             console.error(err.code);
             console.error(err.message);
-        });
-};
+        }
+    };
 
-document.addEventListener('DOMContentLoaded', function () {
     var LoginForm = document.getElementById('LoginForm');
-    LoginForm.addEventListener('submit', SignInUser); // Change this line
+    LoginForm.addEventListener('submit', SignInUser);
 });
-
-export { myObject };
-
-// var ExploreSearchBtn = document.getElementById('ExploreSearchBtn');
-// ExploreSearchBtn.addEventListener('click', function () {
-//     var ExploreSearch = document.getElementById('ExploreSearch');
-//     var searchValue = ExploreSearch.value;
-//     console.log(searchValue);
-// });
-
-
-var sharedValue = "Hello from File1!";
-window.sharedValue = sharedValue;
+export { myObject }
