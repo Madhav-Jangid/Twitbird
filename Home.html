@@ -83,6 +83,8 @@
         </section>
 
         <section class="mid-ele">
+
+            
             <section class="section" id="Xmain">
                 <svg width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -92,7 +94,10 @@
 
                 <h1 id="Greatings" style="text-align: center;">Welcome at Madhav's ' X ' Clone.</h1>
                 <h6 style="text-align: center; color: grey;">Don't Forgot to give your Suggestions.. </h6>
-                <h6 style="text-align: center; padding: 0 40px; line-height: 18px; font-weight: 300;">Embark on a journey of innovation with our X clone project, where cutting-edge technology meets user-friendly design. Click the top-right menu and dive into a world of possibilities – redefine your experience, one click at a time</h6>
+                <h6 style="text-align: center; padding: 0 40px; line-height: 18px; font-weight: 300;">Embark on a
+                    journey of innovation with our X clone project, where cutting-edge technology meets user-friendly
+                    design. Click the top-right menu and dive into a world of possibilities – redefine your experience,
+                    one click at a time</h6>
                 <button onclick="ViewLeftNav()" id="ExploreXmain">Explore More.</button>
             </section>
 
@@ -186,7 +191,8 @@
 
                 <div class="profileBanner">
                     <img id="profileBanner" src="assets/ifmages/X Profile Img.png" alt="Profile Banner">
-                    <h1 id="GreatingsHeadingProfile">Welcome <Span class="ProfileTopNavName" style="margin-left: 10px;"> </Span></h1>
+                    <h1 id="GreatingsHeadingProfile">Welcome <Span class="ProfileTopNavName" style="margin-left: 10px;">
+                        </Span></h1>
                     <img src="assets/images/X Profile Img.png" id="ProfilePicture" alt="Profile Imgae">
                 </div>
 
@@ -196,14 +202,62 @@
 
                     <div class="socialCont">
                         <h3 id="profileFollowing">
-                            <Following></Following><span>Following</span>
+                            <Following></Following><span style="cursor: pointer;"
+                                onclick="Dispaly('ReachList')">Following</span>
                         </h3>
 
                         <h3 id="profileFollowers">
-                            <Followers></Followers><span>Followers</span>
+                            <Followers></Followers><span style="cursor: pointer;"
+                                onclick="Dispaly('ReachList')">Followers</span>
                         </h3>
                     </div>
                 </div>
+            </section>
+
+            <section class="section" id="Searcheduser">
+                <div class="topNavProfile">
+                    <i onclick="Dispaly('explore')" class='bx bxs-left-arrow-alt'></i>
+                    <h1 class="ProfileTopNavName" id="ProfileTopNavName"></h1>
+                </div>
+
+                <div class="profileBanner">
+                    <img id="profileBanner" src="assets/ifmages/X Profile Img.png" alt="Profile Banner">
+                    <img src="assets/images/X Profile Img.png" id="ProfilePicture" alt="Profile Imgae">
+                </div>
+                
+                <div class="ProfileDetails">
+                    <h2 class="searchName"></h2>
+                    <h5 class="SearchUsername"></h5>
+
+                    <div class="socialCont">
+                        <h3 id="profileFollowing">
+                            <searchedFollowing></searchedFollowing><span style="cursor: pointer;"
+                                onclick="Dispaly('ReachList')">Following</span>
+                        </h3>
+
+                        <h3 id="profileFollowers">
+                            <searchedFollowers></searchedFollowers><span style="cursor: pointer;"
+                                onclick="Dispaly('ReachList')">Followers</span>
+                        </h3>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="ReachList">
+                <div class="topNavProfile">
+                    <i onclick="Dispaly('Searcheduser')" class='bx bxs-left-arrow-alt'></i>
+                    <h1 class="ProfileTopNavName" id="ProfileTopNavName"></h1>
+                </div>
+                <div id="followersOfUser">
+                    <h1>Followers</h1>
+                    
+                </div>
+
+                <div id="followingsOfUser">
+                    <h1>Following</h1>
+                    
+                </div>
+
             </section>
 
             <section class="section" id="more">
@@ -215,6 +269,8 @@
             <section class="section" id="post">
                 <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>psot</h1>
             </section>
+
+
 
         </section>
 
@@ -263,6 +319,8 @@
                 <button class="hastag-more">Show More</button>
             </div>
         </section>
+
+
     </div>
     <script src="https://kit.fontawesome.com/882b3374b4.js" crossorigin="anonymous"></script>
 

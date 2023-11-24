@@ -4,19 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Search</title>
+    <title>Firebase Storage Example</title>
 </head>
 
 <body>
+    <input type="file" id="fileInput" accept="image/*">
+    <button id="btn">Upload Image</button>
 
-    <div id="searchSection">
-        <label for="searchInput">Search by Username:</label>
-        <input type="text" id="searchInput">
-        <button id="srchbtn">Search</button>
-        <div id="searchResult"></div>
-    </div>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js';
+        import { getStorage, ref, uploadBytes } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-storage.js';
 
-    <script type="module" src="Temp.js"></script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBm3UC_TCpO0Y_yUFnG3nQNjdZeir3wqX4",
+            authDomain: "clone-of-x.firebaseapp.com",
+            databaseURL: "https://clone-of-x-default-rtdb.firebaseio.com",
+            projectId: "clone-of-x",
+            storageBucket: "clone-of-x.appspot.com",
+            messagingSenderId: "309786442519",
+            appId: "1:309786442519:web:bcd80e8ac6be220b64d552"
+        };
+        const firebaseApp = initializeApp(firebaseConfig);
+        const storage = getStorage(firebaseApp);
+
+        document.getElementById('btn').addEventListener('click',uploadImage)
+
+        async function uploadImage() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (file) {
+                try {
+                    const storageRef = ref(storage, file.name);
+                    await uploadBytes(storageRef, file);
+                    console.log('File uploaded successfully');
+                } catch (error) {
+                    console.error('Error uploading file:', error);
+                }
+            } else {
+                console.error('No file selected');
+            }
+        }
+    </script>
 </body>
 
 </html>

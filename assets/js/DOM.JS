@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getDatabase, set, ref, get, update } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBm3UC_TCpO0Y_yUFnG3nQNjdZeir3wqX4",
@@ -12,23 +12,28 @@ const firebaseConfig = {
     appId: "1:309786442519:web:bcd80e8ac6be220b64d552"
 };
 
+// Initialize Firebase app
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 const auth = getAuth(app);
 
 
 import { myObject } from "./Login.js";
-document.addEventListener('DOMContentLoaded', function () {
-    const CurrentUserId = 'krPIHPWUJTTdAFm5604AoMnDTXv1';
-    const CurrentUserName = '@jangrajiop';
+document.addEventListener('DOMContentLoaded', async function () {
+    const CurrentUserId = myObject.UID;
+    const CurrentUserName = myObject.ID;
+    if (CurrentUserId) {
+        console.log(CurrentUserId);
+    } else {
+        console.log('myObject.UID is undefined');
+    }
 
-    console.log(CurrentUserId + '   Hola Amigo')
     const userRef = ref(db, 'UserAuthList/' + CurrentUserId);
-
+    var userData;
     get(userRef)
         .then((snapshot) => {
             if (snapshot.exists()) {
-                const userData = snapshot.val();
+                userData = snapshot.val();
                 ProceedDomChanging(userData);
             } else {
                 console.error('User data does not exist');
@@ -37,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch((error) => {
             console.error('Error fetching user data:', error);
         });
+
 
     function ProceedDomChanging(userData) {
         console.log('Dom.js is working. 👍', userData);
@@ -83,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 .filter(([uid, userData]) => userData.Username.toLowerCase() === TempName);
                             if (matchingUsers.length > 0) {
                                 const [uid, userData] = matchingUsers[0];
-                                CreateUserDiv(userData.Name, userData.Username);
+                                CreateUserDiv(userData.Name, userData.Username, uid);
                                 return uid;
                             } else {
                                 alert('User Not Found');
@@ -98,12 +104,13 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        function CreateUserDiv(Name, Username) {
+        function CreateUserDiv(Name, Username, uid) {
             const searchedUsersContainer = document.getElementById('Searchedusers');
             const searchedUserDiv = document.createElement('div');
             searchedUserDiv.classList.add('Searcheduser');
             const usernamesDiv = document.createElement('div');
             usernamesDiv.classList.add('Usernames');
+            searchedUserDiv.id = uid;
             const nameHeading = document.createElement('h3');
             nameHeading.textContent = Name;
             const usernameHeading = document.createElement('h5');
@@ -121,7 +128,113 @@ document.addEventListener('DOMContentLoaded', function () {
             followButton.addEventListener('click', function () {
                 updateFollowers(followButton);
             });
+
+            searchedUserDiv.addEventListener('click', function () {
+                DisplayUserInfo(searchedUserDiv.id);
+            });
         }
+
+        function DisplayUserInfo(uid) {
+            const userRef = ref(db, `UserAuthList/${uid}`);
+            get(userRef)
+                .then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const userData = snapshot.val();
+                        const searchedFollowing = document.querySelector('searchedFollowing');
+                        const searchedFollowers = document.querySelector('searchedFollowers');
+                        searchedFollowing.innerHTML = userData.Following || 0;
+                        searchedFollowers.innerHTML = userData.Followers || 0;
+                        const NameOfuser = userData.Name;
+                        const IdofUser = '@' + userData.Username;
+                        const userName = document.querySelectorAll('.searchName');
+                        const userID = document.querySelectorAll('.SearchUsername');
+                        userName.forEach(element => {
+                            element.innerHTML = NameOfuser;
+                        });
+                        userID.forEach(element => {
+                            element.innerHTML = IdofUser;
+                        });
+
+                        const FollowingListDiv = document.getElementById('followingsOfUser');
+                        const FollowersListDiv = document.getElementById('followersOfUser');
+
+                        if (userData.FollowersList && Array.isArray(userData.FollowersList)) {
+                            userData.FollowersList.forEach(element => {
+                                const userRef = ref(db, 'UserAuthList/' + element);
+                                get(userRef)
+                                    .then((snapshot) => {
+                                        if (snapshot.exists()) {
+                                            const userData = snapshot.val();
+                                            const searchedUserDiv = createUserDiv2(userData.Name, '@' + userData.Username);
+                                            FollowersListDiv.appendChild(searchedUserDiv);
+                                        } else {
+                                            console.error('User data does not exist');
+                                        }
+                                    })
+                                    .catch((error) => {
+                                        console.error('Error fetching user data:', error);
+                                    });
+
+                            });
+                        }
+
+                        if (userData.FollowingList && Array.isArray(userData.FollowingList)) {
+                            userData.FollowersList.forEach(element => {
+                                const userRef = ref(db, 'UserAuthList/' + element);
+                                get(userRef)
+                                    .then((snapshot) => {
+                                        if (snapshot.exists()) {
+                                            const userData = snapshot.val();
+                                            const searchedUserDiv = createUserDiv2(userData.Name, '@' + userData.Username);
+                                            FollowersListDiv.appendChild(searchedUserDiv);
+                                        } else {
+                                            console.error('User data does not exist');
+                                        }
+                                    })
+                                    .catch((error) => {
+                                        console.error('Error fetching user data:', error);
+                                    });
+
+                            });
+                        }
+
+                        Dispaly('Searcheduser');
+                    } else {
+                        console.log("User data not found");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching user data:", error);
+                });
+        }
+
+        // Function to create a user div
+        function createUserDiv2(NameOfuser, username) {
+            const searchedUserDiv = document.createElement('div');
+            searchedUserDiv.classList.add('Searcheduser');
+            searchedUserDiv.id = username;
+            const usernamesDiv = document.createElement('div');
+            usernamesDiv.classList.add('Usernames');
+            const nameHeading = document.createElement('h3');
+            nameHeading.textContent = NameOfuser;
+            const usernameHeading = document.createElement('h5');
+            usernameHeading.textContent = username;
+            usernamesDiv.appendChild(nameHeading);
+            usernamesDiv.appendChild(usernameHeading);
+            searchedUserDiv.appendChild(usernamesDiv);
+            return searchedUserDiv;
+        }
+
+
+        // Example usage:
+        // Attach the event listeners in your main script
+        // For example:
+        // CreateUserDiv("John Doe", "john_doe", "uid1");
+        // CreateUserDiv("Jane Doe", "jane_doe", "uid2");
+        // ...
+
+        // Make sure to replace "uid1", "uid2", etc., with actual UIDs.
+
 
         let FlagForFollow = true;
         function updateFollowers(element) {
@@ -284,7 +397,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         }
 
-        function UpdateFollowing(cnd){
+        function UpdateFollowing(cnd) {
             const userId = CurrentUserId;
             const fieldToUpdate = 'Following';
             const userRef = ref(db, `UserAuthList/${userId}`);
@@ -312,5 +425,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error updating Following:', error);
             }
         }
+
     }
 });

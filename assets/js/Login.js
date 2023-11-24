@@ -17,13 +17,15 @@ const db = getDatabase();
 const auth = getAuth(app);
 
 const myObject = {
-    UID: '',
+    UID: 'krPIHPWUJTTdAFm5604AoMnDTXv1',
     Name: '',
     ID: '',
-};
+}; 
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const SignInUser = async (evt) => {
+        console.log(myObject.UID.length)
         evt.preventDefault();
         try {
             const credentials = await signInWithEmailAndPassword(auth, LoginEmail.value, LoginPass.value);
@@ -35,7 +37,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 myObject.UID = uid;
                 myObject.Name = userData.Name;
                 myObject.ID = '@' + userData.Username;
-                window.location.href = 'Home.html';
+                if(myObject.UID.length > 0){
+                    ChangeWindow();
+                }
             } else {
                 alert('User data does not exist');
             }
@@ -49,4 +53,13 @@ document.addEventListener('DOMContentLoaded', function () {
     var LoginForm = document.getElementById('LoginForm');
     LoginForm.addEventListener('submit', SignInUser);
 });
-export { myObject }
+
+function ChangeWindow() {
+    setTimeout(() => {
+        console.log(myObject.UID);
+        window.location.href = 'Home.html';
+    }, 1000);
+}
+
+export { myObject };
+
