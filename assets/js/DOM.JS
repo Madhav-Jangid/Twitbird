@@ -89,7 +89,15 @@ document.addEventListener('DOMContentLoaded', async function () {
                                 .filter(([uid, userData]) => userData.Username.toLowerCase() === TempName);
                             if (matchingUsers.length > 0) {
                                 const [uid, userData] = matchingUsers[0];
-                                CreateUserDiv(userData.Name, userData.Username, uid);
+                                if(userData.FollowersList){
+                                    if(userData.FollowersList.includes(CurrentUserId)){
+                                        CreateUserDiv(userData.Name, userData.Username, uid ,true);
+                                    }else{
+                                        CreateUserDiv(userData.Name, userData.Username, uid, false);
+                                    }
+                                }else{
+                                    CreateUserDiv(userData.Name, userData.Username, uid, false);
+                                }
                                 return uid;
                             } else {
                                 alert('User Not Found');
@@ -104,7 +112,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         }
 
-        function CreateUserDiv(Name, Username, uid) {
+        function CreateUserDiv(Name, Username, uid ,cond) {
             const searchedUsersContainer = document.getElementById('Searchedusers');
             const searchedUserDiv = document.createElement('div');
             searchedUserDiv.classList.add('Searcheduser');
@@ -118,21 +126,31 @@ document.addEventListener('DOMContentLoaded', async function () {
             const followButton = document.createElement('button');
             followButton.classList.add('FollowUser');
             followButton.id = Username;
-            followButton.textContent = 'Follow';
+            if(cond){
+                followButton.textContent = 'Followed';
+                followButton.style.backgroundColor = 'var(--bluehover)';
+                followButton.addEventListener('click', function () {
+                    updateFollowers(followButton);
+                });
+            }
+            else{
+                followButton.textContent = 'Follow';
+                followButton.style.backgroundColor = 'var(--blue)';
+                followButton.addEventListener('click', function () {
+                    updateFollowers(followButton);
+                });
+            }
             usernamesDiv.appendChild(nameHeading);
             usernamesDiv.appendChild(usernameHeading);
             searchedUserDiv.appendChild(usernamesDiv);
             searchedUserDiv.appendChild(followButton);
             searchedUsersContainer.appendChild(searchedUserDiv);
 
-            followButton.addEventListener('click', function () {
-                updateFollowers(followButton);
-            });
-
-            searchedUserDiv.addEventListener('click', function () {
+            usernamesDiv.addEventListener('click', function () {
                 DisplayUserInfo(searchedUserDiv.id);
             });
         }
+        
 
         function DisplayUserInfo(uid) {
             const userRef = ref(db, `UserAuthList/${uid}`);
@@ -234,11 +252,12 @@ document.addEventListener('DOMContentLoaded', async function () {
         // ...
 
         // Make sure to replace "uid1", "uid2", etc., with actual UIDs.
-
-
-        let FlagForFollow = true;
+        var FlagToVerify = true;
         function updateFollowers(element) {
-            if (FlagForFollow) {
+            if(element.textContent == 'Followed'){
+                FlagToVerify = false;
+            }
+            if (FlagToVerify) {
                 element.style.backgroundColor = 'var(--bluehover)';
                 element.textContent = 'Followed';
                 GetIDbyUsername(true, element.id);
@@ -248,7 +267,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 GetIDbyUsername(false, element.id);
             }
 
-            FlagForFollow = !FlagForFollow;
+            FlagToVerify = !FlagToVerify;
         }
 
         function GetIDbyUsername(cnd, username) {
@@ -263,7 +282,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                             if (matchingUsers.length > 0) {
                                 const [uid, userData] = matchingUsers[0];
                                 updateFollowersInDataBase(cnd, uid);
-                                UpdateFollowingList(cnd, uid)
+                                UpdateFollowerList(cnd, uid)
                             } else {
                                 alert('User Not Found');
                             }
@@ -287,7 +306,12 @@ document.addEventListener('DOMContentLoaded', async function () {
                     .then((snapshot) => {
                         if (snapshot.exists()) {
                             const currentFollowers = snapshot.val().Followers || 0;
-                            const newValue = cnd ? currentFollowers + 1 : currentFollowers - 1;
+                            var newValue
+                            if(currentFollowers == 0){
+                                newValue = cnd ? currentFollowers + 1 : currentFollowers = 1;
+                            }else if(currentFollowers > 0){
+                                newValue = cnd ? currentFollowers + 1 : currentFollowers - 1;
+                            }
                             update(userRef, { [fieldToUpdate]: newValue })
                                 .then(() => {
                                     console.log(`${fieldToUpdate} updated successfully for user ${userId}`);
@@ -307,7 +331,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         }
 
-        async function UpdateFollowingList(cnd, id) {
+        async function UpdateFollowerList(cnd, id) {
             const userId = id;
             const fieldToUpdate = 'FollowersList';
             const userRef = ref(db, `UserAuthList/${userId}`);
@@ -324,10 +348,12 @@ document.addEventListener('DOMContentLoaded', async function () {
                         newValue = [...currentFollowersList, CurrentUserId];
                         createNotifications(true, id);
                         UpdateFollowing(true);
+                        UpdateFollowingList(true, id);
                     } else {
                         newValue = currentFollowersList.filter((followerId) => followerId !== CurrentUserId);
                         createNotifications(false, id);
                         UpdateFollowing(false);
+                        UpdateFollowingList(false, id);
                     }
 
                     await update(userRef, { [fieldToUpdate]: newValue });
@@ -423,6 +449,36 @@ document.addEventListener('DOMContentLoaded', async function () {
                     });
             } catch (error) {
                 console.error('Error updating Following:', error);
+            }
+        }
+
+        async function UpdateFollowingList(cnd, id){
+            const userId = CurrentUserId;
+            const fieldToUpdate = 'FollowingList';
+            const userRef = ref(db, `UserAuthList/${userId}`);
+
+            try {
+                const snapshot = await get(userRef);
+
+                if (snapshot.exists()) {
+                    const currentFollowingList = snapshot.val().FollowingList || [];
+
+                    let newValue;
+
+                    if (cnd) {
+                        newValue = [...currentFollowingList, id];
+                    } else {
+                        newValue = currentFollowingList.filter((followerId) => followerId !== id);
+                    }
+
+                    await update(userRef, { [fieldToUpdate]: newValue });
+
+                    console.log(`${fieldToUpdate} updated successfully for user ${userId}`);
+                } else {
+                    console.error('User data does not exist');
+                }
+            } catch (error) {
+                console.error('Error updating followers:', error);
             }
         }
 

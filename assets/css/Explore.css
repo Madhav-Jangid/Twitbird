@@ -72,17 +72,17 @@
     border-radius: 10px;
     background-color: #222;
     padding: 0 20px;
-    cursor: pointer;
     margin: 10px 0;
-}
-
-.Searcheduser:hover{
-    background-color: #444;
+    pointer-events: none;
 }
 
 .Searcheduser h5{
     color: #999;
     margin: 5px 0;
+}
+
+.Searcheduser .Usernames{
+    pointer-events: all;
 }
 
 .Searcheduser button{
@@ -96,8 +96,20 @@
     font-weight: 900;
     letter-spacing: 1px;
     z-index: 10;
+    pointer-events: all;
+}
+.Searcheduser button:hover > .Searcheduser{
+    background-color: #222;
 }
 
 .Searcheduser button:hover{
     background-color: var(--bluehover);
+}
+
+.Usernames h3:hover
+,.Usernames h5:hover{
+    color: var(--blue);
+    text-decoration: underline;
+    cursor: pointer;
+    pointer-events: all;
 }
