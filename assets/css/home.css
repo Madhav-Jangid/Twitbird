@@ -12,7 +12,7 @@
     width: 100%;
     font-size: 20px;
     font-weight: 700;
-    background: rgba(0,0,0,.9);
+    background: var(--blackBorder);
     backdrop-filter: blur(5px);
     z-index: 2;
 }
@@ -81,9 +81,10 @@
 
 .imgHappening img{
     height: 100%;
-    height: 100%;
+    width: 100%;
     background-position: center;
     background-size: cover;
+    object-fit: cover;
 }
 
 .right-nav-happening{
@@ -216,4 +217,72 @@
 
 .post-happening:hover{
     background-color: var(--blue);
+}
+
+#allTweetsbyuseranddb{
+    padding: 20px 0;
+    gap: 10px;
+}
+
+.tweetDiv{
+    width: 100%;
+    min-height: 8rem;
+    color: #fff;
+    background-color: #000;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    padding: 3.5rem 30px;
+    box-shadow: 0 0 5px 0px var(--blue);
+    margin: 15px 0;
+}
+
+.tweetDiv .username{
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 3rem;
+    font-size: 17px;
+    color: #949494;
+    display: flex;
+    align-items: center;
+    padding: 30px 30px;
+    border-radius: inherit;
+    cursor: pointer;
+}
+
+.tweetDiv .username:hover{
+    text-decoration: underline;
+    color: var(--blue);
+}
+
+.tweetDiv .tweetText{
+    width: 100%;
+    height: 100%;
+}
+
+.tweetDiv .tweetIntraction{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 3rem;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    padding: 10px 30px;
+    border-radius: inherit;
+    gap: 30px;
+}
+
+.tweetDiv .tweetIntraction i{
+    cursor: pointer;
+    color: #666;
+}
+
+.tweetDiv .tweetIntraction i:hover{
+    scale: 1.2;
+    color: var(--blue);
 }

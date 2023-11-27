@@ -25,6 +25,8 @@ button,i{
     --bluehover: rgb(10, 116, 182);
     --blue: rgb(0, 157, 255);
     --profile-logo: url('assets/images/X Profile Img.png');
+    --whiteBorder: rgba(255, 255, 255, 0.5);
+    --blackBorder: rgba(0, 0, 0, 0.5);
 }
 
 

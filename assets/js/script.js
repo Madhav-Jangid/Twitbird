@@ -39,7 +39,9 @@ function Notification() {
     var Notificationh4 = document.createElement('h4');
     Notificationh4.innerHTML = `You Loggined on ${year}-${month}-${day} at ${hours}:${minutes}:${seconds}`;
     var NotificationDiv = document.getElementById('allNotifications')
-    NotificationDiv.append(Notificationh4)
+    if(NotificationDiv){
+        NotificationDiv.append(Notificationh4)
+    }
 }
 Notification()
 

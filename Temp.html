@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firebase Storage Example</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Madhav's Clone</title>
+
 </head>
 
 <body>
-    <input type="file" id="fileInput" accept="image/*">
-    <button id="btn">Upload Image</button>
-
     <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js';
-        import { getStorage, ref, uploadBytes } from 'https://www.gstatic.com/firebasejs/10.6.0/firebase-storage.js';
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+        import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBm3UC_TCpO0Y_yUFnG3nQNjdZeir3wqX4",
@@ -24,26 +24,38 @@
             messagingSenderId: "309786442519",
             appId: "1:309786442519:web:bcd80e8ac6be220b64d552"
         };
-        const firebaseApp = initializeApp(firebaseConfig);
-        const storage = getStorage(firebaseApp);
 
-        document.getElementById('btn').addEventListener('click',uploadImage)
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const auth = getAuth(app);
 
-        async function uploadImage() {
-            const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
-            if (file) {
-                try {
-                    const storageRef = ref(storage, file.name);
-                    await uploadBytes(storageRef, file);
-                    console.log('File uploaded successfully');
-                } catch (error) {
-                    console.error('Error uploading file:', error);
-                }
-            } else {
-                console.error('No file selected');
-            }
+        LoadTweetFromDataBase()
+        function LoadTweetFromDataBase() {
+            const userRef = ref(db, 'UserAuthList/');
+            get(userRef)
+                .then((snapshot) => {
+                    if (snapshot.exists()) {
+                        var jsObject = snapshot.val();
+                        for (const key in jsObject) {
+                            if (jsObject.hasOwnProperty(key) && jsObject[key].hasOwnProperty('Tweet_list')) {
+                                const tweetList = jsObject[key]['Tweet_list'];
+                                for(const key2 in tweetList){
+                                    console.log(tweetList[key2].Tweet )
+                                    console.log(jsObject[key].Username)
+                                }
+                                
+                            }
+                        }
+                    } else {
+                        console.error('User data does not exist');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error fetching user data:', error);
+                });
         }
+
+
     </script>
 </body>
 

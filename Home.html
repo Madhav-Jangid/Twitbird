@@ -70,21 +70,18 @@
             </div>
             <div class="lastbutton nav-link" onclick="Dispaly('profile')">
                 <div class="imgBottom"><img
-                        src="https://imgs.search.brave.com/3jPQ7-D_SmheFuu2NgYZcwM8OY4Gx2mfYNF8RpEVXVY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/MDgyMTQ3NTExOTYt/YmNmZDRjYTYwZjkx/P2l4bGliPXJiLTQu/MC4zJml4aWQ9TTN3/eE1qQTNmREI4TUh4/elpXRnlZMmg4Tm54/OGRYTmxjaVV5TUhC/eWIyWnBiR1Y4Wlc1/OE1IeDhNSHg4ZkRB/PSZ3PTEwMDAmcT04/MA.jpeg"
+                        src="assets/images/X Profile Img.png"
                         alt="User Image"></div>
                 <div class="username">
                     <h5 id="HomeUserName" class="ProfileTopNavName"><span></span>
                     </h5>
                     <h6 class="useridhome"></h6>
                 </div>
-                <div class="span" id="ThreeDotsProfileButton" onclick="console.log('menu')"><i
-                        class='bx bx-dots-horizontal-rounded'></i></div>
+                <div style="z-index: 8988;" class="span" id="ThreeDotsProfileButton" onclick="Dispaly('more')"><i onclick="Dispaly('more')" class='bx bx-dots-horizontal-rounded'></i></div>
             </div>
         </section>
 
-        <section class="mid-ele">
-
-            
+        <section class="mid-ele">          
             <section class="section" id="Xmain">
                 <svg width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -101,7 +98,6 @@
                 <button onclick="ViewLeftNav()" id="ExploreXmain">Explore More.</button>
             </section>
 
-
             <section class="section" id="home">
                 <h1>Home</h1>
                 <div class="mid-ele-top-nav">
@@ -111,7 +107,7 @@
                     </div>
                 </div>
 
-                <div class="whats-happening-post">
+                <div class="whats-happening-post" action="" id="TweetForm">
                     <div class="first-div-img-content">
 
                     </div>
@@ -122,10 +118,10 @@
                             </button>
                             <div class="happingPostInput">
                                 <div class="imgHappening"><img
-                                        src="https://imgs.search.brave.com/3jPQ7-D_SmheFuu2NgYZcwM8OY4Gx2mfYNF8RpEVXVY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/MDgyMTQ3NTExOTYt/YmNmZDRjYTYwZjkx/P2l4bGliPXJiLTQu/MC4zJml4aWQ9TTN3/eE1qQTNmREI4TUh4/elpXRnlZMmg4Tm54/OGRYTmxjaVV5TUhC/eWIyWnBiR1Y4Wlc1/OE1IeDhNSHg4ZkRB/PSZ3PTEwMDAmcT04/MA.jpeg"
+                                        src="assets/images/X Profile Img.png"
                                         alt="User Image">
                                 </div>
-                                <input type="text" placeholder="What’s happening?!" class="happening-text">
+                                <input type="text" placeholder="What’s happening?!" class="happening-text" id="tweetInput">
                             </div>
                             <button class="everyone-can-reply">
                                 <i class='bx bx-globe'></i> Everyone can reply
@@ -139,18 +135,21 @@
                                 <i class='bx bx-list-plus'></i>
                                 <i class='bx bx-location-plus'></i>
                             </div>
-                            <button class="post-happening">Post</button>
+                            <button class="post-happening" id="postTweet">Post</button>
                         </div>
                     </div>
                 </div>
+
+                <div id="allTweetsbyuseranddb"></div>
             </section>
 
             <section class="section" id="explore">
-                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>Explaore</h1>
+                <h1 id="fjdskghs"><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>explore</h1>
                 <div class="ExploreSearchDiv">
                     <input type="text" name="SearchExplore" id="ExploreSearch" placeholder="Explaore More People...">
                     <i class="bx bx-search" id="ExploreSearchBtn"></i>
                 </div>
+                <div id="ExplreSuggestionDiv"></div>
                 <div id="Searchedusers"></div>
 
 
@@ -184,13 +183,9 @@
             </section>
 
             <section class="section" id="profile">
-                <div class="topNavProfile">
-                    <i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>
-                    <h1 class="ProfileTopNavName" id="ProfileTopNavName"></h1>
-                </div>
-
+                <h1  class="ProfileTopNavName"><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i></h1>
                 <div class="profileBanner">
-                    <img id="profileBanner" src="assets/ifmages/X Profile Img.png" alt="Profile Banner">
+                    <img id="profileBanner" src="assets/images/X Profile Img.png" alt="Profile Banner">
                     <h1 id="GreatingsHeadingProfile">Welcome <Span class="ProfileTopNavName" style="margin-left: 10px;">
                         </Span></h1>
                     <img src="assets/images/X Profile Img.png" id="ProfilePicture" alt="Profile Imgae">
@@ -201,27 +196,23 @@
                     <h5 class="useridhome"></h5>
 
                     <div class="socialCont">
-                        <h3 id="profileFollowing">
-                            <Following></Following><span style="cursor: pointer;"
-                                onclick="Dispaly('ReachList')">Following</span>
+                        <h3 id="profileFollowing" class="ReachListsProfile">
+                            <Following></Following><span style="cursor: pointer;">Following</span>
                         </h3>
 
-                        <h3 id="profileFollowers">
-                            <Followers></Followers><span style="cursor: pointer;"
-                                onclick="Dispaly('ReachList')">Followers</span>
+                        <h3 id="profileFollowers" class="ReachListsProfile">
+                            <Followers></Followers><span style="cursor: pointer;">Followers</span>
                         </h3>
                     </div>
                 </div>
+
+                <div id="alltweetsbyUserOnly"></div>
             </section>
 
             <section class="section" id="Searcheduser">
-                <div class="topNavProfile">
-                    <i onclick="Dispaly('explore')" class='bx bxs-left-arrow-alt'></i>
-                    <h1 class="ProfileTopNavName" id="ProfileTopNavName"></h1>
-                </div>
-
+                <h1 class="ReachListNameTop" ><i onclick="Dispaly('explore')" class='bx bxs-left-arrow-alt'></i>profile</h1>
                 <div class="profileBanner">
-                    <img id="profileBanner" src="assets/ifmages/X Profile Img.png" alt="Profile Banner">
+                    <img id="profileBanner" src="assets/images/X Profile Img.png" alt="Profile Banner">
                     <img src="assets/images/X Profile Img.png" id="ProfilePicture" alt="Profile Imgae">
                 </div>
                 
@@ -230,32 +221,27 @@
                     <h5 class="SearchUsername"></h5>
 
                     <div class="socialCont">
-                        <h3 id="profileFollowing">
-                            <searchedFollowing></searchedFollowing><span style="cursor: pointer;"
-                                onclick="Dispaly('ReachList')">Following</span>
+                        <h3 id="profileFollowing" class="ReachLists" style="cursor: pointer;">
+                            <searchedFollowing></searchedFollowing><span style="cursor: pointer;" >Following</span>
                         </h3>
 
-                        <h3 id="profileFollowers">
-                            <searchedFollowers></searchedFollowers><span style="cursor: pointer;"
-                                onclick="Dispaly('ReachList')">Followers</span>
+                        <h3 id="profileFollowers" class="ReachLists" style="cursor: pointer;">
+                            <searchedFollowers></searchedFollowers><span style="cursor: pointer;" >Followers</span>
                         </h3>
                     </div>
                 </div>
             </section>
 
             <section class="section" id="ReachList">
-                <div class="topNavProfile">
+                <h1 class="ReachListNameTop" ><i onclick="Dispaly('Searcheduser')" class='bx bxs-left-arrow-alt'></i></h1>
+                <!-- <div class="topNavProfile">
                     <i onclick="Dispaly('Searcheduser')" class='bx bxs-left-arrow-alt'></i>
                     <h1 class="ProfileTopNavName" id="ProfileTopNavName"></h1>
-                </div>
-                <div id="followersOfUser">
-                    <h1>Followers</h1>
-                    
+                </div> -->
+                <div id="followersOfUser" class="searchedHeading">
                 </div>
 
-                <div id="followingsOfUser">
-                    <h1>Following</h1>
-                    
+                <div id="followingsOfUser" class="searchedHeading">                    
                 </div>
 
             </section>
@@ -269,9 +255,6 @@
             <section class="section" id="post">
                 <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>psot</h1>
             </section>
-
-
-
         </section>
 
         <section class="right-nav">
@@ -319,8 +302,6 @@
                 <button class="hastag-more">Show More</button>
             </div>
         </section>
-
-
     </div>
     <script src="https://kit.fontawesome.com/882b3374b4.js" crossorigin="anonymous"></script>
 
