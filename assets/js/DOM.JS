@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+import { getDatabase, ref, get, update, set, push } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 // import { createHash } from 'crypto';
 const firebaseConfig = {
@@ -21,6 +21,7 @@ const auth = getAuth(app);
 import { myObject } from "./Login.js";
 document.addEventListener('DOMContentLoaded', async function () {
     const CurrentUserId = myObject.UID;
+    console.log(CurrentUserId)
     var CurrentUserName = myObject.ID;
     if (CurrentUserId) {
         const userRef = ref(db, 'UserAuthList/' + CurrentUserId);
@@ -87,7 +88,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const userID = document.querySelectorAll('.useridhome');
 
         userName.forEach(element => {
-            element.innerHTML = `${NameOfuser}`;
+            element.innerHTML = `${NameOfuser} ${verifiedTick}`;
         });
 
         userID.forEach(element => {
@@ -98,16 +99,16 @@ document.addEventListener('DOMContentLoaded', async function () {
         const searchInput = document.getElementById('ExploreSearch');
         ExploreSearchIcon.addEventListener('click', function () {
             const username = searchInput.value.trim().toLowerCase();
-            searchUser(username);
+            searchUser(username, false);
         });
         searchInput.addEventListener('keyup', function (event) {
             if (event.key === 'Enter') {
                 const username = searchInput.value.trim().toLowerCase();
-                searchUser(username);
+                searchUser(username, false);
             }
         });
 
-        function searchUser(TempName) {
+        function searchUser(TempName, FromMessageBlock) {
             if (TempName === "") {
                 alert("Please enter a username");
                 return;
@@ -120,18 +121,17 @@ document.addEventListener('DOMContentLoaded', async function () {
                         if (users) {
                             const matchingUsers = Object.entries(users)
                                 .filter(([uid, userData]) => userData.Username.toLowerCase() === TempName);
-
                             if (matchingUsers.length > 0) {
                                 const [uid, userData] = matchingUsers[0];
                                 if (uid != CurrentUserId) {
                                     if (userData.FollowersList) {
                                         if (userData.FollowersList.includes(CurrentUserId)) {
-                                            CreateUserDiv(userData.Name, userData.Username, uid, true);
+                                            CreateUserDiv(userData.Name, userData.Username, uid, true, FromMessageBlock);
                                         } else {
-                                            CreateUserDiv(userData.Name, userData.Username, uid, false);
+                                            CreateUserDiv(userData.Name, userData.Username, uid, false, FromMessageBlock);
                                         }
                                     } else {
-                                        CreateUserDiv(userData.Name, userData.Username, uid, false);
+                                        CreateUserDiv(userData.Name, userData.Username, uid, false, FromMessageBlock);
                                     }
                                 } else {
                                     alert("Don't Search You self")
@@ -150,7 +150,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         }
 
-        function CreateUserDiv(Name, Username, uid, cond) {
+
+        function CreateUserDiv(Name, Username, uid, cond, FromMessageBlock) {
             const searchedUsersContainer = document.getElementById('Searchedusers');
             const searchedUserDiv = document.createElement('div');
             searchedUserDiv.classList.add('Searcheduser');
@@ -164,31 +165,43 @@ document.addEventListener('DOMContentLoaded', async function () {
             const followButton = document.createElement('button');
             followButton.classList.add('FollowUser');
             followButton.id = Username;
-            if (cond) {
-                followButton.textContent = 'Unfollow';
-                followButton.style.backgroundColor = 'var(--bluehover)';
-                followButton.addEventListener('click', function () {
-                    updateFollowers(followButton);
-                });
-            }
-            else {
-                followButton.textContent = 'Follow';
+            if (FromMessageBlock) {
+                followButton.textContent = 'Start Chat';
                 followButton.style.backgroundColor = 'var(--blue)';
                 followButton.addEventListener('click', function () {
-                    updateFollowers(followButton);
+                    DispalyMessagesInChat(Username);
+                    LoadMessages(uid);
                 });
+            } else {
+                if (cond) {
+                    followButton.textContent = 'Unfollow';
+                    followButton.style.backgroundColor = 'var(--bluehover)';
+                    followButton.addEventListener('click', function () {
+                        updateFollowers(followButton);
+                    });
+                }
+                else {
+                    followButton.textContent = 'Follow';
+                    followButton.style.backgroundColor = 'var(--blue)';
+                    followButton.addEventListener('click', function () {
+                        updateFollowers(followButton);
+                    });
+                }
             }
             usernamesDiv.appendChild(nameHeading);
             usernamesDiv.appendChild(usernameHeading);
             searchedUserDiv.appendChild(usernamesDiv);
             searchedUserDiv.appendChild(followButton);
-            searchedUsersContainer.appendChild(searchedUserDiv);
+            let SearchedusersMessages = document.getElementById('SearchedusersMessages');
+            if (FromMessageBlock) {
+                SearchedusersMessages.appendChild(searchedUserDiv);
+            } else {
+                searchedUsersContainer.appendChild(searchedUserDiv);
+            }
             usernamesDiv.addEventListener('click', function () {
                 DisplayUserInfo(searchedUserDiv.id);
             });
             return searchedUserDiv;
-
-
         }
 
 
@@ -243,41 +256,44 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (FlagToVerify) {
                 element.style.backgroundColor = 'var(--bluehover)';
                 element.textContent = 'Unfollow';
-                GetIDbyUsername(true, element.id);
+                GetIDbyUsername(true, element.id, false);
             } else {
                 element.style.backgroundColor = 'var(--blue)';
                 element.textContent = 'Follow';
-                GetIDbyUsername(false, element.id);
+                GetIDbyUsername(false, element.id, false);
             }
 
             FlagToVerify = !FlagToVerify;
         }
 
-        function GetIDbyUsername(cnd, username) {
+        async function GetIDbyUsername(cnd, username, onlyUID) {
             const usersRef = ref(getDatabase(), 'UserAuthList');
             try {
-                get(usersRef)
-                    .then((snapshot) => {
-                        const users = snapshot.val();
-                        if (users) {
-                            const matchingUsers = Object.entries(users)
-                                .filter(([uid, userData]) => userData.Username.toLowerCase() === username);
-                            if (matchingUsers.length > 0) {
-                                const [uid, userData] = matchingUsers[0];
-                                updateFollowersInDataBase(cnd, uid);
-                                UpdateFollowerList(cnd, uid)
-                            } else {
-                                alert('User Not Found');
-                            }
+                const snapshot = await get(usersRef);
+                const users = snapshot.val();
+
+                if (users) {
+                    const matchingUsers = Object.entries(users)
+                        .filter(([uid, userData]) => userData.Username.toLowerCase() === username);
+
+                    if (matchingUsers.length > 0) {
+                        const [uid, userData] = matchingUsers[0];
+
+                        if (onlyUID) {
+                            return uid;
+                        } else {
+                            updateFollowersInDataBase(cnd, uid);
+                            UpdateFollowerList(cnd, uid);
                         }
-                    })
-                    .catch((error) => {
-                        console.error('Error searching username:', error);
-                    });
+                    } else {
+                        alert('User Not Found');
+                    }
+                }
             } catch (error) {
                 console.error('Error searching username:', error);
             }
         }
+
 
         function updateFollowersInDataBase(cnd, id) {
             const userId = id;
@@ -356,12 +372,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             try {
                 const snapshot = await get(userRef);
-
                 if (snapshot.exists()) {
                     const currentNotifications = snapshot.val().Notifications || [];
-
                     let newValue;
-
                     if (cnd) {
                         newValue = [...currentNotifications, `${CurrentUserName} has followed you on ${currentDate}. `];
                     } else {
@@ -369,15 +382,12 @@ document.addEventListener('DOMContentLoaded', async function () {
                     }
                     await update(userRef, { [fieldToUpdate]: newValue });
                     // console.log(`${fieldToUpdate} updated successfully for user ${userId}`);
-
-
                 } else {
                     console.error('User data does not exist');
                 }
             } catch (error) {
                 console.error('Error updating followers:', error);
             }
-
         }
 
         showNotificationOnPage()
@@ -463,7 +473,6 @@ document.addEventListener('DOMContentLoaded', async function () {
                 console.error('Error updating followers:', error);
             }
         }
-
 
         SuggestPeoplesToFollow()
         function SuggestPeoplesToFollow() {
@@ -635,10 +644,11 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
         PostTweet.addEventListener('click', function () {
+            console.log('TweetMessage')
             var TweetMessage = tweetInput.value;
-            if (TweetMessage.length != 0) {
-                createTweetinDatabase(CurrentUserName, TweetMessage);
-                // alltweetsbyUserOnly.appendChild(tweetDiv);
+            if (TweetMessage) {
+                let tweetDiv = createTweetinDatabase(CurrentUserName, TweetMessage);
+                alltweetsbyUserOnly.appendChild(tweetDiv);
             } else {
                 alert('Enter Something')
             }
@@ -692,12 +702,12 @@ document.addEventListener('DOMContentLoaded', async function () {
                         for (const key in jsObject) {
                             if (jsObject.hasOwnProperty(key) && jsObject[key].hasOwnProperty('Tweet_list')) {
                                 const tweetList = jsObject[key]['Tweet_list'];
-                                for(const key2 in tweetList){
+                                for (const key2 in tweetList) {
                                     // console.log(tweetList[key2].Tweet )
                                     // console.log(jsObject[key].Username)
-                                    createTweetElement(jsObject[key].Username, tweetList[key2].Tweet )
+                                    createTweetElement(jsObject[key].Username, tweetList[key2].Tweet)
                                 }
-                                
+
                             }
                         }
                     } else {
@@ -708,6 +718,153 @@ document.addEventListener('DOMContentLoaded', async function () {
                     console.error('Error fetching user data:', error);
                 });
         }
+
+        async function createMessageInDatabase(senderUid, receiverUid, messageToSend) {
+            const senderFieldToUpdate = `/Messages/${receiverUid}`;
+            const receiverFieldToUpdate = `/Messages/${senderUid}`;
+
+            const senderUserRef = ref(db, `UserAuthList/${senderUid}`);
+            const receiverUserRef = ref(db, `UserAuthList/${receiverUid}`);
+
+            try {
+                const senderSnapshot = await get(senderUserRef);
+                const senderMessagesForDatabase = [messageToSend];
+
+                if (senderSnapshot.exists()) {
+                    const senderUserData = senderSnapshot.val();
+                    const senderMessagesArray = senderUserData.Messages && senderUserData.Messages[receiverUid]
+                        ? senderUserData.Messages[receiverUid]
+                        : [];
+                    const updatedSenderMessages = [...senderMessagesArray, ...senderMessagesForDatabase];
+                    await update(senderUserRef, { [senderFieldToUpdate]: updatedSenderMessages });
+                    console.log('Updated sender messages:', updatedSenderMessages);
+                } else {
+                    console.error('Sender data does not exist');
+                    return; // Exit the function if sender data does not exist
+                }
+
+                // Update receiver's messages
+                const receiverSnapshot = await get(receiverUserRef);
+                const receiverMessagesForDatabase = [messageToSend];
+
+                if (receiverSnapshot.exists()) {
+                    const receiverUserData = receiverSnapshot.val();
+                    const receiverMessagesArray = receiverUserData.Messages && receiverUserData.Messages[senderUid]
+                        ? receiverUserData.Messages[senderUid]
+                        : [];
+                    const updatedReceiverMessages = [...receiverMessagesArray, ...receiverMessagesForDatabase];
+                    await update(receiverUserRef, { [receiverFieldToUpdate]: updatedReceiverMessages });
+                    console.log('Updated receiver messages:', updatedReceiverMessages);
+                } else {
+                    console.error('Receiver data does not exist');
+                }
+            } catch (error) {
+                console.error('Error updating messages:', error);
+            }
+        }
+
+        var SearchedusersMessages = document.getElementById('SearchedusersMessages');
+        var ExploreSearchMessages = document.getElementById('ExploreSearchMessages');
+        var ExploreSearchBtnMessages = document.getElementById('ExploreSearchBtnMessages');
+
+        ExploreSearchBtnMessages.addEventListener('click', function () {
+            let InputOfUser = ExploreSearchMessages.value;
+            searchUser(InputOfUser, true);
+            LoadMessages
+        })
+
+        async function DispalyMessagesInChat(InputOfUser) {
+            var ChatBlockH1 = document.getElementById('ChatBlockH1');
+            ChatBlockH1.textContent = InputOfUser;
+            Dispaly('ChatBlock')
+            var ChatBlockInput = document.getElementById('ChatBlockInput');
+            var ChatBlockSendBlock = document.getElementById('ChatBlockSendBlock');
+
+            var UIDofMessenger = await GetIDbyUsername(false, InputOfUser, true);
+            ChatBlockSendBlock.addEventListener('click', function () {
+                var Message = ChatBlockInput.value;
+                if (Message.length != 0) {
+                    ChatBlockInput.value = '';
+                    createMessageInDatabase(CurrentUserId, UIDofMessenger, Message);
+                }
+            })
+        }
+
+        function LoadMessages(userId) {
+            var allMessagesFromDatabaseDiv = document.getElementById('allMessagesFromDatabase');
+            allMessagesFromDatabaseDiv.innerHTML = ''
+            var messageId = CurrentUserId;
+            if (userId && messageId) {
+                const userRef = ref(db, `UserAuthList/${userId}/Messages/${messageId}`);
+                get(userRef)
+                    .then((snapshot) => {
+                        if (snapshot.exists()) {
+                            const message = snapshot.val();
+                            message.forEach(element => {
+                                console.log(element);
+                                const h3 = document.createElement('h3');
+                                h3.innerHTML = element;
+                                allMessagesFromDatabaseDiv.appendChild(h3)
+                            });
+                        } else {
+                            console.error('Message does not exist for user:', userId, 'and messageId:', messageId);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error fetching message data:', error);
+                    });
+            } else {
+                console.error('User ID or Message ID is undefined');
+            }
+        }
+
+
+        ShowMessegedUsers()
+        function ShowMessegedUsers() {
+            if (CurrentUserId) {
+                const userRef = ref(db, 'UserAuthList/' + CurrentUserId);
+                get(userRef)
+                    .then((snapshot) => {
+                        if (snapshot.exists()) {
+                            let userData = snapshot.val();
+                            if (userData.Messages) {
+                                for (const user in userData.Messages) {
+                                    let userRef = ref(db, 'UserAuthList/' + user);
+                                    get(userRef)
+                                        .then((snapshot) => {
+                                            if (snapshot.exists()) {
+                                                let userData = snapshot.val();
+                                                console.log(userData.Name, '@' + userData.Username)
+                                                var div = CreateUserDiv(userData.Name, userData.Username, user, false, true)
+                                                SearchedusersMessages.appendChild(div)
+                                            }
+                                        })
+                                }
+                            } else {
+                                console.log('No Messeges Yet')
+                            }
+                        } else {
+                            console.error('User data does not exist');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error fetching user data:', error);
+                    });
+            }
+            else {
+                alert('CurrentUserId is undefined');
+            }
+        }
     }
     // Dom Braces
 });
+
+
+
+// AFwRRMltttSmzNDjuTkKP7dePts2//main user
+// ---> MessageList//message list under AFwRRMltttSmzNDjuTkKP7dePts2
+// -------> krPIHPWUJTTdAFm5604AoMnDTXv1//uid of seconf=d user who is sending message to AFwRRMltttSmzNDjuTkKP7dePts2
+// -----------> 0: "How are you"//send user krPIHPWUJTTdAFm5604AoMnDTXv1
+// -----------> 1: "I am fine What about you ?"//send user AFwRRMltttSmzNDjuTkKP7dePts2
+// -----------> 2: "I am also Fine Why dont come school today"//send user krPIHPWUJTTdAFm5604AoMnDTXv1
+// -----------> 3: "i was sick"//send user AFwRRMltttSmzNDjuTkKP7dePts2

@@ -18,7 +18,8 @@
     border-radius: 50px;
 }
 
-#ExploreSearch{
+#ExploreSearch,
+#ExploreSearchMessages{
     width: 100%;
     height: 3rem;
     border-radius: inherit;
@@ -30,12 +31,13 @@
     padding: 0px 50px 0px 30px;
 }
 
-.ExploreSearchDiv ::placeholder{
+.ExploreSearchDiv::placeholder{
     color: #444;
     font-size: 20px;
 }
 
-#ExploreSearchBtn{
+#ExploreSearchBtn,
+#ExploreSearchBtnMessages{
     height: 100%;
     width: 50px;
     position: absolute;

@@ -16,8 +16,8 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 const auth = getAuth(app);
 
-const myObject = {
-    UID: 'krPIHPWUJTTdAFm5604AoMnDTXv1',
+var myObject = {
+    UID: 'uODMtGozjWW9lJMLfVj5wHxNyJS2',
     Name: '',
     ID: 'jangrajiop',
 }; 
