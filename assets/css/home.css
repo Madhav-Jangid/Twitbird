@@ -220,8 +220,11 @@
 }
 
 #allTweetsbyuseranddb{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
     padding: 20px 0;
-    gap: 10px;
+    /* gap: 10px; */
 }
 
 .tweetDiv{

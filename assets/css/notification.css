@@ -7,8 +7,11 @@
 
 
 #allNotifications{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
     width: 100%;
-    min-height: auto;
+    height: auto;
     margin-top: 10px;
 }
 #allNotifications h4{
