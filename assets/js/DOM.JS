@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getDatabase, ref, get, update, set, push } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+import { getDatabase, ref, get, update, set, push , onValue } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 // import { createHash } from 'crypto';
 const firebaseConfig = {
@@ -45,8 +45,10 @@ document.addEventListener('DOMContentLoaded', async function () {
         window.location.href = 'index.html';
     }
 
-
+    // Set up a listener for database changes
     function ProceedDomChanging(userData) {
+        const dbRef = ref(db);
+        onValue(dbRef, load);
         console.log('Dom.js is working. 👍', userData);
         const currentDate = new Date().toLocaleDateString();
 
@@ -790,7 +792,9 @@ document.addEventListener('DOMContentLoaded', async function () {
             })
         }
 
+        var CurrentChatUserChatUid;
         function LoadMessages(userId) {
+            CurrentChatUserChatUid = userId;
             var allMessagesFromDatabaseDiv = document.getElementById('allMessagesFromDatabase');
             allMessagesFromDatabaseDiv.innerHTML = ''
             var messageId = CurrentUserId;
@@ -855,6 +859,14 @@ document.addEventListener('DOMContentLoaded', async function () {
                 alert('CurrentUserId is undefined');
             }
         }
+
+
+        function load(snapshot) {
+            console.log("Database changed!", snapshot.val());
+            LoadMessages(CurrentChatUserChatUid);
+        }
+
+
     }
     // Dom Braces
 });
