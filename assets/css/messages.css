@@ -25,11 +25,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 3rem;
-    margin: 10px 0;
+    height: 4.5rem;
     position: relative;
-    border-radius: 50px;
     padding: 0 10px;
+    margin: 10px 0 0;
+    background-color: #000;
 }
 
 
@@ -40,26 +40,27 @@
     background-color: #222;
     color: #fff;
     font-size: 20px;
-    border: none;
     outline: none;
+    border-radius: 50px;
+    border: 1px solid var(--blue);
     padding: 0px 50px 0px 30px;
 }
 
-.ChatBlockDIV::placeholder{
-    color: #444;
+#ChatBlockInput::placeholder{
+    color: var(--blue);
     font-size: 20px;
 }
 
 #ChatBlockSendBlock{
-    height: 100%;
+    height: 3rem;
     width: 50px;
     position: absolute;
     right: 10px;
     font-size: 30px;
     display: flex;
     justify-content: center;
-    border-top-right-radius: inherit;
-    border-bottom-right-radius: inherit;
+    border-radius: 0 50px 50px 0;
+    background-color: var(--blue);
     align-items: center;
 }
 
@@ -70,11 +71,51 @@
 
 #allMessagesFromDatabase{
     width: 100%;
-    height: auto;
+    height: calc(100% - (4.5rem + 4.5rem ));
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 10px;
+    justify-content: end;
+    padding: 10px 10px;
     gap: 10px;
     overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.messageDivDatabaseuser,
+.messageDivDatabasesender{
+    width: 100%;
+    display: flex;
+    min-height: 3rem;
+    justify-content: end;
+    align-items: center;
+    border-radius: 10px;
+    position: relative;
+}
+
+.messageDivDatabasesender{
+    justify-content: start;
+}
+
+.messageDivDatabaseuser h3,
+.messageDivDatabasesender h3{
+    padding: 10px 10px;
+    width: auto;
+    max-height: auto;
+    border-radius: inherit;
+    margin: 0;
+}
+
+.messageDivDatabaseuser .user{
+    margin-left: 15%;
+    background-color: #2d2d2d;
+    color: #fff;
+    justify-content: flex-end;
+}
+
+
+.messageDivDatabasesender .sender{
+    margin-right: 15%;
+    background-color: var(--blue);
+    color: #fff;
+    justify-content: flex-start;
 }

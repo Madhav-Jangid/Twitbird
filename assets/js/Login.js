@@ -17,15 +17,19 @@ const db = getDatabase();
 const auth = getAuth(app);
 
 var myObject = {
-    UID: 'krPIHPWUJTTdAFm5604AoMnDTXv1',
+    UID: '5wF26YhQ9cPmuKr7W6RGQ8o8XgS2',
     Name: '',
     ID: 'jangrajiop',
 }; 
+
+// 5wF26YhQ9cPmuKr7W6RGQ8o8XgS2
+// krPIHPWUJTTdAFm5604AoMnDTXv1
 
 
 document.addEventListener('DOMContentLoaded', function () {
     const SignInUser = async (evt) => {
         console.log(myObject.UID.length)
+        
         evt.preventDefault();
         try {
             const credentials = await signInWithEmailAndPassword(auth, LoginEmail.value, LoginPass.value);
@@ -51,7 +55,9 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     var LoginForm = document.getElementById('LoginForm');
-    LoginForm.addEventListener('submit', SignInUser);
+    if(LoginForm){
+        LoginForm.addEventListener('submit', SignInUser);
+    }
 });
 
 function ChangeWindow() {

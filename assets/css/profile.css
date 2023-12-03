@@ -101,3 +101,10 @@
     color: grey;
     padding-left: 7px;
 }
+
+#alltweetsbyUserOnly{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: start;
+}

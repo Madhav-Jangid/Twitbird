@@ -54,3 +54,28 @@ function DisplaySection(sect) {
     })
     section.style.display = 'flex';
 }
+
+
+function HomeSectionDiv(sect){
+    const section = document.getElementById(sect);
+    const sectionclass = document.querySelectorAll('.Homediv');
+    sectionclass.forEach((item) => {
+        item.style.display = 'none';
+    })
+    var ForYou = document.getElementById('ForYou');
+    var Following = document.getElementById('following');
+    if(sect == 'FollowingListTweets'){
+        Following.style.textDecoration = '5px underline var(--blue)';
+        Following.style.textUnderlineOffset = '10px';
+        ForYou.style.textDecoration = 'none';
+        Following.style.color = '#fff';
+        ForYou.style.color = '#666';
+    }else{
+        ForYou.style.textDecoration = '5px underline var(--blue)';
+        ForYou.style.textUnderlineOffset = '10px';
+        Following.style.textDecoration = 'none';
+        Following.style.color = '#666';
+        ForYou.style.color = '#fff';
+    }
+    section.style.display = 'flex';
+}

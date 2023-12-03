@@ -56,7 +56,7 @@
                 <button class="nav-link" onclick="Dispaly('more')"><i class='bx bx-dots-horizontal-rounded'></i><span
                         class="nav-link-icon">More</span></button>
                 <button class="nav-link" id="post-btn">
-                    <p>Post</p>
+                    <p >Post</p>
                     <span>
                         <svg viewBox="0 0 24 24"
                             class="r-jwli3a r-4qtqp9 r-yyyyoo r-1472mwg r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-lrsllp">
@@ -102,8 +102,8 @@
                 <h1>Home</h1>
                 <div class="mid-ele-top-nav">
                     <div class="mid-ele-foryou">
-                        <a href="#" id="ForYou">For you</a>
-                        <a href="#" id="following">Following</a>
+                        <a href="#" id="ForYou" onclick="HomeSectionDiv('allTweetsbyuseranddb')">Latest</a>
+                        <a href="#" id="following" onclick="HomeSectionDiv('FollowingListTweets')">Following</a>
                     </div>
                 </div>
 
@@ -139,11 +139,13 @@
                     </div>
                 </div>
 
-                <div id="allTweetsbyuseranddb"></div>
+                <div class="Homediv" id="FollowingListTweets"></div>
+                <div class="Homediv" id="allTweetsbyuseranddb"></div>
             </section>
 
+
             <section class="section" id="explore">
-                <h1 id="fjdskghs"><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>explore</h1>
+                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>explore</h1>
                 <div class="ExploreSearchDiv">
                     <input type="text" name="SearchExplore" id="ExploreSearch" placeholder="Explaore More People...">
                     <i class="bx bx-search" id="ExploreSearchBtn"></i>
@@ -155,7 +157,6 @@
             <section class="section" id="notifications">
                 <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>Notifications</h1>
                 <div id="allNotifications">
-                    <!-- <h4>No Notifications Available</h4> -->
                 </div>
             </section>
 
@@ -326,3 +327,6 @@
 </body>
 
 </html>
+
+
+

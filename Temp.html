@@ -5,78 +5,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Madhav's Clone</title>
+    <style>
+        div {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            padding: 10px 10px;
+            gap: 10px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            border: 1px solid ;
+        }
+
+        #div1{
+            width: 100vw;
+            height: 400px;
+            padding: 0;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+    </style>
 
 </head>
-<button id="post">Send</button>
 
 <body>
+    <div id="div1">
+        <div id="div2"></div>
+    </div>
+    <input type="text">
+    <button id="post">Send</button>
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-        import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
-        import { getAuth } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBm3UC_TCpO0Y_yUFnG3nQNjdZeir3wqX4",
-            authDomain: "clone-of-x.firebaseapp.com",
-            databaseURL: "https://clone-of-x-default-rtdb.firebaseio.com",
-            projectId: "clone-of-x",
-            storageBucket: "clone-of-x.appspot.com",
-            messagingSenderId: "309786442519",
-            appId: "1:309786442519:web:bcd80e8ac6be220b64d552"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase();
-        const auth = getAuth(app);
-
-
-
-
-        // Example usage:
-        const CurrentUserId = "5wF26YhQ9cPmuKr7W6RGQ8o8XgS2";
-        const receiverUid = "5wF26YhQ9cPmuKr7W6RGQ8o8XgS2";
-        const message = "Kida frrr";
-
-
-        document.getElementById('post').addEventListener('click', function () {
-            console.log('clicked')
-            ShowMessegedUsers();
+        const input = document.querySelector('input');
+        const div = document.querySelector('#div2');
+        const button = document.querySelector('#post');
+        button.addEventListener('click', function () {
+            let value = input.value;
+            const h5 = document.createElement('h5');
+            h5.innerHTML = value;
+            div.appendChild(h5);
+            input.value = ''
         })
 
-
-        function ShowMessegedUsers() {
-            if (CurrentUserId) {
-                const userRef = ref(db, 'UserAuthList/' + CurrentUserId);
-                get(userRef)
-                    .then((snapshot) => {
-                        if (snapshot.exists()) {
-                            let userData = snapshot.val();
-                            if(userData.Messages){
-                                for(const user in userData.Messages){
-                                    let userRef = ref(db, 'UserAuthList/' + user);
-                                    get(userRef)
-                                    .then((snapshot) => {
-                                        if(snapshot.exists()){
-                                            let userData = snapshot.val();
-                                            console.log(userData.Name,'@'+userData.Username)
-                                        }
-                                    })
-                                }
-                            }else{
-                                console.log('No Messeges Yet')
-                            }
-                        } else {
-                            console.error('User data does not exist');
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching user data:', error);
-                    });
+        input.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                let value = input.value;
+                const h5 = document.createElement('h5');
+                h5.innerHTML = value;
+                div.appendChild(h5);
+                input.value = ''
             }
-            else {
-                alert('CurrentUserId is undefined');
-            }
-        }
+        });
     </script>
 </body>
 
