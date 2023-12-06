@@ -10,9 +10,12 @@
     width: 100%;
     max-width: 650px;
     border-bottom: 1px solid var(--grey);
-    border-radius: 10px;
+    /* border-radius: 10px; */
     margin-bottom: 20px;
     position: relative;
+    border-right: 1px solid var(--whiteBorder);
+    border-left: 1px solid var(--whiteBorder);
+    overflow-y: scroll;
 }
 
 #Xmain{

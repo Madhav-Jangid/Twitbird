@@ -12,13 +12,13 @@
     height: 100vh;
     padding: 10px;
     position: relative;
-    border-right: 1px solid var(--whiteBorder);
     transition: .3s all;
 }
 
-/* .main-top-buttons{
-    margin-right: 40px;
-} */
+.main-top-buttons{
+    position: fixed;
+    top: 0;
+}
 
 .nav-link {
     display: flex;
@@ -75,7 +75,7 @@
 }
 
 .lastbutton {
-    margin-top: 100px;
+    margin-top: 30px;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -145,7 +145,7 @@
 
 #post-btn span{
     height: 100%;
-    display: none;
+    /* display: none; */
 }
 
 #post-btn span svg{

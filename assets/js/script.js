@@ -39,7 +39,7 @@ function Notification() {
     var Notificationh4 = document.createElement('h4');
     Notificationh4.innerHTML = `You Loggined on ${year}-${month}-${day} at ${hours}:${minutes}:${seconds}`;
     var NotificationDiv = document.getElementById('allNotifications')
-    if(NotificationDiv){
+    if (NotificationDiv) {
         NotificationDiv.append(Notificationh4)
     }
 }
@@ -56,7 +56,7 @@ function DisplaySection(sect) {
 }
 
 
-function HomeSectionDiv(sect){
+function HomeSectionDiv(sect) {
     const section = document.getElementById(sect);
     const sectionclass = document.querySelectorAll('.Homediv');
     sectionclass.forEach((item) => {
@@ -64,13 +64,13 @@ function HomeSectionDiv(sect){
     })
     var ForYou = document.getElementById('ForYou');
     var Following = document.getElementById('following');
-    if(sect == 'FollowingListTweets'){
+    if (sect == 'FollowingListTweets') {
         Following.style.textDecoration = '5px underline var(--blue)';
         Following.style.textUnderlineOffset = '10px';
         ForYou.style.textDecoration = 'none';
         Following.style.color = '#fff';
         ForYou.style.color = '#666';
-    }else{
+    } else {
         ForYou.style.textDecoration = '5px underline var(--blue)';
         ForYou.style.textUnderlineOffset = '10px';
         Following.style.textDecoration = 'none';
@@ -79,3 +79,6 @@ function HomeSectionDiv(sect){
     }
     section.style.display = 'flex';
 }
+
+const scrollableDiv = document.getElementById('allMessagesFromDatabase');
+scrollableDiv.scrollTop = scrollableDiv.scrollHeight;

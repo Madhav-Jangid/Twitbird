@@ -23,6 +23,7 @@ import { myObject } from "./Login.js";
 document.addEventListener('DOMContentLoaded', function () {
     const userData1 = myObject; // Call the function with an event object if needed
     const CurrentUserId = userData1.UID;
+    var TweetID;
     var CurrentUserName = 'myObjectID';
     if (CurrentUserId) {
         const userRef = ref(db, 'UserAuthList/' + CurrentUserId);
@@ -31,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
             .then((snapshot) => {
                 if (snapshot.exists()) {
                     userData = snapshot.val();
+                    if (userData.Tweet_list) {
+                        TweetID = userData.Tweet_list.length;
+                    }
                     CurrentUserName = userData.Username;
                     ProceedDomChanging(userData);
                 } else {
@@ -48,30 +52,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Set up a listener for database changes
     function ProceedDomChanging(userData) {
+
+        // check if database is changed or not
         const dbRef = ref(db);
         onValue(dbRef, load);
-        console.log('Dom is working');
+
+
+        console.log('Dom is working', TweetID);
+
         const currentDate = new Date().toLocaleDateString();
-
-        // async function hashString(inputString) {
-        //     const encoder = new TextEncoder();
-        //     const data = encoder.encode(inputString);
-        //     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-        //     const hashArray = Array.from(new Uint8Array(hashBuffer));
-        //     const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-        //     return hashHex;
-        //   }
-
-        //   // Example usage
-        //   const inputString = 'Madhav';
-        //   hashString(inputString)
-        //     .then(hash => console.log(hash))
-        //     .catch(error => console.error(error));
 
         const verifiedTick = `<svg width="24" height="24" viewBox="0 0 24 24" fill="rgb(0, 157, 255)" xmlns="http://www.w3.org/2000/svg"><path d="M18.9905 19H19M18.9905 19C18.3678 19.6175 17.2393 19.4637 16.4479 19.4637C15.4765 19.4637 15.0087 19.6537 14.3154 20.347C13.7251 20.9374 12.9337 22 12 22C11.0663 22 10.2749 20.9374 9.68457 20.347C8.99128 19.6537 8.52349 19.4637 7.55206 19.4637C6.76068 19.4637 5.63218 19.6175 5.00949 19C4.38181 18.3776 4.53628 17.2444 4.53628 16.4479C4.53628 15.4414 4.31616 14.9786 3.59938 14.2618C2.53314 13.1956 2.00002 12.6624 2 12C2.00001 11.3375 2.53312 10.8044 3.59935 9.73817C4.2392 9.09832 4.53628 8.46428 4.53628 7.55206C4.53628 6.76065 4.38249 5.63214 5 5.00944C5.62243 4.38178 6.7556 4.53626 7.55208 4.53626C8.46427 4.53626 9.09832 4.2392 9.73815 3.59937C10.8044 2.53312 11.3375 2 12 2C12.6625 2 13.1956 2.53312 14.2618 3.59937C14.9015 4.23907 15.5355 4.53626 16.4479 4.53626C17.2393 4.53626 18.3679 4.38247 18.9906 5C19.6182 5.62243 19.4637 6.75559 19.4637 7.55206C19.4637 8.55858 19.6839 9.02137 20.4006 9.73817C21.4669 10.8044 22 11.3375 22 12C22 12.6624 21.4669 13.1956 20.4006 14.2618C19.6838 14.9786 19.4637 15.4414 19.4637 16.4479C19.4637 17.2444 19.6182 18.3776 18.9905 19Z" stroke="rgb(0, 157, 255)" stroke-width="1.5"/>
           <path d="M9 12.8929C9 12.8929 10.2 13.5447 10.8 14.5C10.8 14.5 12.6 10.75 15 9.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>`;
 
+
+        // Opens Followers and Followings
         const Following = document.querySelector('Following');
         const Followers = document.querySelector('Followers');
         Following.innerHTML = userData.Following;
@@ -89,14 +85,24 @@ document.addEventListener('DOMContentLoaded', function () {
         const userName = document.querySelectorAll('.ProfileTopNavName');
         const userID = document.querySelectorAll('.useridhome');
 
+
+        // changes name of user in all the accurenses
         userName.forEach(element => {
-            element.innerHTML = `${NameOfuser} ${verifiedTick}`;
+            if(userData.Username == 'jangrajiop'){
+                element.innerHTML = `${NameOfuser} ${verifiedTick}`;
+            }else{
+                element.innerHTML = `${NameOfuser}`;
+            }
         });
 
+        // changes username of that user
         userID.forEach(element => {
             element.innerHTML = IdofUser;
         });
 
+
+
+        // searches user
         const ExploreSearchIcon = document.getElementById('ExploreSearchBtn');
         const searchInput = document.getElementById('ExploreSearch');
         ExploreSearchIcon.addEventListener('click', function () {
@@ -110,6 +116,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
+
+        // search user in database
         function searchUser(TempName, FromMessageBlock) {
             if (TempName === "") {
                 alert("Please enter a username");
@@ -594,7 +602,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const idOFTweet = new Date().toLocaleDateString();
                 const TweetsForDatabase = {
                     Tweet: message,
-                    Likes: 0,
+                    Likes: ['Index'],
                     Comments: [],
                     Postedon: idOFTweet
                 }
@@ -602,9 +610,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     const allTweets = snapshot.val().Tweet_list || [];
                     let newValue = [...allTweets, TweetsForDatabase];
                     await update(userRef, { [fieldToUpdate]: newValue })
-                        .then(() => {
+                        .then(async () => {
+                            TweetID += 1;
                             tweetInput.value = '';
-                            createTweetElement(username, message)
+                            var tweet = await createTweetElement(username, message)
+                            return tweet;
                         })
                         .catch((error) => {
                             alert('Error Psoting while Posting Tweet Please try again.');
@@ -618,45 +628,81 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
+        // async function likeOrDislikeTweet(uid, tweetId, like) {
+        //     const userId = uid;
+        //     const fieldToUpdate = `Tweet_list/${tweetId}/Likes`;
+        //     const userRef = ref(db, `UserAuthList/${userId}/Tweet_list/${tweetId}`);
+        //     try {
+        //         const snapshot = await get(userRef);
+        //         if (snapshot.exists()) {
+        //             const currentLikes = snapshot.val().Likes || [];
+        //             const newValue = like ? [currentLikes] + CurrentUserId : currentLikes - CurrentUserId;
+        //             await update(userRef, { Likes: newValue });
+        //             console.log(`Tweet ${tweetId} ${like ? 'liked' : 'disliked'} successfully`);
+        //         } else {
+        //             console.error(`Tweet ${tweetId} does not exist`);
+        //         }
+        //     } catch (error) {
+        //         console.error(`Error updating likes for tweet ${tweetId}:`, error);
+        //     }
+        // }
+
         async function likeOrDislikeTweet(uid, tweetId, like) {
             const userId = uid;
-            const fieldToUpdate = `Tweet_list/${tweetId}/Likes`;
             const userRef = ref(db, `UserAuthList/${userId}/Tweet_list/${tweetId}`);
             try {
                 const snapshot = await get(userRef);
-                if (snapshot.exists()) {
-                    const currentLikes = snapshot.val().Likes || 0;
-                    const newValue = like ? currentLikes + 1 : currentLikes - 1;
-                    await update(userRef, { Likes: newValue });
+                if (snapshot.exists() && CurrentUserId != userId) {
+                    const currentLikes = snapshot.val().Likes || [];
+
+                    // If like is true, add the user ID to the list, otherwise remove it
+                    const updatedLikes = like
+                        ? [...currentLikes, CurrentUserId]
+                        : currentLikes.filter((id) => id !== CurrentUserId);
+
+                    await update(userRef, { Likes: updatedLikes });
                     console.log(`Tweet ${tweetId} ${like ? 'liked' : 'disliked'} successfully`);
+
+                    // Return the updated likes array
+                    return updatedLikes.length;
                 } else {
                     console.error(`Tweet ${tweetId} does not exist`);
+                    return null;
                 }
             } catch (error) {
                 console.error(`Error updating likes for tweet ${tweetId}:`, error);
+                return null;
             }
         }
+
 
         var PostTweet = document.getElementById('postTweet');
         var tweetInput = document.getElementById('tweetInput');
         var alltweetsbyUserOnly = document.getElementById('alltweetsbyUserOnly');
         var allTweetsbyuseranddb = document.getElementById('allTweetsbyuseranddb');
-        const FollowingListTweets = document.getElementById('FollowingListTweets');
+        var FollowingListTweets = document.getElementById('FollowingListTweets');
 
 
-        PostTweet.addEventListener('click', function () {
+        PostTweet.addEventListener('click', async function () {
             var TweetMessage = tweetInput.value;
             if (TweetMessage) {
-                let tweetDiv = createTweetinDatabase(CurrentUserName, TweetMessage);
-                alltweetsbyUserOnly.appendChild(tweetDiv);
+                try {
+                    let tweetDiv = await createTweetinDatabase(CurrentUserName, TweetMessage, CurrentUserId, TweetID);
+                    console.log(tweetDiv);
+                    alltweetsbyUserOnly.appendChild(tweetDiv);
+                } catch (error) {
+                    console.error('Error creating tweet:', error);
+                }
             } else {
-                alert('Enter Something')
+                alert('Enter Something');
             }
-        })
+        });
 
-        async function createTweetElement(username, tweetText) {
+
+        async function createTweetElement(username, tweetText, userId, tweetId) {
 
             const tweetDiv = document.createElement('div');
+            tweetDiv.id = userId;
             tweetDiv.className = 'tweetDiv';
 
             const usernameElement = document.createElement('h4');
@@ -671,8 +717,52 @@ document.addEventListener('DOMContentLoaded', function () {
             tweetIntractionDiv.className = 'tweetIntraction';
 
             const heartIcon = document.createElement('i');
-            heartIcon.className = 'bx bx-heart';
+            let likeFlag;
+            const likeListRef = ref(db, `UserAuthList/${userId}/Tweet_list/${tweetId}/Likes`);
+            get(likeListRef).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const likeList = snapshot.val();
+                    console.log(likeList.length)
+                    // noOfLikes = likeList.length
+                    if (likeList && Object.values(likeList).includes(CurrentUserId)) {
+                        heartIcon.className = 'bx bxs-heart';
+                        heartIcon.style.color = 'var(--blue)';
+                        likeFlag = false;
+                    } else {
+                        heartIcon.className = 'bx bx-heart';
+                        heartIcon.style.color = '#666';
+                        likeFlag = true;
+                    }
+                } else {
+                    console.warn(`The Tweet_list for ${userId} does not exist.`);
+                }
+                allTweetsbyuseranddb.appendChild(tweetDiv);
+            }).catch((error) => {
+                console.error("Error checking following list:", error);
+            });
+
+            heartIcon.addEventListener('click', function () {
+                if (likeFlag) {
+                    likeOrDislikeTweet(userId, tweetId, true)
+                    heartIcon.className = 'bx bxs-heart';
+                    heartIcon.style.color = 'var(--blue)';
+                    console.log('if')
+                } else {
+                    heartIcon.className = 'bx bx-heart';
+                    heartIcon.style.color = '#666';
+                    likeOrDislikeTweet(userId, tweetId, false)
+                    console.log('else')
+                }
+                likeFlag = !likeFlag;
+            })
+
+
+            heartIcon.id = tweetId;
             tweetIntractionDiv.appendChild(heartIcon);
+
+            // const likesNumber = document.createElement('span');
+            // likesNumber.innerHTML = noOfLikes;
+            // tweetIntractionDiv.appendChild(likesNumber);
 
             const commentIcon = document.createElement('i');
             commentIcon.className = 'bx bx-comment';
@@ -711,25 +801,14 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 console.error('Container element not found: FollowingListTweets or allTweetsbyuseranddb');
             }
+            
+            shareIcon.addEventListener('click', function () {
+                console.log('clicked on',username,tweetId)
+                shareTweet(userId, username, tweetText, tweetId)
+            });
 
             return tweetDiv;
         }
-
-        // async function LoadHomeTweets() {
-        //     const tweetListdb = ref(db, `UserAuthList/`);
-        //     get(tweetListdb).then((snapshot) => {
-        //         if (snapshot.exists()) {
-        //             const tweetList = snapshot.val();
-        //             for(const user in tweetList){
-        //                 console.log(user)
-        //             }
-        //         } else {
-        //             console.error(`The Tweet_list does not exist.`);
-        //         }
-        //     }).catch((error) => {
-        //         console.error("Error checking following list:", error);
-        //     });
-        // }
 
         LoadTweetFromDataBase()
         function LoadTweetFromDataBase() {
@@ -742,11 +821,13 @@ document.addEventListener('DOMContentLoaded', function () {
                             if (jsObject.hasOwnProperty(key) && jsObject[key].hasOwnProperty('Tweet_list')) {
                                 const tweetList = jsObject[key]['Tweet_list'];
                                 for (const key2 in tweetList) {
-                                    // console.log(tweetList[key2].Tweet )
-                                    // console.log(jsObject[key].Username)
-                                    createTweetElement(jsObject[key].Username, tweetList[key2].Tweet)
-                                }
+                                    const tweetId = key2;
+                                    const tweet = tweetList[key2].Tweet;
+                                    const userId = key; // This is the user ID of the user who posted the tweet
 
+                                    // Pass userId, tweetId, and tweet to createTweetElement function
+                                    return createTweetElement(jsObject[key].Username, tweet, userId, tweetId);
+                                }
                             }
                         }
                     } else {
@@ -860,11 +941,11 @@ document.addEventListener('DOMContentLoaded', function () {
                                 msgdivuser.classList.add('messageDivDatabaseuser')
                                 msgdivusersender.classList.add('messageDivDatabasesender')
                                 h3.innerHTML = element;
-                                if(flag){
+                                if (flag) {
                                     h3.classList.add('user')
                                     msgdivuser.appendChild(h3)
                                     allMessagesFromDatabaseDiv.appendChild(msgdivuser)
-                                }else{
+                                } else {
                                     h3.classList.add('sender')
                                     msgdivusersender.appendChild(h3)
                                     allMessagesFromDatabaseDiv.appendChild(msgdivusersender)
@@ -925,8 +1006,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function load(snapshot) {
             LoadMessages(CurrentChatUserChatUid);
+            // LoadTweetFromDataBase()
         }
 
+        function shareTweet(uid, title, text, divId) {
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    text: text,
+                    url: 'createUrlofDivToShare(divId)',
+                })
+                    .then(() => console.log('Shared successfully'))
+                    .catch((error) => console.error('Error sharing:', error));
+            } else {
+                alert('Web Share API is not supported on this browser.');
+            }
+        }
+
+        function createUrlofDivToShare(divId) {
+            const div = document.getElementById(divId);
+            const tempContainer = document.createElement('div');
+            tempContainer.appendChild(div.cloneNode(true));
+            const divContent = encodeURIComponent(tempContainer.innerHTML);
+            const shareableUrl = window.location.origin + '/shareable.html?content=' + divContent;
+            window.open(shareableUrl);
+            return shareableUrl;
+        }
 
     }
     // Dom Braces

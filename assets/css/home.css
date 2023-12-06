@@ -298,3 +298,9 @@
     align-items: center;
     justify-content: start; */
 }
+
+#FollowingListTweets{
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+}
