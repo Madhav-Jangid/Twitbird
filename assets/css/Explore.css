@@ -93,7 +93,7 @@
 
 
 .Searcheduser h5{
-    color: #999;
+    color: var(--textColorLightMod);
     margin: 5px 0;
 }
 

@@ -6,6 +6,10 @@
     /* padding: 0 1px; */
 }
 
+#profile h1:first-child{
+    padding-left: 20px;
+}
+
 .searchedHeading{
     width: 100%;
 }
@@ -63,10 +67,11 @@
     top: 50%;
     right: 0;
     transform: translate(0,-50%);
-    background-color: rgba(59, 59, 59, 0.5);
+    background-color: rgba(255, 255, 255, 0.597);
     padding: 10px 10px 10px 40px;
     border-radius: 30px 0 0 30px;
     backdrop-filter: blur(5px);
+    color: var(--white);
     border: 1px solid var(--whiteBorder);
 }
 
@@ -81,7 +86,7 @@
 
 .ProfileDetails h5{
     font-size: 16px;
-    color: grey;
+    color: var(--textColorLightMod);
 }
 
 .socialCont{
@@ -98,7 +103,7 @@
 
 .socialCont h3 span{
     font-size: 16px;
-    color: grey;
+    color: var(--textColorLightMod);
     padding-left: 7px;
 }
 

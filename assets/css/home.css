@@ -17,32 +17,73 @@
     z-index: 2;
 }
 
-#commonTopNavForAll{
+#commonTopNavForAll {
     width: 100%;
-    height: 5rem;
+    min-height: 5rem;
     color: var(--black);
-    /* background-color:rgb(36, 36, 36); */
-    background:var(--white);
-    box-shadow:  9px 9px 18px #949494,
-             -9px -9px 18px #ffffff;
+    background: var(--white);
+    border-bottom: 1px solid var(--blue);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    /* margin: 0 10px; */
+    justify-content: space-around;
     padding: 0 10px;
     position: sticky;
     top: 1px;
     z-index: 9090909090;
 }
 
+#commonTopNavForAll h1{
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: 30px;
+    letter-spacing: 1px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    /* cursor: pointer; */
+}
+
+#shortScreenNav{
+    position: absolute;
+    right: 10px;
+    top: 5rem;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 190px;
+    height: 310px;
+    z-index: 999999999;
+}
+
+#shortScreenNav .shortNavH1{
+    height: calc(100% / 7);
+    background-color: var(--blue);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    border-bottom: 1px solid var(--white);
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 17px;
+    cursor: pointer;
+    transition: .1s all ease-in;
+}
+
+#shortScreenNav .shortNavH1:hover{
+    border: 1px solid var(--blue);
+    background-color: var(--white);
+    color: var(--blue);
+}
+
 #checkbox {
     display: none;
-  }
-  
-  .toggle {
+}
+
+.toggle {
     position: relative;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -50,51 +91,171 @@
     justify-content: center;
     gap: 10px;
     transition-duration: .5s;
-  }
-  
-  .bars {
+}
+
+.bars {
     width: 100%;
-    height: 4px;
-    background-color: rgb(176, 92, 255);
+    height: 3px;
+    background-color: var(--blue);
     border-radius: 4px;
-  }
-  
-  #bar2 {
+}
+
+#bar2 {
     transition-duration: .8s;
-  }
-  
-  #bar1,#bar3 {
+}
+
+#bar1,
+#bar3 {
     width: 70%;
-  }
-  
-  #checkbox:checked + .toggle .bars {
+}
+
+#checkbox:checked+.toggle .bars {
     position: absolute;
     transition-duration: .5s;
-  }
-  
-  #checkbox:checked + .toggle #bar2 {
+}
+
+#checkbox:checked+.toggle #bar2 {
     transform: scaleX(0);
     transition-duration: .5s;
-  }
-  
-  #checkbox:checked + .toggle #bar1 {
+}
+
+#checkbox:checked+.toggle #bar1 {
     width: 100%;
     transform: rotate(45deg);
     transition-duration: .5s;
-  }
-  
-  #checkbox:checked + .toggle #bar3 {
+}
+
+#checkbox:checked+.toggle #bar3 {
     width: 100%;
     transform: rotate(-45deg);
     transition-duration: .5s;
-  }
-  
-  #checkbox:checked + .toggle {
+}
+
+#checkbox:checked+.toggle {
     transition-duration: .5s;
     transform: rotate(180deg);
+}
+
+
+/*=============================================
+=            Toggle Button            =
+=============================================*/
+
+.switch {
+    font-size: 17px;
+    position: relative;
+    display: inline-block;
+    width: 64px;
+    height: 34px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #183153;
+    transition: .4s;
+    border-radius: 30px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+    left: 2px;
+    bottom: 2px;
+    z-index: 2;
+    background-color: #e8e8e8;
+    transition: .4s;
+  }
+  
+  .sun svg {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 1;
+    width: 24px;
+    height: 24px;
   }
 
-#home h1:first-child{
+  
+  .moon svg {
+    fill: var(--blue);
+    position: absolute;
+    top: 6px;
+    left: 36px;
+    z-index: 1;
+    width: 24px;
+    height: 24px;
+    transform: rotate(90deg);
+  }
+  
+  /* .switch:hover */.sun svg {
+    animation: rotate 15s linear infinite;
+  }
+  
+  @keyframes rotate {
+   
+    0% {
+      transform: rotate(0);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* .switch:hover */.moon svg {
+    animation: tilt 5s linear infinite;
+  }
+  
+  @keyframes tilt {
+   
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    25% {
+      transform: rotate(-10deg);
+    }
+  
+    75% {
+      transform: rotate(10deg);
+    }
+  
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+  
+  .input:checked + .slider {
+    background-color: var(--blue);
+  }
+  
+  .input:focus + .slider {
+    box-shadow: 0 0 1px #183153;
+  }
+  
+  .input:checked + .slider:before {
+    transform: translateX(30px);
+  }
+
+/*=====  End of Toggle Button  ======*/
+
+
+
+#home h1:first-child {
     padding-left: 20px;
 }
 
@@ -115,23 +276,23 @@
     align-items: center;
     font-size: 18px;
     background: var(--white);
-box-shadow: inset 5px 5px 9px var(--insetmorphDark),
-            inset -5px -5px 9px var(--morphLight);
+    box-shadow: inset 5px 5px 9px var(--insetmorphDark),
+        inset -5px -5px 9px var(--morphLight);
 }
 
 #ForYou {
     background: var(--white);
-    box-shadow:  5px 5px 9px var(--insetmorphDark),
-                 -5px -5px 9px var(--morphLight);    
+    box-shadow: 5px 5px 9px var(--insetmorphDark),
+        -5px -5px 9px var(--morphLight);
     text-decoration: 5px underline var(--blue);
     text-underline-offset: 10px;
 }
 
-.mid-ele-foryou a:hover {
+/* .mid-ele-foryou a:hover {
     background: var(--white);
 box-shadow:  5px 5px 9px var(--insetmorphDark),
              -5px -5px 9px var(--morphLight);
-}
+} */
 
 .whats-happening-post {
     border-bottom: 2px solid var(--grey);
@@ -238,7 +399,7 @@ box-shadow:  5px 5px 9px var(--insetmorphDark),
 }
 
 .content-to-post .happening-text::placeholder {
-    color: #666;
+    color: var(--blue);
     font-size: 25px;
     font-weight: 600;
 }
@@ -348,7 +509,7 @@ box-shadow:  5px 5px 9px var(--insetmorphDark),
     width: 100%;
     height: 100%;
     font-weight: 900;
-    color: #000;
+    color: var(--textColorLightMod);
 }
 
 .tweetDiv .tweetIntraction {

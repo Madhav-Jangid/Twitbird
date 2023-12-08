@@ -116,16 +116,16 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(2px);
     font-weight: 900;
     font-size: 20px;
-    color: #000;
+    color: var(--black);
     border-bottom: 1px solid var(--whiteBorder);
     position: sticky;
-    top: 0px;
+    top: 5rem;
     z-index: 99;
     text-transform: capitalize;
-    background-color: rgba(0, 157, 255,.1);
+    background-color: rgba(0, 179, 255, 0.475);
 }
 
 /* .section{

@@ -15,14 +15,11 @@ function Dispaly(sect) {
 
 var flag = false
 function ViewLeftNav() {
-    var leftNav = document.querySelector('.left-nav');
+    console.log('Left Nav')
+    var leftNav = document.querySelector('#shortScreenNav');
     if (flag) {
-        navMenu.classList.remove('fa-regular', 'fa-circle-xmark');
-        navMenu.classList.add('bx', 'bx-menu');
         leftNav.style.display = 'none';
     } else {
-        navMenu.classList.remove('bx', 'bx-menu');
-        navMenu.classList.add('fa-regular', 'fa-circle-xmark');
         leftNav.style.display = 'flex';
     }
     flag = !flag;
@@ -84,7 +81,54 @@ function HomeSectionDiv(sect) {
     section.style.display = 'flex';
 }
 
+
+const changeThemeButton = document.getElementById('changeThemeButton');
+
+var changeThemeButtonFlag = true;
+const root = document.documentElement;
+changeThemeButton.addEventListener('click',function(){
+    console.log('Button Clicked!');
+    if(changeThemeButtonFlag){
+        root.style.setProperty('--white', '#111');
+        root.style.setProperty('--black', '#fff');
+        root.style.setProperty('--outsideMorphDark', '#000000');
+        root.style.setProperty('--morphLight', '#65656566');
+        root.style.setProperty('--insetmorphDark', '#000000');
+        root.style.setProperty('--textColorLightMod', '#e5e5e5db');
+        root.style.setProperty('--textColorDarkMod', '#000000db');
+    }else{
+        root.style.setProperty('--white', '#e0e0e0');
+        root.style.setProperty('--black', '#000');
+        root.style.setProperty('--outsideMorphDark', '#8b8b8b');
+        root.style.setProperty('--morphLight', '#ffffff');
+        root.style.setProperty('--insetmorphDark', '#838383');
+        root.style.setProperty('--textColorLightMod', '#000000db');
+        root.style.setProperty('--textColorDarkMod', '#e5e5e5db');
+    }
+    changeThemeButtonFlag = !changeThemeButtonFlag;
+})
+
 const scrollableDiv = document.getElementById('allMessagesFromDatabase');
 if(scrollableDiv){
     scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+}
+
+
+
+function createPopUpFromLeft(content){
+    const mainDiv = document.createElement('div');
+    mainDiv.className = 'popUpDiv';
+
+    const text = document.createElement('h3');
+    text.innerHTML = content;
+
+    mainDiv.appendChild(text);
+
+    document.body.appendChild(mainDiv);
+
+    mainDiv.style.animation = 'PopUp 3.5s ease-in-out 1';
+
+    setTimeout(() => {
+        document.body.removeChild(mainDiv);
+    }, 4500); 
 }

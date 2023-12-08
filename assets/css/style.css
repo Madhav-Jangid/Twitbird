@@ -21,15 +21,17 @@ button,i{
 :root {
     --white: #e0e0e0;
     --black: #000;
-    --grey: rgba(75, 96, 121, 0.758);
-    --bluehover: rgb(10, 116, 182);
-    --blue: rgb(0, 157, 255);
+    --grey: #4b6079c1;
+    --bluehover: #0a74b6;
+    --blue: #009dff;
     --profile-logo: url('assets/images/X Profile Img.png');
-    --whiteBorder: rgba(255, 255, 255, 0.5);
-    --blackBorder: rgba(0, 0, 0, 0.5);
+    --whiteBorder: #ffffff80;
+    --blackBorder: #00000080;
     --insetmorphDark: #838383;
     --morphLight: #ffffff;
     --outsideMorphDark: #8b8b8b;
+    --textColorLightMod: #000000db;
+    --textColorDarkMod: #e5e5e5db;
 }
 
 
@@ -37,8 +39,8 @@ button,i{
 /*=============================================
 =            For dark Mode                    =
 =============================================*/
-
-    /* --white: #111;
+/* :root{
+    --white: #111;
     --black: #fff;
     --grey: rgba(75, 96, 121, 0.758);
     --bluehover: rgb(10, 116, 182);
@@ -48,8 +50,8 @@ button,i{
     --blackBorder: rgba(0, 0, 0, 0.5);
     --insetmorphDark: #000000;
     --morphLight: #65656566;
-    --outsideMorphDark: #000000; */
-
+    --outsideMorphDark: #000000;
+} */
 /*=====      End of For dark Mode     ======*/
 
 
@@ -124,6 +126,41 @@ body {
     background-color: #353535;
 }
 
+.popUpDiv{
+    min-width: 300px;
+    max-width: 400px;
+    min-height: 5rem;
+    display: flex;
+    align-items: center;
+    background-color: rgb(19, 243, 120);
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px 0 0 5px;
+    position: absolute;
+    top: 100px;
+    right: 0;
+    animation: PopUp 3.5s ease-in-out 1;
+}
+
+
+@keyframes PopUp {
+    0%{
+        transform: translateX(400px)
+    }20%{
+        transform: translateX(0px)
+    }30%{
+        transform: translateX(0px)
+    }40%{
+        transform: translateX(0px)
+    }50%{
+        transform: translateX(0px)
+    }60%{
+        transform: translateX(0px)
+    }100%{
+        transform: translateX(400px)
+    }
+}
+
 
 
 @keyframes slideTop {
@@ -142,19 +179,16 @@ body {
         max-width: 100vw;
     }
 
-    .left-nav{
-        width: calc(100% + 20px);
+    .left-nav .main-top-buttons{
         display: flex;
-        align-items: center;
-        padding: 0 10px;
+        flex-direction: column;
+        align-items: end;
     }
 
-    .left-nav .nav-link{
-        /* margin: 10px; */
+    .main-top-buttons .nav-link{
+        margin: 7.5px 0;
     }
 
-    .main-top-buttons {
-    }
 
     .whole-page .right-nav{
         display: none;
@@ -176,9 +210,13 @@ body {
     }
 
     .whole-page .left-nav{
-        display: flex;
-        width: 70px;
+        display: none;
+        /* width: 70px; */
         padding: 0;
+    }
+
+    .left-nav .main-top-buttons{
+        width: 100%;
     }
 
     .whole-page .left-nav span,
@@ -219,7 +257,6 @@ body {
         display: block;
     }
 
-    
     #ExploreXmain{
         display: block;
     }

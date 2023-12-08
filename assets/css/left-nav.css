@@ -4,10 +4,8 @@
 
 .left-nav {
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
-    width: 30vw;
-    max-width: 250px;
+    min-width: 210px;
     height: 100vh;
     padding: 10px;
     position: relative;
@@ -37,13 +35,17 @@
     transition: background .1s linear;
     position: relative;
     cursor: pointer;
-    margin: 10px 0;
+    margin: 13px 0;
 }
 
 .nav-link:focus-within {
     font-weight: 900;
     font-size: 30px;
     color: var(--blue);
+}
+
+#post-btn svg path{
+    fill: var(--black);
 }
 
 .nav-link:focus-within svg path {
@@ -123,7 +125,7 @@
 }
 
 .username h6 {
-    color: #969696;
+    color: var(--textColorLightMod);
     padding: 5px 0;
 }
 
@@ -151,12 +153,11 @@
 
 #post-btn:hover {
     background-color: var(--blue);
-    color: #fff;
+    color: var(--white);
 }
 
 #post-btn span {
     height: 100%;
-    /* display: none; */
 }
 
 #post-btn span svg {

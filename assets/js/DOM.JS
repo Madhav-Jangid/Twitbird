@@ -144,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                         CreateUserDiv(userData.Name, userData.Username, uid, false, FromMessageBlock);
                                     }
                                 } else {
+                                    createPopUpFromLeft("Don't Search You self")
                                     alert("Don't Search You self")
                                 }
                                 return uid;

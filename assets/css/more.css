@@ -4,20 +4,22 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
-    padding: 20px;
+    padding: 0 10px;
     border-radius: inherit;
 }
-
+/* 
 #more h1{
     margin-bottom: 10px;
-}
+} */
 
 #more a{
+    display: flex;
+    align-items: center;
     color: var(--black);
     text-decoration: none;
     font-size: 20px;
     font-weight: 900;
-    line-height: 50px;
+    line-height: 70px;
     background: var(--white);
     box-shadow:  5px 5px 9px var(--insetmorphDark),
                  -5px -5px 9px var(--morphLight);
@@ -26,6 +28,11 @@
     margin: 5px 0;
     border-radius: 10px;
     padding-left: 20px;
+}
+
+#more a i{
+    padding-right: 20px;
+    font-size: 25px;
 }
 
 #more a:hover{
