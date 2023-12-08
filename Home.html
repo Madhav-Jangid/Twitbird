@@ -23,16 +23,15 @@
 
 <body>
     <div class="whole-page">
-        <i onclick="ViewLeftNav()" class="bx bx-menu" id="navMenu"></i>
         <section class="left-nav">
             <div class="main-top-buttons">
                 <button class="nav-link" id="menuLeftNav" onclick="ViewLeftNav()"><i class="bx bx-menu"></i></button>
-                <button class="nav-link" onclick="Dispaly('Xmain')" id="firstXsvg"><svg width="24" height="24"
+                <!-- <button class="nav-link" onclick="Dispaly('Xmain')" id="firstXsvg"><svg width="24" height="24"
                         viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M3 21L10.5484 13.4516M21 3L13.4516 10.5484M13.4516 10.5484L8 3H3L10.5484 13.4516M13.4516 10.5484L21 21H16L10.5484 13.4516"
-                            stroke="#fff" stroke-width="1.5" stroke-linecap="" stroke-linejoin="round" />
-                    </svg></button>
+                            stroke="#000" stroke-width="1.5" stroke-linecap="" stroke-linejoin="round" />
+                    </svg></button> -->
                 <button class="nav-link" onclick="Dispaly('home')"><i class='bx bx-home-alt'></i><span
                         class="nav-link-icon">Home</span></button>
                 <button class="nav-link" onclick="Dispaly('explore')"><i class='bx bx-search'></i><span
@@ -41,15 +40,15 @@
                         class="nav-link-icon">Notifications</span></button>
                 <button class="nav-link" onclick="Dispaly('messages')"><i class='bx bx-envelope'></i><span
                         class="nav-link-icon">Messages</span></button>
-                <button class="nav-link" onclick="Dispaly('lists')"><i class='bx bx-food-menu'></i><span
+                <!-- <button class="nav-link" onclick="Dispaly('lists')"><i class='bx bx-food-menu'></i><span
                         class="nav-link-icon">lists</span></button>
                 <button class="nav-link" onclick="Dispaly('communities')"><i class='bx bx-user-plus'></i><span
-                        class="nav-link-icon">Communities</span></button>
+                        class="nav-link-icon">Communities</span></button> -->
                 <button class="nav-link" onclick="Dispaly('premium')"><svg width="24" height="24" viewBox="0 0 24 24"
                         fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M3 21L10.5484 13.4516M21 3L13.4516 10.5484M13.4516 10.5484L8 3H3L10.5484 13.4516M13.4516 10.5484L21 21H16L10.5484 13.4516"
-                            stroke="#fff" stroke-width="1.5" stroke-linecap="" stroke-linejoin="round" />
+                            stroke="#000" stroke-width="1.5" stroke-linecap="" stroke-linejoin="round" />
                     </svg><span class="nav-link-icon">Premium</span></button>
                 <button class="nav-link" onclick="Dispaly('profile')"><i class='bx bx-user'></i><span
                         class="nav-link-icon">Profile</i></span></button>
@@ -82,6 +81,17 @@
         </section>
 
         <section class="mid-ele">
+            <div id="commonTopNavForAll">
+                <h1>TwitBird</h1>
+                <i onclick="ViewLeftNav()" class="bx bx-menu" id="navMenu"></i>
+                <input type="checkbox" id="checkbox">
+                <label for="checkbox" class="toggle">
+                    <div class="bars" id="bar1"></div>
+                    <div class="bars" id="bar2"></div>
+                    <div class="bars" id="bar3"></div>
+                </label>
+            </div>
+
             <section class="section" id="Xmain">
                 <svg width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -143,7 +153,6 @@
                 <div class="Homediv" id="allTweetsbyuseranddb"></div>
             </section>
 
-
             <section class="section" id="explore">
                 <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>explore</h1>
                 <div class="ExploreSearchDiv">
@@ -183,14 +192,6 @@
                 </div>
             </div>
 
-            <section class="section" id="lists">
-                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>lists</h1>
-            </section>
-
-            <section class="section" id="communities">
-                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>communities</h1>
-            </section>
-
             <section class="section" id="premium">
                 <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>premium</h1>
 
@@ -211,11 +212,11 @@
 
                     <div class="socialCont">
                         <h3 id="profileFollowing" class="ReachListsProfile">
-                            <Following></Following><span style="cursor: pointer;">Following</span>
+                            <span id="currentuserFollowing"></span><span style="cursor: pointer;">Following</span>
                         </h3>
 
                         <h3 id="profileFollowers" class="ReachListsProfile">
-                            <Followers></Followers><span style="cursor: pointer;">Followers</span>
+                            <span id="currentuserFollowers"></span><span style="cursor: pointer;">Followers</span>
                         </h3>
                     </div>
                 </div>
@@ -323,6 +324,7 @@
 
 
     <script src="assets/js/script.js"></script>
+    <script type="module" src="assets/js/Login.js"></script>
     <script type="module" src="assets/js/DOM.js"></script>
 </body>
 

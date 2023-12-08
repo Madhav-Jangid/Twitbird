@@ -108,3 +108,14 @@
     align-items: center;
     justify-content: start;
 }
+
+.bx-trash{
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    font-size: 25px;
+}
+
+.bx-trash:hover{
+    color: var(--blue);
+}

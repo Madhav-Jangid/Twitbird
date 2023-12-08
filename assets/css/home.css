@@ -1,10 +1,10 @@
-#home{
+#home {
     display: none;
     flex-direction: column;
     padding: 0 10px;
 }
 
-.mid-ele-top-nav{
+.mid-ele-top-nav {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -17,48 +17,121 @@
     z-index: 2;
 }
 
-.mid-ele-foryou{
+#commonTopNavForAll{
+    width: 100%;
+    height: 5rem;
+    color: var(--black);
+    /* background-color:rgb(36, 36, 36); */
+    background:var(--white);
+    box-shadow:  9px 9px 18px #949494,
+             -9px -9px 18px #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* margin: 0 10px; */
+    padding: 0 10px;
+    position: sticky;
+    top: 1px;
+    z-index: 9090909090;
+}
+
+#checkbox {
+    display: none;
+  }
+  
+  .toggle {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition-duration: .5s;
+  }
+  
+  .bars {
+    width: 100%;
+    height: 4px;
+    background-color: rgb(176, 92, 255);
+    border-radius: 4px;
+  }
+  
+  #bar2 {
+    transition-duration: .8s;
+  }
+  
+  #bar1,#bar3 {
+    width: 70%;
+  }
+  
+  #checkbox:checked + .toggle .bars {
+    position: absolute;
+    transition-duration: .5s;
+  }
+  
+  #checkbox:checked + .toggle #bar2 {
+    transform: scaleX(0);
+    transition-duration: .5s;
+  }
+  
+  #checkbox:checked + .toggle #bar1 {
+    width: 100%;
+    transform: rotate(45deg);
+    transition-duration: .5s;
+  }
+  
+  #checkbox:checked + .toggle #bar3 {
+    width: 100%;
+    transform: rotate(-45deg);
+    transition-duration: .5s;
+  }
+  
+  #checkbox:checked + .toggle {
+    transition-duration: .5s;
+    transform: rotate(180deg);
+  }
+
+#home h1:first-child{
+    padding-left: 20px;
+}
+
+.mid-ele-foryou {
     display: flex;
     justify-content: space-evenly;
     height: 3rem;
     border-bottom: 2px solid var(--grey);
 }
 
-.mid-ele-foryou a{
+.mid-ele-foryou a {
     text-decoration: none;
-    color: var(--white);
+    color: var(--black);
     width: 50%;
     height: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 18px;
-    color: #666;
+    background: var(--white);
+box-shadow: inset 5px 5px 9px var(--insetmorphDark),
+            inset -5px -5px 9px var(--morphLight);
 }
 
-#ForYou{
-    color: var(--white);
+#ForYou {
+    background: var(--white);
+    box-shadow:  5px 5px 9px var(--insetmorphDark),
+                 -5px -5px 9px var(--morphLight);    
     text-decoration: 5px underline var(--blue);
     text-underline-offset: 10px;
 }
 
-.mid-ele-foryou a:hover{
-    background-color: #333;
+.mid-ele-foryou a:hover {
+    background: var(--white);
+box-shadow:  5px 5px 9px var(--insetmorphDark),
+             -5px -5px 9px var(--morphLight);
 }
-
-/* .mid-ele-foryou #following:focus-within{
-    color: var(--white);
-    text-decoration: 5px underline var(--blue);
-    text-underline-offset: 10px;
-}
-
-.mid-ele-foryou #following:focus-within ~ #ForYou{
-    color: #666;
-    text-decoration: none;
-} */
-
-
-
 
 .whats-happening-post {
     border-bottom: 2px solid var(--grey);
@@ -66,12 +139,12 @@
     height: 15rem;
 }
 
-.first-div-img-content{
+.first-div-img-content {
     display: flex;
     height: 100%;
 }
 
-.imgHappening{
+.imgHappening {
     height: 2.8rem;
     width: 2.8rem;
     border: .0001em solid;
@@ -79,7 +152,7 @@
     overflow: hidden;
 }
 
-.imgHappening img{
+.imgHappening img {
     height: 100%;
     width: 100%;
     background-position: center;
@@ -87,7 +160,7 @@
     object-fit: cover;
 }
 
-.right-nav-happening{
+.right-nav-happening {
     height: 100%;
     width: 100%;
     display: flex;
@@ -95,7 +168,7 @@
     flex-direction: column;
 }
 
-.content-to-post{
+.content-to-post {
     height: 100%;
     width: 100%;
     display: flex;
@@ -110,18 +183,20 @@
     border: .0001em solid;
     border-radius: 50%;
     margin: 15px;
+    box-shadow: 5px 5px 9px var(--insetmorphDark),
+        -5px -5px 9px var(--morphLight);
 }
 
-.content-buttons{
+.content-buttons {
     margin: 10px 0;
 }
 
-.content-to-post .everyone{
+.content-to-post .everyone {
     margin: 10px;
 }
 
 .content-to-post .everyone,
-.content-to-post .everyone-can-reply{
+.content-to-post .everyone-can-reply {
     background-color: transparent;
     border: 3px solid var(--grey);
     border-radius: 40px;
@@ -133,93 +208,92 @@
     /* display: none; */
 }
 
-.content-to-post .everyone-can-reply{
+.content-to-post .everyone-can-reply {
     border: none;
 }
 
-.content-to-post .happening-text{
+.content-to-post .happening-text {
     background-color: transparent;
     color: var(--grey);
     font-size: 20px;
     font-weight: 600;
-    height: 4rem;
+    height: 3rem;
+    margin: 15px 0;
     width: 80%;
     border-radius: 40px;
     padding: 20px;
     outline: none;
     border: none;
+    background: var(--white);
+    box-shadow: inset 5px 5px 9px var(--insetmorphDark),
+        inset -5px -5px 9px var(--morphLight);
 }
 
-.happingPostInput{
+.happingPostInput {
     width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin:10px;
+    margin: 10px;
 }
 
-.content-to-post .happening-text::placeholder{
+.content-to-post .happening-text::placeholder {
     color: #666;
     font-size: 25px;
     font-weight: 600;
 }
 
-.content-to-post .happening-text:focus-within{
+.content-to-post .happening-text:focus-within {
     color: var(--blue);
-    border: 1px solid var(--blue);
-    background-color: var(--black);
+    /* border: 1px solid var(--blue); */
+    background: var(--white);
+    box-shadow: 5px 5px 9px var(--insetmorphDark),
+        -5px -5px 9px var(--morphLight);
 }
 
-/* .content-to-post .happening-text:focus-within ~ .everyone-can-reply{
-   display: block;
-}
 
-.content-to-post .happening-text:focus-within ~ .everyone{
-    display: block;
-} */
-
-.content-buttons{
+.content-buttons {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.last-logos-happening{
+.last-logos-happening {
     display: flex;
     justify-content: space-evenly;
     padding-left: 10px;
 }
 
-.last-logos-happening i{
+.last-logos-happening i {
     color: var(--blue);
     font-size: 22px;
     font-weight: 600;
     margin-right: 15px;
 }
 
-.last-logos-happening i:hover{
-    transition: .2s  all linear;
+.last-logos-happening i:hover {
+    transition: .2s all linear;
     color: var(--bluehover);
 }
 
-.post-happening{
+.post-happening {
     height: 2.5rem;
     border-radius: 50px;
     width: 5rem;
     outline: none;
     border: none;
-    color: var(--white);
+    color: var(--black);
     font-weight: 600;
     font-size: 15px;
     background-color: var(--bluehover);
     margin-right: 20px;
 }
 
-.post-happening:hover{
+.post-happening:hover {
     background-color: var(--blue);
 }
 
-#allTweetsbyuseranddb{
+#allTweetsbyuseranddb {
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
@@ -227,11 +301,13 @@
     /* gap: 10px; */
 }
 
-.tweetDiv{
+.tweetDiv {
     width: 100%;
     min-height: 8rem;
-    color: #fff;
-    background-color: #000;
+    color: var(--black);
+    background: var(--white);
+    box-shadow: inset 5px 5px 9px var(--insetmorphDark),
+        inset -5px -5px 9px var(--morphLight);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -239,17 +315,23 @@
     flex-direction: column;
     position: relative;
     padding: 3.5rem 30px;
-    box-shadow: 0 0 5px 0px var(--blue);
+    /* box-shadow: 0 0 5px 0px var(--blue); */
     margin: 15px 0;
+    transition: .2s all ease-out;
 }
 
-.tweetDiv .username{
+.tweetDiv:hover {
+    box-shadow: 6px 6px 12px var(--outsideMorphDark),
+        -6px -6px 12px var(--morphLight);
+}
+
+.tweetDiv .username {
     position: absolute;
     top: 0px;
     width: 100%;
     height: 3rem;
     font-size: 17px;
-    color: #949494;
+    color: #535353;
     display: flex;
     align-items: center;
     padding: 30px 30px;
@@ -257,17 +339,19 @@
     cursor: pointer;
 }
 
-.tweetDiv .username:hover{
+.tweetDiv .username:hover {
     text-decoration: underline;
     color: var(--blue);
 }
 
-.tweetDiv .tweetText{
+.tweetDiv .tweetText {
     width: 100%;
     height: 100%;
+    font-weight: 900;
+    color: #000;
 }
 
-.tweetDiv .tweetIntraction{
+.tweetDiv .tweetIntraction {
     position: absolute;
     bottom: 0px;
     width: 100%;
@@ -280,17 +364,30 @@
     gap: 30px;
 }
 
-.tweetDiv .tweetIntraction i{
+.tweetDiv .tweetIntraction i {
     cursor: pointer;
     color: #666;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: transparent;
+    box-shadow: 6px 6px 12px var(--outsideMorphDark),
+        -6px -6px 12px var(--morphLight);
 }
 
-.tweetDiv .tweetIntraction i:hover{
-    scale: 1.2;
+.tweetDiv:hover .tweetIntraction i {
+    box-shadow: inset 5px 5px 9px var(--insetmorphDark),
+        inset -5px -5px 9px var(--morphLight);
+}
+
+.tweetDiv .tweetIntraction i:hover {
+    scale: 1.1;
     color: var(--blue);
+    background: var(--white);
+    box-shadow: 6px 6px 12px var(--outsideMorphDark),
+        -6px -6px 12px var(--morphLight);
 }
 
-#FollowingPosts{
+#FollowingPosts {
     width: 100%;
     height: 100vh;
     /* display: none;
@@ -299,7 +396,7 @@
     justify-content: start; */
 }
 
-#FollowingListTweets{
+#FollowingListTweets {
     display: flex;
     flex-direction: column-reverse;
     justify-content: center;

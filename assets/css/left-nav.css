@@ -1,4 +1,3 @@
-
 /*=============================================
 =            left nav                         =
 =============================================*/
@@ -15,8 +14,8 @@
     transition: .3s all;
 }
 
-.main-top-buttons{
-    position: fixed;
+.main-top-buttons {
+    position: sticky;
     top: 0;
 }
 
@@ -25,10 +24,12 @@
     align-items: center;
     width: auto;
     height: 52px;
-    background: var(--black);
-    color: var(--white);
+    background: var(--white);
+    box-shadow:  6px 6px 12px var(--outsideMorphDark),
+                 -6px -6px 12px var(--morphLight);
+    color: var(--black);
     font-size: 25px;
-    font-weight: 800;
+    font-weight: 900;
     border: none;
     outline: none;
     border-radius: 40px;
@@ -36,19 +37,20 @@
     transition: background .1s linear;
     position: relative;
     cursor: pointer;
+    margin: 10px 0;
 }
 
-.nav-link:focus-within{
+.nav-link:focus-within {
     font-weight: 900;
     font-size: 30px;
     color: var(--blue);
 }
 
-.nav-link:focus-within svg path{
+.nav-link:focus-within svg path {
     stroke: var(--blue);
 }
 
-#menuLeftNav{
+#menuLeftNav {
     display: none;
     position: absolute;
     z-index: 9999;
@@ -63,8 +65,10 @@
 }
 
 #post-btn {
-    background-color: rgb(0, 157, 255);
-    color: var(--white);
+    background: transparent;
+    box-shadow:  6px 6px 12px var(--outsideMorphDark),
+                 -6px -6px 12px var(--morphLight);
+    color: var(--black);  
     display: flex;
     align-items: center;
     justify-content: center;
@@ -82,12 +86,16 @@
     align-items: center;
     height: 60px;
     position: relative;
-    background-color: #111;
-    border: 1px solid var(--blue);
+    background: transparent;
+    box-shadow:  6px 6px 12px var(--outsideMorphDark),
+                 -6px -6px 12px var(--morphLight);
+    /* border: 1px solid var(--blue); */
 }
 
-.lastbutton:hover{
-    background-color: #555;
+.lastbutton:hover {
+    background: var(--white);
+    box-shadow: inset 5px 5px 9px var(--insetmorphDark),
+            inset -5px -5px 9px var(--morphLight);
 }
 
 .imgBottom {
@@ -100,7 +108,7 @@
     left: 9px;
 }
 
-.imgBottom img{
+.imgBottom img {
     height: 100%;
     width: 100%;
     background-position: center;
@@ -115,11 +123,11 @@
 }
 
 .username h6 {
-    color: #777;
+    color: #969696;
     padding: 5px 0;
 }
 
-#ThreeDotsProfileButton{
+#ThreeDotsProfileButton {
     position: absolute;
     right: 6px;
     height: 36px;
@@ -130,25 +138,28 @@
     align-items: center;
 }
 
-#ThreeDotsProfileButton:hover{
+#ThreeDotsProfileButton:hover {
     background-color: rgba(79, 79, 126, 0.623);
     color: var(--blue);
 }
 
 .nav-link:hover {
-    background-color: var(--grey);
+    background: var(--white);
+    box-shadow: inset 5px 5px 9px var(--insetmorphDark),
+            inset -5px -5px 9px var(--morphLight);
 }
 
 #post-btn:hover {
-    background-color: var(--bluehover);
+    background-color: var(--blue);
+    color: #fff;
 }
 
-#post-btn span{
+#post-btn span {
     height: 100%;
     /* display: none; */
 }
 
-#post-btn span svg{
+#post-btn span svg {
     fill: #fff;
     height: 100%;
 }

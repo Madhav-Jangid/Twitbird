@@ -19,20 +19,44 @@ button,i{
 
 
 :root {
+    --white: #e0e0e0;
     --black: #000;
-    --white: #fff;
-    --grey: rgba(56, 66, 78, 0.54);
+    --grey: rgba(75, 96, 121, 0.758);
     --bluehover: rgb(10, 116, 182);
     --blue: rgb(0, 157, 255);
     --profile-logo: url('assets/images/X Profile Img.png');
     --whiteBorder: rgba(255, 255, 255, 0.5);
     --blackBorder: rgba(0, 0, 0, 0.5);
+    --insetmorphDark: #838383;
+    --morphLight: #ffffff;
+    --outsideMorphDark: #8b8b8b;
 }
 
 
+
+/*=============================================
+=            For dark Mode                    =
+=============================================*/
+
+    /* --white: #111;
+    --black: #fff;
+    --grey: rgba(75, 96, 121, 0.758);
+    --bluehover: rgb(10, 116, 182);
+    --blue: rgb(0, 157, 255);
+    --profile-logo: url('assets/images/X Profile Img.png');
+    --whiteBorder: rgba(255, 255, 255, 0.5);
+    --blackBorder: rgba(0, 0, 0, 0.5);
+    --insetmorphDark: #000000;
+    --morphLight: #65656566;
+    --outsideMorphDark: #000000; */
+
+/*=====      End of For dark Mode     ======*/
+
+
+
 body {
-    background-color: var(--black);
-    color: var(--white);
+    background-color: var(--white);
+    color: var(--black);
     height: 100%;
     width: 100vw;
     display: flex;
@@ -45,7 +69,7 @@ body {
 }
 
 .whole-page {
-    background-color: var(--black);
+    background-color: var(--white);
     width: 100%;
     height: 100vh;
     max-width: 1100px;
@@ -74,7 +98,7 @@ body {
     outline: none;
     padding: 10px 20px;
     font-weight: 900;
-    color: var(--white);
+    color: var(--black);
     letter-spacing: 1px;
     font-size: 15px;
     border-radius: 30px;
@@ -119,11 +143,17 @@ body {
     }
 
     .left-nav{
-        align-items: end;
+        width: calc(100% + 20px);
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+    }
+
+    .left-nav .nav-link{
+        /* margin: 10px; */
     }
 
     .main-top-buttons {
-        margin-right: 0;
     }
 
     .whole-page .right-nav{
@@ -192,5 +222,8 @@ body {
     
     #ExploreXmain{
         display: block;
+    }
+    #commonTopNavForAll{
+        display: flex;
     }
 }

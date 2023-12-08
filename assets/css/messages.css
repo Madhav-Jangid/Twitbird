@@ -106,15 +106,20 @@
 
 .messageDivDatabaseuser .user{
     margin-left: 15%;
-    background-color: #2d2d2d;
-    color: #fff;
+    color: #000;
+    background: linear-gradient(145deg, #cacaca, #f0f0f0);
+    box-shadow:  5px 5px 9px var(--insetmorphDark),
+                 -5px -5px 9px var(--morphLight);    
     justify-content: flex-end;
 }
 
 
 .messageDivDatabasesender .sender{
     margin-right: 15%;
-    background-color: var(--blue);
-    color: #fff;
+    background: var(--white);
+
+    box-shadow: inset 5px 5px 9px var(--insetmorphDark),
+            inset -5px -5px 9px var(--morphLight);
+    color: #000000;
     justify-content: flex-start;
 }

@@ -1,10 +1,8 @@
-
 /*=============================================
 =            Right nav            =
 =============================================*/
 
 .right-nav {
-    /* width: 30vw; */
     max-width: 350px;
     margin: 10px 0;
     display: flex;
@@ -12,15 +10,15 @@
     flex-direction: column;
     position: relative;
     padding-left: 10px;
-    border-left:  1px solid var(--blackBorder);;
 }
 
 .search-feild {
-
-    background-color: var(--grey);
+    background: var(--white);
+    box-shadow: 6px 6px 12px var(--outsideMorphDark),
+    -6px -6px 12px var(--morphLight);
     border: none;
     outline: none;
-    color: var(--white);
+    color: var(--black);
     height: 2.5rem;
     width: 100%;
     padding: 10px 10px 10px 40px;
@@ -35,25 +33,28 @@
     position: absolute;
     top: 13px;
     left: 13px;
+    /* color: var(--black); */
 }
 
 ::placeholder {
-    color: var(--white);
+    color: var(--black);
     padding-left: 0px;
     font-size: 15px;
     font-weight: 600;
 }
 
 .search-feild:focus-within {
-    border: 2px solid var(--blue);
-    background-color: var(--black);
+    box-shadow: inset 5px 5px 9px var(--insetmorphDark),
+                inset -5px -5px 9px var(--morphLight);
 }
 
 .right-nav-premium-text {
-    background: var(--grey);
+    background: var(--white);
+    box-shadow: 6px 6px 12px var(--outsideMorphDark),
+        -6px -6px 12px var(--morphLight);
     border-radius: 10px;
     padding: 10px;
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 .right-nav-premium-text h3 {
@@ -67,8 +68,8 @@
     font-weight: 900;
     letter-spacing: 1px;
     margin: 5px 0;
-    opacity: 0.8;
-    color: #999;
+    opacity: 0.9;
+    color: #161616;
 }
 
 #right-nav-subscribe {
@@ -78,21 +79,25 @@
     font-weight: 900;
     font-size: 15px;
     letter-spacing: 1px;
-    background-color: var(--blue);
-    color: var(--white);
+    color: var(--black);
     border: var(--blue);
+    background-color: var(--blue);
     transition: .3s all;
 }
 
-#right-nav-subscribe:hover{
-    background-color: var(--bluehover);
+#right-nav-subscribe:hover {
+    background-color: var(--white);
+    box-shadow: 6px 6px 12px var(--outsideMorphDark),
+        -6px -6px 12px var(--morphLight);
 }
 
 .trending-hastags {
-    background-color: var(--grey);
+    background: var(--white);
+    box-shadow: 6px 6px 12px var(--outsideMorphDark),
+        -6px -6px 12px var(--morphLight);
     width: 100%;
     border-radius: 10px;
-    height: 43rem;
+    height: 45rem;
     transition: .2s background;
     position: relative;
 }
@@ -102,13 +107,19 @@
 }
 
 .hastag {
+    background: var(--white);
+    box-shadow: inset 5px 5px 9px var(--insetmorphDark),
+                inset -5px -5px 9px var(--morphLight);
     padding: 10px;
-    margin-top: 20px;
+    border-radius: 10px;
+    margin: 20px 10px 0;
     position: relative;
 }
 
 .hastag:hover {
-    background-color: #333;
+    background: var(--white);
+    box-shadow: 6px 6px 12px var(--outsideMorphDark),
+        -6px -6px 12px var(--morphLight);
 }
 
 .hastag h6 {
@@ -141,7 +152,7 @@
     width: 100%;
     text-align: left;
     height: 3rem;
-    color: var(--white);
+    color: var(--black);
     font-size: 15px;
     font-weight: 700;
     letter-spacing: 1px;

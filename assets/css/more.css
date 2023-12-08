@@ -13,18 +13,22 @@
 }
 
 #more a{
-    color: #fff;
+    color: var(--black);
     text-decoration: none;
     font-size: 20px;
+    font-weight: 900;
     line-height: 50px;
-    background-color: #222;
+    background: var(--white);
+    box-shadow:  5px 5px 9px var(--insetmorphDark),
+                 -5px -5px 9px var(--morphLight);
     width: 100%;
     height: 3rem;
     margin: 5px 0;
-    border-radius: inherit;
+    border-radius: 10px;
     padding-left: 20px;
 }
 
 #more a:hover{
-    background-color: #333;
+    box-shadow: inset 5px 5px 9px var(--insetmorphDark),
+    inset -5px -5px 9px var(--morphLight);
 }

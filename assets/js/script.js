@@ -66,19 +66,25 @@ function HomeSectionDiv(sect) {
     var Following = document.getElementById('following');
     if (sect == 'FollowingListTweets') {
         Following.style.textDecoration = '5px underline var(--blue)';
+        Following.style.boxShadow = '5px 5px 9px var(--insetmorphDark),-5px -5px 9px var(--morphLight)';
+        ForYou.style.boxShadow = 'inset 5px 5px 9px var(--insetmorphDark),inset -5px -5px 9px var(--morphLight)';
         Following.style.textUnderlineOffset = '10px';
         ForYou.style.textDecoration = 'none';
-        Following.style.color = '#fff';
-        ForYou.style.color = '#666';
+        Following.style.color = 'var(--black)';
+        ForYou.style.color = 'var(--black)';
     } else {
         ForYou.style.textDecoration = '5px underline var(--blue)';
+        ForYou.style.boxShadow = '5px 5px 9px var(--insetmorphDark),-5px -5px 9px var(--morphLight)';
         ForYou.style.textUnderlineOffset = '10px';
+        Following.style.boxShadow = 'inset 5px 5px 9px var(--insetmorphDark),inset -5px -5px 9px var(--morphLight)';
         Following.style.textDecoration = 'none';
-        Following.style.color = '#666';
-        ForYou.style.color = '#fff';
+        Following.style.color = 'var(--black)';
+        ForYou.style.color = 'var(--black)';
     }
     section.style.display = 'flex';
 }
 
 const scrollableDiv = document.getElementById('allMessagesFromDatabase');
-scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+if(scrollableDiv){
+    scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+}

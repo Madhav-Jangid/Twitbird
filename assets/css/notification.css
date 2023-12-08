@@ -20,7 +20,9 @@
     width: 100%;
     min-height: 4rem;
     border-radius: 10px;
-    background-color: #333;
+    background: var(--white);
+    box-shadow:  5px 5px 9px var(--insetmorphDark),
+                 -5px -5px 9px var(--morphLight);
     display: flex;
     align-items: center;
     padding: 5px 20px;

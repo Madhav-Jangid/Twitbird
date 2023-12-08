@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getDatabase, ref, get, update, set, push, onValue } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+import { getDatabase, ref, get, update, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 // import { createHash } from 'crypto';
 const firebaseConfig = {
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const userData1 = myObject; // Call the function with an event object if needed
     const CurrentUserId = userData1.UID;
     var TweetID;
-    var CurrentUserName = 'myObjectID';
+    var CurrentUserName;
     if (CurrentUserId) {
         const userRef = ref(db, 'UserAuthList/' + CurrentUserId);
         var userData;
@@ -68,8 +68,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // Opens Followers and Followings
-        const Following = document.querySelector('Following');
-        const Followers = document.querySelector('Followers');
+        const Following = document.querySelector('#currentuserFollowing');
+        const Followers = document.querySelector('#currentuserFollowers');
         Following.innerHTML = userData.Following;
         Followers.innerHTML = userData.Followers;
         var Reach = document.querySelectorAll('.ReachListsProfile');
@@ -88,9 +88,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // changes name of user in all the accurenses
         userName.forEach(element => {
-            if(userData.Username == 'jangrajiop'){
+            if (userData.Username == 'jangrajiop') {
                 element.innerHTML = `${NameOfuser} ${verifiedTick}`;
-            }else{
+            } else {
                 element.innerHTML = `${NameOfuser}`;
             }
         });
@@ -322,7 +322,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                             update(userRef, { [fieldToUpdate]: newValue })
                                 .then(() => {
-                                    // console.log(`${fieldToUpdate} updated successfully for user ${userId}`);
                                 })
                                 .catch((error) => {
                                     console.error(`Error updating ${fieldToUpdate} for user ${userId}:`, error);
@@ -366,7 +365,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     await update(userRef, { [fieldToUpdate]: newValue });
 
-                    // console.log(`${fieldToUpdate} updated successfully for user ${userId}`);
                 } else {
                     console.error('User data does not exist');
                 }
@@ -391,7 +389,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         newValue = [...currentNotifications, `${CurrentUserName} has Unfollowed you on ${currentDate}.`];
                     }
                     await update(userRef, { [fieldToUpdate]: newValue });
-                    // console.log(`${fieldToUpdate} updated successfully for user ${userId}`);
                 } else {
                     console.error('User data does not exist');
                 }
@@ -416,9 +413,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             NotificationDiv.append(Notificationh4);
                         }
                     }
-                    // else {
-                    //     console.log('No data found in Notifications node');
-                    // }
+
                 })
                 .catch((error) => {
                     console.error('Error fetching Notifications data:', error);
@@ -437,7 +432,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             const newValue = cnd ? currentFollowers + 1 : currentFollowers - 1;
                             update(userRef, { [fieldToUpdate]: newValue })
                                 .then(() => {
-                                    // console.log(`${fieldToUpdate} updated successfully for user ${userId}`);
                                 })
                                 .catch((error) => {
                                     console.error(`Error updating ${fieldToUpdate} for user ${userId}:`, error);
@@ -474,8 +468,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
 
                     await update(userRef, { [fieldToUpdate]: newValue });
-
-                    // console.log(`${fieldToUpdate} updated successfully for user ${userId}`);
                 } else {
                     console.error('User data does not exist');
                 }
@@ -628,25 +620,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        // async function likeOrDislikeTweet(uid, tweetId, like) {
-        //     const userId = uid;
-        //     const fieldToUpdate = `Tweet_list/${tweetId}/Likes`;
-        //     const userRef = ref(db, `UserAuthList/${userId}/Tweet_list/${tweetId}`);
-        //     try {
-        //         const snapshot = await get(userRef);
-        //         if (snapshot.exists()) {
-        //             const currentLikes = snapshot.val().Likes || [];
-        //             const newValue = like ? [currentLikes] + CurrentUserId : currentLikes - CurrentUserId;
-        //             await update(userRef, { Likes: newValue });
-        //             console.log(`Tweet ${tweetId} ${like ? 'liked' : 'disliked'} successfully`);
-        //         } else {
-        //             console.error(`Tweet ${tweetId} does not exist`);
-        //         }
-        //     } catch (error) {
-        //         console.error(`Error updating likes for tweet ${tweetId}:`, error);
-        //     }
-        // }
-
         async function likeOrDislikeTweet(uid, tweetId, like) {
             const userId = uid;
             const userRef = ref(db, `UserAuthList/${userId}/Tweet_list/${tweetId}`);
@@ -661,7 +634,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         : currentLikes.filter((id) => id !== CurrentUserId);
 
                     await update(userRef, { Likes: updatedLikes });
-                    console.log(`Tweet ${tweetId} ${like ? 'liked' : 'disliked'} successfully`);
+                    console.log(`Tweet ${tweetId} by ${userId} ${like ? 'liked' : 'disliked'} successfully`);
 
                     // Return the updated likes array
                     return updatedLikes.length;
@@ -688,7 +661,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (TweetMessage) {
                 try {
                     let tweetDiv = await createTweetinDatabase(CurrentUserName, TweetMessage, CurrentUserId, TweetID);
-                    console.log(tweetDiv);
                     alltweetsbyUserOnly.appendChild(tweetDiv);
                 } catch (error) {
                     console.error('Error creating tweet:', error);
@@ -722,7 +694,6 @@ document.addEventListener('DOMContentLoaded', function () {
             get(likeListRef).then((snapshot) => {
                 if (snapshot.exists()) {
                     const likeList = snapshot.val();
-                    console.log(likeList.length)
                     // noOfLikes = likeList.length
                     if (likeList && Object.values(likeList).includes(CurrentUserId)) {
                         heartIcon.className = 'bx bxs-heart';
@@ -746,12 +717,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     likeOrDislikeTweet(userId, tweetId, true)
                     heartIcon.className = 'bx bxs-heart';
                     heartIcon.style.color = 'var(--blue)';
-                    console.log('if')
                 } else {
                     heartIcon.className = 'bx bx-heart';
                     heartIcon.style.color = '#666';
                     likeOrDislikeTweet(userId, tweetId, false)
-                    console.log('else')
                 }
                 likeFlag = !likeFlag;
             })
@@ -786,8 +755,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (followingList && Object.values(followingList).includes(uidToCheck)) {
                             FollowingListTweets.innerHTML = '';
                             FollowingListTweets.appendChild(tweetDiv);
-                        } else {
-                            // console.log('User is not in the following list');
                         }
                     } else {
                         console.warn(`The following list for ${followerUid} does not exist.`);
@@ -801,43 +768,105 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 console.error('Container element not found: FollowingListTweets or allTweetsbyuseranddb');
             }
-            
+
             shareIcon.addEventListener('click', function () {
-                console.log('clicked on',username,tweetId)
                 shareTweet(userId, username, tweetText, tweetId)
             });
 
             return tweetDiv;
         }
 
-        LoadTweetFromDataBase()
-        function LoadTweetFromDataBase() {
-            const userRef = ref(db, 'UserAuthList/');
-            get(userRef)
-                .then((snapshot) => {
-                    if (snapshot.exists()) {
-                        var jsObject = snapshot.val();
-                        for (const key in jsObject) {
-                            if (jsObject.hasOwnProperty(key) && jsObject[key].hasOwnProperty('Tweet_list')) {
-                                const tweetList = jsObject[key]['Tweet_list'];
-                                for (const key2 in tweetList) {
-                                    const tweetId = key2;
-                                    const tweet = tweetList[key2].Tweet;
-                                    const userId = key; // This is the user ID of the user who posted the tweet
 
-                                    // Pass userId, tweetId, and tweet to createTweetElement function
-                                    return createTweetElement(jsObject[key].Username, tweet, userId, tweetId);
+        LoadTweetFromDataBase();
+
+        async function LoadTweetFromDataBase() {
+            const userRef = ref(db, 'UserAuthList/');
+            try {
+                const snapshot = await get(userRef);
+
+                if (snapshot.exists()) {
+                    const jsObject = snapshot.val();
+                    const tweetElements = [];
+
+                    for (const key in jsObject) {
+                        if (jsObject.hasOwnProperty(key) && jsObject[key].hasOwnProperty('Tweet_list')) {
+                            const tweetList = jsObject[key]['Tweet_list'];
+
+                            for (const key2 in tweetList) {
+                                const tweetId = key2;
+                                const tweet = tweetList[key2].Tweet;
+                                const userId = key;
+
+                                // Pass userId, tweetId, and tweet to createTweetElement function
+                                const tweetElement = await createTweetElement(jsObject[key].Username, tweet, userId, tweetId);
+                                tweetElements.push(tweetElement);
+
+                                // Check if the tweet user is in the user's following list
+                                const tweetUserId = userId;
+                                const followingList = jsObject[CurrentUserId].FollowingList || [];
+
+                                if (followingList.includes(tweetUserId)) {
+                                    // Append to the following div
+                                    const followingTweetsContainer = document.getElementById('FollowingListTweets');
+                                    followingTweetsContainer.innerHTML = ''
+                                    followingTweetsContainer.appendChild(tweetElement);
                                 }
                             }
                         }
-                    } else {
-                        console.error('User data does not exist');
                     }
-                })
-                .catch((error) => {
-                    console.error('Error fetching user data:', error);
-                });
+
+                    // Append all tweet elements to the container
+                    const allTweetsContainer = document.getElementById('allTweetsbyuseranddb');
+                    allTweetsContainer.innerHTML = ''
+                    tweetElements.forEach((tweetElement) => {
+                        allTweetsContainer.appendChild(tweetElement);
+                    });
+
+                    // Filter and append tweets posted by the user
+                    const userTweets = tweetElements.filter((tweetElement) => tweetElement.id === CurrentUserId);
+                    const userTweetsContainer = document.getElementById('alltweetsbyUserOnly');
+                    userTweetsContainer.innerHTML = ''
+                    userTweets.forEach((userTweet, tweetId) => {
+                        const DeletButton = document.createElement('i');
+                        DeletButton.className = 'bx bx-trash';
+                        DeletButton.id = tweetId;
+                        userTweet.appendChild(DeletButton)
+                        userTweetsContainer.appendChild(userTweet);
+                        DeletButton.addEventListener('click', function () {
+                            // console.log(`click on ${DeletButton.id}`)
+                            DeleteTweetFromDatabase(DeletButton.id);
+                        })
+                    });
+                } else {
+                    console.error('User data does not exist');
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
         }
+
+        async function DeleteTweetFromDatabase(id) {
+
+            var nodeToDeleteRef = ref(db, `UserAuthList/${CurrentUserId}/Tweet_list/${id}`);
+            console.log(nodeToDeleteRef);
+
+            var flag = confirm('Do You Really want to delete this Tweet ?');
+
+            if (flag) {
+                // Use remove instead of removeValue
+                remove(nodeToDeleteRef)
+                    .then(() => {
+                        LoadTweetFromDataBase()
+                        console.log("Data deleted successfully!");
+                    })
+                    .catch((error) => {
+                        console.error("Error deleting data: ", error);
+                    });
+            }
+        }
+
+
+
 
         async function createMessageInDatabase(senderUid, receiverUid, messageToSend) {
             const senderFieldToUpdate = `/Messages/${receiverUid}`;
@@ -848,7 +877,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             try {
                 const senderSnapshot = await get(senderUserRef);
-                const senderMessagesForDatabase = [messageToSend];
+                const senderMessagesForDatabase = [`receiverUid):=>${messageToSend}`];
 
                 if (senderSnapshot.exists()) {
                     const senderUserData = senderSnapshot.val();
@@ -864,7 +893,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Update receiver's messages
                 const receiverSnapshot = await get(receiverUserRef);
-                const receiverMessagesForDatabase = [messageToSend];
+                const receiverMessagesForDatabase = [`senderUid'):=>${messageToSend}`];
 
                 if (receiverSnapshot.exists()) {
                     const receiverUserData = receiverSnapshot.val();
@@ -897,8 +926,6 @@ document.addEventListener('DOMContentLoaded', function () {
             Dispaly('ChatBlock')
             var ChatBlockInput = document.getElementById('ChatBlockInput');
             var ChatBlockSendBlock = document.getElementById('ChatBlockSendBlock');
-
-
             ChatBlockInput.addEventListener('keydown', function (event) {
                 if (event.key === 'Enter') {
                     event.preventDefault();
@@ -936,17 +963,25 @@ document.addEventListener('DOMContentLoaded', function () {
                             var flag = true;
                             message.forEach(element => {
                                 const h3 = document.createElement('h3');
+                                const h5 = document.createElement('h5');
                                 const msgdivuser = document.createElement('div');
                                 const msgdivusersender = document.createElement('div');
                                 msgdivuser.classList.add('messageDivDatabaseuser')
                                 msgdivusersender.classList.add('messageDivDatabasesender')
-                                h3.innerHTML = element;
-                                if (flag) {
+                                const parts = element.split('):=>');
+                                const partBefore = parts[0];
+                                const partAfter = parts[1];
+                                h3.innerHTML = partAfter;
+                                if (partBefore == 'senderUid') {
                                     h3.classList.add('user')
+                                    h5.innerHTML = partBefore;
+                                    msgdivuser.appendChild(h5)
                                     msgdivuser.appendChild(h3)
                                     allMessagesFromDatabaseDiv.appendChild(msgdivuser)
                                 } else {
                                     h3.classList.add('sender')
+                                    h5.innerHTML = partBefore;
+                                    msgdivuser.appendChild(h5)
                                     msgdivusersender.appendChild(h3)
                                     allMessagesFromDatabaseDiv.appendChild(msgdivusersender)
                                 }
@@ -1006,7 +1041,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function load(snapshot) {
             LoadMessages(CurrentChatUserChatUid);
-            // LoadTweetFromDataBase()
+            LoadTweetFromDataBase()
+
         }
 
         function shareTweet(uid, title, text, divId) {
