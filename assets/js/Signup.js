@@ -55,19 +55,19 @@ function registerUser(evt) {
                         userData = snapshot.val();
                         console.log(userData); // Log the user data
                     } else {
-                        alert('User data does not exist after registration');
+                        createPopUpFromLeft('User data does not exist after registration');
                     }
                 })
                 .catch((error) => {
                     console.error('Error fetching user data:', error);
-                    alert('Error fetching user data after registration');
+                    createPopUpFromLeft('Error fetching user data after registration');
                 });
 
-            alert('Account Created Successfully. Now go to the login page');
+                createPopUpFromLeft('Account Created Successfully. Now go to the login page');
             displaySection('LoginSeciton');
         })
         .catch((err) => {
-            alert(`Error: ${err.message}`);
+            createPopUpFromLeft(`Error!`);
             console.error(err.code);
             console.error(err.message);
         });

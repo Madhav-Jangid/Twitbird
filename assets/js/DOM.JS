@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
     else {
-        alert('myObject.UID is undefined');
+        createPopUpFromLeft('myObject.UID is undefined');
         window.location.href = 'index.html';
     }
 
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // search user in database
         function searchUser(TempName, FromMessageBlock) {
             if (TempName === "") {
-                alert("Please enter a username");
+                createPopUpFromLeft("Please enter a username");
                 return;
             }
             const usersRef = ref(getDatabase(), 'UserAuthList');
@@ -145,11 +145,10 @@ document.addEventListener('DOMContentLoaded', function () {
                                     }
                                 } else {
                                     createPopUpFromLeft("Don't Search You self")
-                                    alert("Don't Search You self")
                                 }
                                 return uid;
                             } else {
-                                alert('User Not Found');
+                                createPopUpFromLeft('User Not Found');
                             }
                         }
                     })
@@ -250,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         });
                         Dispaly('Searcheduser');
                     } else {
-                        alert("User data not found");
+                        createPopUpFromLeft("User data not found");
                     }
                 })
                 .catch((error) => {
@@ -297,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             UpdateFollowerList(cnd, uid);
                         }
                     } else {
-                        alert('User Not Found');
+                        createPopUpFromLeft('User Not Found');
                     }
                 }
             } catch (error) {
@@ -610,11 +609,11 @@ document.addEventListener('DOMContentLoaded', function () {
                             return tweet;
                         })
                         .catch((error) => {
-                            alert('Error Psoting while Posting Tweet Please try again.');
-                            console.error(error)
+                            createPopUpFromLeft('Error Psoting while Posting Tweet Please try again.');
+                            // console.error(error)
                         });
                 } else {
-                    alert('User data does not exist');
+                    createPopUpFromLeft('User data does not exist');
                 }
             } catch (error) {
                 console.error('Error updating Tweets:', error);
@@ -667,7 +666,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.error('Error creating tweet:', error);
                 }
             } else {
-                alert('Enter Something');
+                createPopUpFromLeft('Enter Something');
             }
         });
 
@@ -1035,7 +1034,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
             }
             else {
-                alert('CurrentUserId is undefined');
+                createPopUpFromLeft('CurrentUserId is undefined');
             }
         }
 
@@ -1056,7 +1055,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     .then(() => console.log('Shared successfully'))
                     .catch((error) => console.error('Error sharing:', error));
             } else {
-                alert('Web Share API is not supported on this browser.');
+                createPopUpFromLeft('Web Share API is not supported on this browser.');
             }
         }
 

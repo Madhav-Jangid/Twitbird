@@ -46,12 +46,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     ChangeWindow();
                 }
             } else {
-                alert('User data does not exist');
+                createPopUpFromLeft('User data does not exist');
             }
         } catch (err) {
-            alert(`Error: ${err.message}`);
-            console.error(err.code);
-            console.error(err.message);
+            createPopUpFromLeft('User not Exist')
         }
     };
 
