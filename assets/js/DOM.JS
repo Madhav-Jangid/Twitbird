@@ -1038,17 +1038,19 @@ document.addEventListener('DOMContentLoaded', function () {
                                 console.log(partAfter,partBefore)
                                 h3.innerHTML = partAfter;
                                 if (partBefore == CurrentUserId) {
-                                    h3.classList.add('user')
-                                    h5.innerHTML = partBefore;
-                                    msgdivuser.appendChild(h5)
-                                    msgdivuser.appendChild(h3)
-                                    allMessagesFromDatabaseDiv.appendChild(msgdivuser)
-                                } else {
                                     h3.classList.add('sender')
-                                    h5.innerHTML = partBefore;
+                                    h3.style.backgroundColor = 'var(--blue)'
+                                    // h5.innerHTML = partBefore;
                                     msgdivuser.appendChild(h5)
                                     msgdivusersender.appendChild(h3)
                                     allMessagesFromDatabaseDiv.appendChild(msgdivusersender)
+                                } else {
+                                    h3.classList.add('user')
+                                    h3.style.backgroundColor = 'grey'
+                                    // h5.innerHTML = partBefore;
+                                    msgdivuser.appendChild(h5)
+                                    msgdivuser.appendChild(h3)
+                                    allMessagesFromDatabaseDiv.appendChild(msgdivuser)
                                 }
                                 flag = !flag;
                             });
