@@ -17,7 +17,7 @@ const db = getDatabase();
 const auth = getAuth(app);
 
 var myObject = {
-    UID: 'AFwRRMltttSmzNDjuTkKP7dePts2',
+    UID: 'uODMtGozjWW9lJMLfVj5wHxNyJS2',
     Name: '',
     ID: '',
 }; 

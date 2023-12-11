@@ -106,7 +106,7 @@
 
 .messageDivDatabaseuser .user{
     margin-left: 15%;
-    color: var(--black);
+    color: var(--blue);
     background: linear-gradient(145deg, #cacaca, #f0f0f0);
     box-shadow:  5px 5px 9px var(--insetmorphDark),
                  -5px -5px 9px var(--morphLight);    
@@ -118,8 +118,9 @@
     margin-right: 15%;
     background: var(--white);
 
-    box-shadow: inset 5px 5px 9px var(--insetmorphDark),
-            inset -5px -5px 9px var(--morphLight);
-    color: var(--black);
+    box-shadow:  5px 5px 9px var(--insetmorphDark),
+    -5px -5px 9px var(--morphLight); 
+    color: var(--white);
+    background-color: var(--blue);
     justify-content: flex-start;
 }
