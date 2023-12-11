@@ -17,11 +17,11 @@ const db = getDatabase();
 const auth = getAuth(app);
 
 var myObject = {
-    UID: 'uODMtGozjWW9lJMLfVj5wHxNyJS2',
+    UID: 'AFwRRMltttSmzNDjuTkKP7dePts2',
     Name: '',
-    ID: 'jangrajiop',
+    ID: '',
 }; 
-
+var vnadjkdvna;
 // AFwRRMltttSmzNDjuTkKP7dePts2  moto
 // 3qG2nhFWZnQtb0xhTMEk1WZZkAv1  yash
 // 5wF26YhQ9cPmuKr7W6RGQ8o8XgS2  testcase
@@ -34,14 +34,23 @@ document.addEventListener('DOMContentLoaded', function () {
         evt.preventDefault();
         try {
             const credentials = await signInWithEmailAndPassword(auth, LoginEmail.value, LoginPass.value);
+            createPopUpFromLeft('Please wait for few minutes');
             const uid = credentials.user.uid;
             const userRef = ref(db, 'UserAuthList/' + uid);
             const snapshot = await get(userRef);
             if (snapshot.exists()) {
                 const userData = snapshot.val();
+                vnadjkdvna = userData;
                 myObject.UID = uid;
                 myObject.Name = userData.Name;
                 myObject.ID = '@' + userData.Username;
+                while(1){
+                    if(myObject.UID == uid){
+                        break;
+                    }else{
+                        alert('wait')
+                    }
+                }
                 if(myObject.UID.length > 0){
                     ChangeWindow();
                 }
@@ -66,5 +75,9 @@ function ChangeWindow() {
     }, 1000);
 }
 
-export { myObject };
+function lula(){
+    return (vnadjkdvna);
+}
+
+export { myObject , lula};
 

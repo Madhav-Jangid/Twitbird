@@ -525,7 +525,7 @@ box-shadow:  5px 5px 9px var(--insetmorphDark),
     gap: 30px;
 }
 
-.tweetDiv .tweetIntraction i {
+.tweetDiv .tweetIntraction  .bx-share-alt {
     cursor: pointer;
     color: #666;
     padding: 5px;
@@ -535,7 +535,17 @@ box-shadow:  5px 5px 9px var(--insetmorphDark),
         -6px -6px 12px var(--morphLight);
 }
 
-.tweetDiv:hover .tweetIntraction i {
+.tweetDiv:hover .tweetIntraction  .bx-share-alt {
+    box-shadow: inset 5px 5px 9px var(--insetmorphDark),
+        inset -5px -5px 9px var(--morphLight);
+}
+
+.tweetDiv:hover #likedivcommon{
+    box-shadow: inset 5px 5px 9px var(--insetmorphDark),
+        inset -5px -5px 9px var(--morphLight);
+}
+
+.tweetDiv:hover #commentdivcommon{
     box-shadow: inset 5px 5px 9px var(--insetmorphDark),
         inset -5px -5px 9px var(--morphLight);
 }
@@ -551,10 +561,6 @@ box-shadow:  5px 5px 9px var(--insetmorphDark),
 #FollowingPosts {
     width: 100%;
     height: 100vh;
-    /* display: none;
-    flex-direction: column-reverse;
-    align-items: center;
-    justify-content: start; */
 }
 
 #FollowingListTweets {
@@ -562,3 +568,4 @@ box-shadow:  5px 5px 9px var(--insetmorphDark),
     flex-direction: column-reverse;
     justify-content: center;
 }
+

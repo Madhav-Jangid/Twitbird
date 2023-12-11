@@ -86,6 +86,7 @@ const changeThemeButton = document.getElementById('changeThemeButton');
 
 var changeThemeButtonFlag = true;
 const root = document.documentElement;
+if(changeThemeButton){
 changeThemeButton.addEventListener('click',function(){
     console.log('Button Clicked!');
     if(changeThemeButtonFlag){
@@ -107,6 +108,7 @@ changeThemeButton.addEventListener('click',function(){
     }
     changeThemeButtonFlag = !changeThemeButtonFlag;
 })
+}
 
 const scrollableDiv = document.getElementById('allMessagesFromDatabase');
 if(scrollableDiv){
@@ -115,10 +117,14 @@ if(scrollableDiv){
 
 
 
-function createPopUpFromLeft(content){
+function createPopUpFromLeft(content,Color){
     const mainDiv = document.createElement('div');
     mainDiv.className = 'popUpDiv';
-
+    if(Color){
+        mainDiv.style.backgroundColor = 'rgb(19, 243, 120)';
+    }else{
+        mainDiv.style.backgroundColor = 'rgb(255, 52, 52)';
+    }
     const text = document.createElement('h3');
     text.innerHTML = content;
 
@@ -130,5 +136,18 @@ function createPopUpFromLeft(content){
 
     setTimeout(() => {
         document.body.removeChild(mainDiv);
-    }, 4500); 
+    }, 3500); 
 }
+
+
+const post_btn = document.getElementById('post-btn');
+const tweetInput = document.getElementById('tweetInput');
+const homeew = document.getElementById('home');
+
+post_btn.addEventListener('click',function(){
+    Dispaly('home')
+    tweetInput.focus();
+})
+
+
+const TweetFormPostTweetDiv = document.getElementById('TweetForm');

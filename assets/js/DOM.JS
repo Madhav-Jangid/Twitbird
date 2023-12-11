@@ -18,12 +18,14 @@ const db = getDatabase();
 const auth = getAuth(app);
 
 
-import { myObject } from "./Login.js";
+import { myObject, lula } from "./Login.js";
 
 document.addEventListener('DOMContentLoaded', function () {
     const userData1 = myObject; // Call the function with an event object if needed
-    const CurrentUserId = userData1.UID;
+    const CurrentUserId = myObject.UID;
     var TweetID;
+    var ghkvh = lula();
+    console.log(ghkvh)
     var CurrentUserName;
     if (CurrentUserId) {
         const userRef = ref(db, 'UserAuthList/' + CurrentUserId);
@@ -37,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     CurrentUserName = userData.Username;
                     ProceedDomChanging(userData);
+                    createPopUpFromLeft('Login Succesfully', true);
                 } else {
                     console.error('User data does not exist');
                 }
@@ -46,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
     else {
-        createPopUpFromLeft('myObject.UID is undefined');
+        createPopUpFromLeft('An Error accured while login please try again.', false);
         window.location.href = 'index.html';
     }
 
@@ -68,10 +71,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // Opens Followers and Followings
-        const Following = document.querySelector('#currentuserFollowing');
-        const Followers = document.querySelector('#currentuserFollowers');
-        Following.innerHTML = userData.Following;
-        Followers.innerHTML = userData.Followers;
+        ProfileFollowersFollowing();
+        function ProfileFollowersFollowing() {
+            const Following = document.querySelector('#currentuserFollowing');
+            const Followers = document.querySelector('#currentuserFollowers');
+            const userRef = ref(db, `UserAuthList/${CurrentUserId}`);
+
+            // Fetch user data
+            get(userRef)
+                .then((snapshot) => {
+                    if (snapshot.exists()) {
+                        var userData = snapshot.val();
+                        console.log(userData.FollowingList.length);
+                        Following.innerHTML = ''
+                        Followers.innerHTML = ''
+                        Following.innerHTML = userData.FollowingList.length || '0';
+                        Followers.innerHTML = userData.FollowersList.length || '0';
+                    } else {
+                        console.log('User data does not exist.');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error fetching user data:', error);
+                });
+        }
+
         var Reach = document.querySelectorAll('.ReachListsProfile');
         Reach.forEach(element => {
             element.addEventListener('click', function () {
@@ -120,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // search user in database
         function searchUser(TempName, FromMessageBlock) {
             if (TempName === "") {
-                createPopUpFromLeft("Please enter a username");
+                createPopUpFromLeft("Please enter a username", false);
                 return;
             }
             const usersRef = ref(getDatabase(), 'UserAuthList');
@@ -133,6 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 .filter(([uid, userData]) => userData.Username.toLowerCase() === TempName);
                             if (matchingUsers.length > 0) {
                                 const [uid, userData] = matchingUsers[0];
+                                createPopUpFromLeft(`Showing results for ${userData.Username}`, true);
                                 if (uid != CurrentUserId) {
                                     if (userData.FollowersList) {
                                         if (userData.FollowersList.includes(CurrentUserId)) {
@@ -144,11 +169,11 @@ document.addEventListener('DOMContentLoaded', function () {
                                         CreateUserDiv(userData.Name, userData.Username, uid, false, FromMessageBlock);
                                     }
                                 } else {
-                                    createPopUpFromLeft("Don't Search You self")
+                                    createPopUpFromLeft("Don't Search You self", false)
                                 }
                                 return uid;
                             } else {
-                                createPopUpFromLeft('User Not Found');
+                                createPopUpFromLeft('User Not Found', false);
                             }
                         }
                     })
@@ -249,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         });
                         Dispaly('Searcheduser');
                     } else {
-                        createPopUpFromLeft("User data not found");
+                        createPopUpFromLeft("User data not found", false);
                     }
                 })
                 .catch((error) => {
@@ -296,14 +321,13 @@ document.addEventListener('DOMContentLoaded', function () {
                             UpdateFollowerList(cnd, uid);
                         }
                     } else {
-                        createPopUpFromLeft('User Not Found');
+                        createPopUpFromLeft('User Not Found', false);
                     }
                 }
             } catch (error) {
                 console.error('Error searching username:', error);
             }
         }
-
 
         function updateFollowersInDataBase(cnd, id) {
             const userId = id;
@@ -316,12 +340,16 @@ document.addEventListener('DOMContentLoaded', function () {
                             var currentFollowers = snapshot.val().Followers || 0;
                             var newValue
                             if (currentFollowers == 0) {
-                                newValue = cnd ? currentFollowers + 1 : currentFollowers = 1;
+                                newValue = cnd ?
+                                    (currentFollowers + 1, createPopUpFromLeft(`Following ${snapshot.val().Username}`, true)) : (currentFollowers = 1, createPopUpFromLeft(`UnFollowed ${snapshot.val().Username}`, false)
+                                    );
                             } else if (currentFollowers > 0) {
-                                newValue = cnd ? currentFollowers + 1 : currentFollowers - 1;
+                                newValue = cnd ?
+                                    (currentFollowers + 1, createPopUpFromLeft(`Following ${snapshot.val().Username}`, true)) : (currentFollowers - 1, createPopUpFromLeft(`UnFollowed ${snapshot.val().Username}`, false));
                             }
                             update(userRef, { [fieldToUpdate]: newValue })
                                 .then(() => {
+
                                 })
                                 .catch((error) => {
                                     console.error(`Error updating ${fieldToUpdate} for user ${userId}:`, error);
@@ -609,11 +637,11 @@ document.addEventListener('DOMContentLoaded', function () {
                             return tweet;
                         })
                         .catch((error) => {
-                            createPopUpFromLeft('Error Psoting while Posting Tweet Please try again.');
+                            createPopUpFromLeft('Error Psoting while Posting Tweet Please try again.', false);
                             // console.error(error)
                         });
                 } else {
-                    createPopUpFromLeft('User data does not exist');
+                    createPopUpFromLeft('User data does not exist', false);
                 }
             } catch (error) {
                 console.error('Error updating Tweets:', error);
@@ -634,7 +662,20 @@ document.addEventListener('DOMContentLoaded', function () {
                         : currentLikes.filter((id) => id !== CurrentUserId);
 
                     await update(userRef, { Likes: updatedLikes });
-                    console.log(`Tweet ${tweetId} by ${userId} ${like ? 'liked' : 'disliked'} successfully`);
+                    const newRef = ref(db, `UserAuthList/${userId}`)
+                    try {
+                        const snapshot = await get(newRef);
+                        if(snapshot.exists()){
+                            if(like){
+                                createPopUpFromLeft(`Tweet by ${snapshot.val().Username} liked successfully`,true);
+                            }else{
+                                createPopUpFromLeft(`Tweet by ${snapshot.val().Username} disliked successfully`,false);
+                            }
+                        }
+                    }catch (error) {
+                        console.error(`Error updating likes for tweet ${tweetId}:`, error);
+                        return null;
+                    }
 
                     // Return the updated likes array
                     return updatedLikes.length;
@@ -656,19 +697,23 @@ document.addEventListener('DOMContentLoaded', function () {
         var FollowingListTweets = document.getElementById('FollowingListTweets');
 
 
-        PostTweet.addEventListener('click', async function () {
+
+        PostTweet.addEventListener('click', PostTweetFunction);
+
+        async function PostTweetFunction() {
             var TweetMessage = tweetInput.value;
             if (TweetMessage) {
                 try {
                     let tweetDiv = await createTweetinDatabase(CurrentUserName, TweetMessage, CurrentUserId, TweetID);
                     alltweetsbyUserOnly.appendChild(tweetDiv);
+                    createPopUpFromLeft('Tweet Posted Succesfully', true);
                 } catch (error) {
                     console.error('Error creating tweet:', error);
                 }
             } else {
-                createPopUpFromLeft('Enter Something');
+                createPopUpFromLeft('You cant post empty tweet.', false);
             }
-        });
+        }
 
 
         async function createTweetElement(username, tweetText, userId, tweetId) {
@@ -689,12 +734,22 @@ document.addEventListener('DOMContentLoaded', function () {
             tweetIntractionDiv.className = 'tweetIntraction';
 
             const heartIcon = document.createElement('i');
-            let likeFlag;
+            // heartIcon.style.paddingRight = '5px';
+
+            const likediv = document.createElement('div');
+            likediv.id = 'likedivcommon'
+            const noOfLikes = document.createElement('h6');
+            noOfLikes.style.paddingLeft = '5px';
+
+
+
+
+            let likeFlag, feuiwqnf;
             const likeListRef = ref(db, `UserAuthList/${userId}/Tweet_list/${tweetId}/Likes`);
             get(likeListRef).then((snapshot) => {
                 if (snapshot.exists()) {
                     const likeList = snapshot.val();
-                    // noOfLikes = likeList.length
+                    noOfLikes.innerHTML = likeList.length - 1;
                     if (likeList && Object.values(likeList).includes(CurrentUserId)) {
                         heartIcon.className = 'bx bxs-heart';
                         heartIcon.style.color = 'var(--blue)';
@@ -704,13 +759,17 @@ document.addEventListener('DOMContentLoaded', function () {
                         heartIcon.style.color = '#666';
                         likeFlag = true;
                     }
+
                 } else {
                     console.warn(`The Tweet_list for ${userId} does not exist.`);
                 }
-                allTweetsbyuseranddb.appendChild(tweetDiv);
             }).catch((error) => {
                 console.error("Error checking following list:", error);
             });
+
+
+            likediv.appendChild(heartIcon);
+            likediv.appendChild(noOfLikes);
 
             heartIcon.addEventListener('click', function () {
                 if (likeFlag) {
@@ -727,15 +786,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
             heartIcon.id = tweetId;
-            tweetIntractionDiv.appendChild(heartIcon);
+            tweetIntractionDiv.appendChild(likediv);
 
-            // const likesNumber = document.createElement('span');
-            // likesNumber.innerHTML = noOfLikes;
-            // tweetIntractionDiv.appendChild(likesNumber);
+            allTweetsbyuseranddb.appendChild(tweetDiv);
 
             const commentIcon = document.createElement('i');
+            const commentdivcommon = document.createElement('div');
+            const noOfComments = document.createElement('h6');
             commentIcon.className = 'bx bx-comment';
-            tweetIntractionDiv.appendChild(commentIcon);
+            commentdivcommon.id = 'commentdivcommon';
+            noOfComments.innerHTML = 0
+            noOfComments.style.paddingLeft = '5px';
+            commentdivcommon.appendChild(commentIcon);
+            commentdivcommon.appendChild(noOfComments);
+            tweetIntractionDiv.appendChild(commentdivcommon);
 
             const shareIcon = document.createElement('i');
             shareIcon.className = 'bx bx-share-alt';
@@ -877,7 +941,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             try {
                 const senderSnapshot = await get(senderUserRef);
-                const senderMessagesForDatabase = [`receiverUid):=>${messageToSend}`];
+                const senderMessagesForDatabase = [`${receiverUid}):=>${messageToSend}`];
 
                 if (senderSnapshot.exists()) {
                     const senderUserData = senderSnapshot.val();
@@ -893,7 +957,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Update receiver's messages
                 const receiverSnapshot = await get(receiverUserRef);
-                const receiverMessagesForDatabase = [`senderUid'):=>${messageToSend}`];
+                const receiverMessagesForDatabase = [`${senderUid}'):=>${messageToSend}`];
 
                 if (receiverSnapshot.exists()) {
                     const receiverUserData = receiverSnapshot.val();
@@ -971,8 +1035,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                 const parts = element.split('):=>');
                                 const partBefore = parts[0];
                                 const partAfter = parts[1];
+                                console.log(partAfter,partBefore)
                                 h3.innerHTML = partAfter;
-                                if (partBefore == 'senderUid') {
+                                if (partBefore == CurrentUserId) {
                                     h3.classList.add('user')
                                     h5.innerHTML = partBefore;
                                     msgdivuser.appendChild(h5)
@@ -1034,7 +1099,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
             }
             else {
-                createPopUpFromLeft('CurrentUserId is undefined');
+                createPopUpFromLeft('User does not exist', false);
             }
         }
 
@@ -1042,7 +1107,7 @@ document.addEventListener('DOMContentLoaded', function () {
         function load(snapshot) {
             LoadMessages(CurrentChatUserChatUid);
             LoadTweetFromDataBase()
-
+            ProfileFollowersFollowing();
         }
 
         function shareTweet(uid, title, text, divId) {
@@ -1055,7 +1120,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     .then(() => console.log('Shared successfully'))
                     .catch((error) => console.error('Error sharing:', error));
             } else {
-                createPopUpFromLeft('Web Share API is not supported on this browser.');
+                createPopUpFromLeft('An Error accured Please try again.', false);
             }
         }
 
