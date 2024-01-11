@@ -25,7 +25,7 @@ i {
     --grey: #4b6079c1;
     --bluehover: #0a74b6;
     --blue: #009dff;
-    --profile-logo: url('assets/images/X Profile Img.png');
+    --profile-logo: url('/assets/images/X Profile Img.png');
     --whiteBorder: #ffffff80;
     --blackBorder: #00000080;
     --insetmorphDark: #838383;
@@ -46,7 +46,7 @@ i {
     --grey: rgba(75, 96, 121, 0.758);
     --bluehover: rgb(10, 116, 182);
     --blue: rgb(0, 157, 255);
-    --profile-logo: url('assets/images/X Profile Img.png');
+    --profile-logo: url('/assets/images/X Profile Img.png');
     --whiteBorder: rgba(255, 255, 255, 0.5);
     --blackBorder: rgba(0, 0, 0, 0.5);
     --insetmorphDark: #000000;
@@ -162,6 +162,7 @@ body {
     box-shadow: 6px 6px 12px var(--outsideMorphDark),
         -6px -6px 12px var(--morphLight);
 }
+
 
 
 @keyframes PopUp {

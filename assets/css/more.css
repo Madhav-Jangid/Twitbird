@@ -12,7 +12,7 @@
     margin-bottom: 10px;
 } */
 
-#more a{
+#more a,#more button{
     display: flex;
     align-items: center;
     color: var(--black);
@@ -28,14 +28,15 @@
     margin: 5px 0;
     border-radius: 10px;
     padding-left: 20px;
+    border: none;
 }
 
-#more a i{
+#more a,#more button i{
     padding-right: 20px;
     font-size: 25px;
 }
 
-#more a:hover{
+#more a:hover,#more button:hover{
     box-shadow: inset 5px 5px 9px var(--insetmorphDark),
     inset -5px -5px 9px var(--morphLight);
 }

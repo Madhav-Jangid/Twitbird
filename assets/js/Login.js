@@ -71,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function () {
 function ChangeWindow() {
     setTimeout(() => {
         console.log(myObject.UID);
-        window.location.href = 'Home.html';
     }, 1000);
 }
 

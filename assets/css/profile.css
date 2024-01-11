@@ -124,3 +124,13 @@
 .bx-trash:hover{
     color: var(--blue);
 }
+
+#searchedUserTweets{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 100%;
+    min-height: 100%;
+}

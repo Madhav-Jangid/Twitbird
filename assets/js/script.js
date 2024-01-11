@@ -10,7 +10,11 @@ function Dispaly(sect) {
         item.style.display = 'none';
     })
     section.style.display = 'flex';
+    changeRoute(sect)
+}
+function changeRoute(sect){
     document.title = capitalize(sect) + ' / X';
+    // window.location.hash = sect.toLowerCase();
 }
 
 var flag = false
@@ -144,10 +148,12 @@ const post_btn = document.getElementById('post-btn');
 const tweetInput = document.getElementById('tweetInput');
 const homeew = document.getElementById('home');
 
-post_btn.addEventListener('click',function(){
-    Dispaly('home')
-    tweetInput.focus();
-})
-
+if(post_btn){
+    post_btn.addEventListener('click',function(){
+        Dispaly('home')
+        tweetInput.focus();
+    })
+}
+    
 
 const TweetFormPostTweetDiv = document.getElementById('TweetForm');
