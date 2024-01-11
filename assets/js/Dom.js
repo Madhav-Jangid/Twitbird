@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getDatabase, ref, get, update, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+import { getDatabase, ref, get, update,  set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+import { signInWithEmailAndPassword ,getAuth } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 // import { createHash } from 'crypto';
 const firebaseConfig = {
     apiKey: "AIzaSyBm3UC_TCpO0Y_yUFnG3nQNjdZeir3wqX4",
@@ -35,13 +35,24 @@ document.addEventListener('DOMContentLoaded', function () {
             const userRef = ref(db, 'UserAuthList/' + uid);
             const snapshot = await get(userRef);
             if (snapshot.exists()) {
+                CurrentUserId = uid;
+                const LoginSignupPages = document.getElementById('LoginSignupPages');
+                LoginSignupPages.style.display = 'none';
+
+                const wholePage = document.getElementById('wholePage');
+                wholePage.style.display = 'flex';
                 ProceedDomChanging(await snapshot.val());
             } else {
                 createPopUpFromLeft('User data does not exist');
             }
         } catch (err) {
             createPopUpFromLeft('User not Exist');
+<<<<<<< HEAD
             console.log(err);
+=======
+            console.error(err);
+
+>>>>>>> 0536be37510620f07561f8c6960122e24bbdd0db
         }
     }
 
