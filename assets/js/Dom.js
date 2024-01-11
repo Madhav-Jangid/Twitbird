@@ -40,7 +40,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 createPopUpFromLeft('User data does not exist');
             }
         } catch (err) {
-            createPopUpFromLeft('User not Exist')
+            createPopUpFromLeft('User not Exist');
+            console.log(err);
+
         }
     }
 
