@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const userRef = ref(db, 'UserAuthList/' + uid);
             const snapshot = await get(userRef);
             if (snapshot.exists()) {
+                CurrentUserId = uid;
                 const LoginSignupPages = document.getElementById('LoginSignupPages');
                 LoginSignupPages.style.display = 'none';
 
