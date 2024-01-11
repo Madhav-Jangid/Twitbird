@@ -62,9 +62,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    var LoginForm = document.getElementById('LoginForm');
-    if (LoginForm) {
-        LoginForm.addEventListener('submit', SignUpUser);
+    var loginButton = document.getElementById('loginButton');
+    if (loginButton) {
+        loginButton.addEventListener('click', SignUpUser);
+    }
+
+    var signupButton = document.getElementById('signupButton');
+    if (signupButton) {
+        signupButton.addEventListener('click', SignUpUser);
     }
 
     async function fetcData(CurrentUserId) {
