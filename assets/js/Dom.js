@@ -35,6 +35,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const userRef = ref(db, 'UserAuthList/' + uid);
             const snapshot = await get(userRef);
             if (snapshot.exists()) {
+                const LoginSignupPages = document.getElementById('LoginSignupPages');
+                LoginSignupPages.style.display = 'none';
+
+                const wholePage = document.getElementById('wholePage');
+                wholePage.style.display = 'flex';
                 ProceedDomChanging(await snapshot.val());
             } else {
                 createPopUpFromLeft('User data does not exist');
