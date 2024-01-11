@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const SignUpUser = async (evt) => {
         evt.preventDefault();
+        console.log('Signing in.......');
         const userRef = ref(db, `UserAuthList`);
         try {
             get(userRef)
