@@ -47,12 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         } catch (err) {
             createPopUpFromLeft('User not Exist');
-<<<<<<< HEAD
             console.log(err);
-=======
-            console.error(err);
-
->>>>>>> 0536be37510620f07561f8c6960122e24bbdd0db
         }
     }
 
