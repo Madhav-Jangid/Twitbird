@@ -27,39 +27,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const SignUpUser = async (evt) => {
         evt.preventDefault();
-        console.log('Signing in.......');
-        const userRef = ref(db, `UserAuthList`);
+        console.log('Signing in.....');
         try {
-            get(userRef)
-                .then(async (snapshot) => {
-                    if (snapshot.exists()) {
-                        const data = await snapshot.val();
-                        for (let key in data) {
-                            if (data.hasOwnProperty(key)) {
-                                if (LoginEmail.value == data[key].Email && LoginPass.value == data[key].Password) {
-                                    const userRef = ref(db, 'UserAuthList/' + key);
-                                    get(userRef)
-                                        .then(async (snapshot) => {
-                                            if (snapshot.exists()) {
-                                                CurrentUserId = key;
-                                                const LoginSignupPages = document.getElementById('LoginSignupPages');
-                                                LoginSignupPages.style.display = 'none';
-
-                                                const wholePage = document.getElementById('wholePage');
-                                                wholePage.style.display = 'flex';
-
-                                                ProceedDomChanging(await snapshot.val());
-                                            }
-                                        })
-                                }
-                            }
-                        }
-                    } else {
-                        createPopUpFromLeft('User dont exists',false);
-                    }
-                })
-        } catch (error) {
-            console.error(error);
+            const credentials = await signInWithEmailAndPassword(auth, LoginEmail.value, LoginPass.value);
+            createPopUpFromLeft('Please wait for few minutes');
+            const uid = credentials.user.uid;
+            const userRef = ref(db, 'UserAuthList/' + uid);
+            const snapshot = await get(userRef);
+            if (snapshot.exists()) {
+                ProceedDomChanging(await snapshot.val());
+            } else {
+                createPopUpFromLeft('User data does not exist');
+            }
+        } catch (err) {
+            createPopUpFromLeft('User not Exist')
         }
     }
 
