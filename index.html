@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="/assets/css/notification.css">
     <link rel="stylesheet" href="/assets/css/messages.css">
     <link rel="stylesheet" href="/assets/css/Login-Signup.css">
+
+    <script src="https://unpkg.com/page/page.js"></script>
+
 </head>
 
 <body>
@@ -58,25 +61,23 @@
         <section class="left-nav">
             <div class="main-top-buttons">
                 <button class="nav-link" id="menuLeftNav" onclick="ViewLeftNav()"><i class="bx bx-menu"></i></button>
-                <button class="nav-link" onclick="Dispaly('home')"><i class='bx bx-home-alt'></i><span
-                        class="nav-link-icon">Home</span></button>
-                <button class="nav-link" onclick="Dispaly('explore')"><i class='bx bx-search'></i><span
-                        class="nav-link-icon">Explore</span></button>
-                <button class="nav-link" onclick="Dispaly('notifications')"><i class='bx bx-bell'></i><span
-                        class="nav-link-icon">Notifications</span></button>
-                <button class="nav-link" onclick="Dispaly('messages')"><i class='bx bx-envelope'></i><span
-                        class="nav-link-icon">Messages</span></button>
-                <button class="nav-link" onclick="Dispaly('premium')"><svg width="24" height="24" viewBox="0 0 24 24"
+                <a href="#/Home" class="nav-link" onclick="page('/Home'); return false;"><i class='bx bx-home-alt'></i><span  class="nav-link-icon">Home</span></a>
+                <a href="#/Explore" onclick="page('/Explore'); return false;" class="nav-link" ><i class='bx bx-search'></i><span class="nav-link-icon">Explore</span></a>
+                <a href="#/Notifications" onclick="page('/Notifications'); return false;" class="nav-link"><i class='bx bx-bell'></i><span
+                        class="nav-link-icon">Notifications</span></a>
+                <a href="#/Messages" onclick="page('/Messages'); return false;" class="nav-link"><i class='bx bx-envelope'></i><span
+                        class="nav-link-icon">Messages</span></a>
+                <a href="#/Premium" onclick="page('/Premium'); return false;" class="nav-link"><svg width="24" height="24" viewBox="0 0 24 24"
                         fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M3 21L10.5484 13.4516M21 3L13.4516 10.5484M13.4516 10.5484L8 3H3L10.5484 13.4516M13.4516 10.5484L21 21H16L10.5484 13.4516"
                             stroke="var(--black)" stroke-width="1.5" stroke-linecap="" stroke-linejoin="round" />
-                    </svg><span class="nav-link-icon">Premium</span></button>
-                <button class="nav-link" onclick="Dispaly('profile')"><i class='bx bx-user'></i><span
+                    </svg><span class="nav-link-icon">Premium</span></a>
+                <a href="#/Profile" onclick="page('/Profile'); return false;" class="nav-link"><i class='bx bx-user'></i><span
                         class="nav-link-icon">Profile</i></span></button>
-                <button class="nav-link" onclick="Dispaly('more')"><i class='bx bx-dots-horizontal-rounded'></i><span
-                        class="nav-link-icon">More</span></button>
-                <button class="nav-link" id="post-btn">
+                <a href="#/More" onclick="page('/More'); return false;" class="nav-link"><i class='bx bx-dots-horizontal-rounded'></i><span
+                        class="nav-link-icon">More</span></a>
+                <a href="#/Post" onclick="page('/Post'); return false;" class="nav-link" id="post-btn">
                     <p>Post</p>
                     <span>
                         <svg viewBox="0 0 24 24"
@@ -88,7 +89,7 @@
                             </g>
                         </svg>
                     </span>
-                </button>
+                </a>
                 <div class="lastbutton nav-link" onclick="Dispaly('profile')">
                     <div class="imgBottom"><img src="/assets/images/X Profile Img.png" alt="User Image"></div>
                     <div class="username">

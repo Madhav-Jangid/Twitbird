@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getDatabase, ref, get, update,  set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
-import { signInWithEmailAndPassword ,getAuth } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+import { getDatabase, ref, get, update, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+import { signInWithEmailAndPassword, getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 // import { createHash } from 'crypto';
 const firebaseConfig = {
     apiKey: "AIzaSyBm3UC_TCpO0Y_yUFnG3nQNjdZeir3wqX4",
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var LoginEmail = document.getElementById('LoginEmail');
     var LoginPass = document.getElementById('LoginPass');
 
-    const SignUpUser = async (evt) => {
+    const SignInUser = async (evt) => {
         evt.preventDefault();
         console.log('Signing in.....');
         try {
@@ -51,14 +51,69 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+
+    var SignUpEmail = document.getElementById('SignUpEmail');
+    var SignUpPass = document.getElementById('SignUpPass');
+    var SignUpUsername = document.getElementById('SignUpUsername');
+
+    function registerUser(evt) {
+        evt.preventDefault();
+        const emailDefault = SignUpEmail.value.toLowerCase();
+        const usernameDefault = SignUpUsername.value.toLowerCase();
+
+        createUserWithEmailAndPassword(auth, emailDefault, SignUpPass.value)
+            .then((credentials) => {
+                const userRef = ref(db, `UserAuthList/${credentials.user.uid}`);
+                const defaultFollowers = 0;
+                const defaultFollowing = 0;
+                set(userRef, {
+                    Name: SignUpName.value,
+                    Username: usernameDefault,
+                    Email: emailDefault,
+                    Password: SignUpPass.value,
+                    Followers: defaultFollowers,
+                    Following: defaultFollowing,
+                    FollowersList: [],
+                    FollowingList: [],
+                    Notifications: []
+                });
+
+                // Retrieve user data from the Realtime Database
+                get(userRef)
+                    .then((snapshot) => {
+                        if (snapshot.exists()) {
+                            let userData = snapshot.val();
+                            console.log(userData); // Log the user data
+                        } else {
+                            createPopUpFromLeft('User data does not exist after registration');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error fetching user data:', error);
+                        createPopUpFromLeft('Error fetching user data after registration');
+                    });
+
+                createPopUpFromLeft('Account Created Successfully. Now go to the login page', true); 
+                const signupPage = document.getElementById('SignUpSection');
+                const LoginPage = document.getElementById('LoginSeciton');
+                signupPage.style.display = 'none';
+                LoginPage.style.display = 'flex';
+            })
+            .catch((err) => {
+                createPopUpFromLeft(`Error!`);
+                console.error(err.code);
+                console.error(err.message);
+            });
+    }
+
     var loginButton = document.getElementById('loginButton');
     if (loginButton) {
-        loginButton.addEventListener('click', SignUpUser);
+        loginButton.addEventListener('click', SignInUser);
     }
 
     var signupButton = document.getElementById('signupButton');
     if (signupButton) {
-        signupButton.addEventListener('click', SignUpUser);
+        signupButton.addEventListener('click', registerUser);
     }
 
     async function fetcData(CurrentUserId) {

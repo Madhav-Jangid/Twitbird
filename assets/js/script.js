@@ -12,7 +12,7 @@ function Dispaly(sect) {
     section.style.display = 'flex';
     changeRoute(sect)
 }
-function changeRoute(sect){
+function changeRoute(sect) {
     document.title = capitalize(sect) + ' / X';
     // window.location.hash = sect.toLowerCase();
 }
@@ -90,43 +90,43 @@ const changeThemeButton = document.getElementById('changeThemeButton');
 
 var changeThemeButtonFlag = true;
 const root = document.documentElement;
-if(changeThemeButton){
-changeThemeButton.addEventListener('click',function(){
-    console.log('Button Clicked!');
-    if(changeThemeButtonFlag){
-        root.style.setProperty('--white', '#111');
-        root.style.setProperty('--black', '#fff');
-        root.style.setProperty('--outsideMorphDark', '#000000');
-        root.style.setProperty('--morphLight', '#65656566');
-        root.style.setProperty('--insetmorphDark', '#000000');
-        root.style.setProperty('--textColorLightMod', '#e5e5e5db');
-        root.style.setProperty('--textColorDarkMod', '#000000db');
-    }else{
-        root.style.setProperty('--white', '#e0e0e0');
-        root.style.setProperty('--black', '#000');
-        root.style.setProperty('--outsideMorphDark', '#8b8b8b');
-        root.style.setProperty('--morphLight', '#ffffff');
-        root.style.setProperty('--insetmorphDark', '#838383');
-        root.style.setProperty('--textColorLightMod', '#000000db');
-        root.style.setProperty('--textColorDarkMod', '#e5e5e5db');
-    }
-    changeThemeButtonFlag = !changeThemeButtonFlag;
-})
+if (changeThemeButton) {
+    changeThemeButton.addEventListener('click', function () {
+        console.log('Button Clicked!');
+        if (changeThemeButtonFlag) {
+            root.style.setProperty('--white', '#111');
+            root.style.setProperty('--black', '#fff');
+            root.style.setProperty('--outsideMorphDark', '#000000');
+            root.style.setProperty('--morphLight', '#65656566');
+            root.style.setProperty('--insetmorphDark', '#000000');
+            root.style.setProperty('--textColorLightMod', '#e5e5e5db');
+            root.style.setProperty('--textColorDarkMod', '#000000db');
+        } else {
+            root.style.setProperty('--white', '#e0e0e0');
+            root.style.setProperty('--black', '#000');
+            root.style.setProperty('--outsideMorphDark', '#8b8b8b');
+            root.style.setProperty('--morphLight', '#ffffff');
+            root.style.setProperty('--insetmorphDark', '#838383');
+            root.style.setProperty('--textColorLightMod', '#000000db');
+            root.style.setProperty('--textColorDarkMod', '#e5e5e5db');
+        }
+        changeThemeButtonFlag = !changeThemeButtonFlag;
+    })
 }
 
 const scrollableDiv = document.getElementById('allMessagesFromDatabase');
-if(scrollableDiv){
+if (scrollableDiv) {
     scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
 }
 
 
 
-function createPopUpFromLeft(content,Color){
+function createPopUpFromLeft(content, Color) {
     const mainDiv = document.createElement('div');
     mainDiv.className = 'popUpDiv';
-    if(Color){
+    if (Color) {
         mainDiv.style.backgroundColor = 'rgb(19, 243, 120)';
-    }else{
+    } else {
         mainDiv.style.backgroundColor = 'rgb(255, 52, 52)';
     }
     const text = document.createElement('h3');
@@ -140,7 +140,7 @@ function createPopUpFromLeft(content,Color){
 
     setTimeout(() => {
         document.body.removeChild(mainDiv);
-    }, 3500); 
+    }, 3500);
 }
 
 
@@ -148,12 +148,58 @@ const post_btn = document.getElementById('post-btn');
 const tweetInput = document.getElementById('tweetInput');
 const homeew = document.getElementById('home');
 
-if(post_btn){
-    post_btn.addEventListener('click',function(){
+if (post_btn) {
+    post_btn.addEventListener('click', function () {
         Dispaly('home')
         tweetInput.focus();
     })
 }
-    
+
 
 const TweetFormPostTweetDiv = document.getElementById('TweetForm');
+
+function showHomePage(ctx) {
+    Dispaly('home');
+}
+
+function showExplorePage(ctx) {
+    Dispaly('explore');
+}
+
+function showNotificationsPage(ctx) {
+    Dispaly('notifications');
+}
+
+function showMessagesPage(ctx) {
+    Dispaly('messages');
+}
+
+function showPremiumPage(ctx) {
+    Dispaly('premium');
+}
+
+function showprofilePage(ctx) {
+    Dispaly('profile');
+}
+
+function showPostPage(ctx) {
+    Dispaly('post');
+}
+
+function showMorePage(ctx) {
+    Dispaly('more');
+}
+
+
+page('/Home', showHomePage);
+page('/Explore', showExplorePage);
+page('/Notifications', showNotificationsPage);
+page('/Messages', showMessagesPage);
+page('/Premium', showPremiumPage);
+page('/Profile', showprofilePage);
+page('/More', showMorePage);
+page('/Post', showPostPage); 
+
+// Handle route changes
+page({ hashbang: true });
+
