@@ -11,6 +11,16 @@
       {
         "label": "off"
       }
+    ],
+    "compat-api/css": [
+      "default",
+      {
+        "ignore": [
+          "backdrop-filter",
+          "text-underline-offset",
+          "scale"
+        ]
+      }
     ]
   }
 }
