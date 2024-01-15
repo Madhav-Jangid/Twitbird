@@ -12,6 +12,10 @@ i {
     cursor: pointer;
 }
 
+a{
+    text-decoration: none;
+}
+
 .X-logo-org {
     height: 2.5rem;
     border-radius: 50%;
@@ -94,7 +98,7 @@ body {
     gap: 20px;
 }
 
-#Xmain button {
+#Xmain #ExploreXmain {
     display: none;
     background-color: var(--blue);
     border: none;
@@ -107,7 +111,7 @@ body {
     border-radius: 30px;
 }
 
-#Xmain button:hover {
+#Xmain #ExploreXmain:hover {
     background-color: var(--bluehover);
 }
 
@@ -257,7 +261,7 @@ body {
         padding: 0;
     }
 
-    #Xmain button {
+    #Xmain #ExploreXmain {
         display: block;
     }
 

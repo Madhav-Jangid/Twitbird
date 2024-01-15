@@ -156,7 +156,33 @@ if (post_btn) {
 }
 
 
+const LogoutButton = document.getElementById('LogoutButton');
+
+LogoutButton.addEventListener('click', function () {
+    localStorage.setItem('IsLogined', false);
+    localStorage.removeItem('userData');
+    window.location.href = 'index.html';
+})
+
+
 const TweetFormPostTweetDiv = document.getElementById('TweetForm');
+
+const toLoginPage = document.getElementById('toLoginPage');
+const toSignUpPage = document.getElementById('toSignUpPage');
+const signupPage = document.getElementById('SignUpSection');
+const LoginPage = document.getElementById('LoginSeciton');
+
+
+
+function showRegisterPage(ctx) {
+    signupPage.style.display = 'flex';
+    LoginPage.style.display = 'none';
+}
+
+function showSignInPage(ctx) {
+    signupPage.style.display = 'none';
+    LoginPage.style.display = 'flex';
+}
 
 function showHomePage(ctx) {
     Dispaly('home');
@@ -191,6 +217,8 @@ function showMorePage(ctx) {
 }
 
 
+page('/Register', showRegisterPage);
+page('/SignIn', showSignInPage);
 page('/Home', showHomePage);
 page('/Explore', showExplorePage);
 page('/Notifications', showNotificationsPage);
@@ -198,7 +226,7 @@ page('/Messages', showMessagesPage);
 page('/Premium', showPremiumPage);
 page('/Profile', showprofilePage);
 page('/More', showMorePage);
-page('/Post', showPostPage); 
+page('/Post', showPostPage);
 
 // Handle route changes
 page({ hashbang: true });

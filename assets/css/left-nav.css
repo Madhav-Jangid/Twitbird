@@ -20,8 +20,8 @@
 .nav-link {
     display: flex;
     align-items: center;
-    width: auto;
-    height: 52px;
+    justify-content: flex-start;
+    max-width: max-content;
     background: var(--white);
     box-shadow:  6px 6px 12px var(--outsideMorphDark),
                  -6px -6px 12px var(--morphLight);
@@ -75,14 +75,14 @@
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    width: 100%;
+    min-width: 100%;
     font-size: 20px;
     margin: 10px 0;
 }
 
 .lastbutton {
     margin-top: 30px;
-    width: 100%;
+    min-width: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;

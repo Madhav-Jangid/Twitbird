@@ -20,28 +20,41 @@ const auth = getAuth(app);
 
 
 document.addEventListener('DOMContentLoaded', function () {
+
+
+
     var CurrentUserId, TweetID, CurrentUserName;
 
     var LoginEmail = document.getElementById('LoginEmail');
     var LoginPass = document.getElementById('LoginPass');
 
-    const SignInUser = async (evt) => {
-        evt.preventDefault();
+    const SignInUser = async (evt, email, pass) => {
+
+        if (evt) {
+            evt.preventDefault();
+        }
+
         console.log('Signing in.....');
         try {
-            const credentials = await signInWithEmailAndPassword(auth, LoginEmail.value, LoginPass.value);
+            const credentials = await signInWithEmailAndPassword(auth, email, pass);
             createPopUpFromLeft('Please wait for few minutes');
             const uid = credentials.user.uid;
             const userRef = ref(db, 'UserAuthList/' + uid);
             const snapshot = await get(userRef);
             if (snapshot.exists()) {
                 CurrentUserId = uid;
+                localStorage.setItem('uid', uid);
+                localStorage.setItem('IsLogined', true);
                 const LoginSignupPages = document.getElementById('LoginSignupPages');
                 LoginSignupPages.style.display = 'none';
 
                 const wholePage = document.getElementById('wholePage');
                 wholePage.style.display = 'flex';
                 ProceedDomChanging(await snapshot.val());
+                const newData = await snapshot.val();
+                const jsonData = JSON.stringify(newData);
+                localStorage.setItem('userData', jsonData);
+                return true;
             } else {
                 createPopUpFromLeft('User data does not exist');
             }
@@ -49,6 +62,42 @@ document.addEventListener('DOMContentLoaded', function () {
             createPopUpFromLeft('User not Exist');
             console.log(err);
         }
+    }
+
+    // async function autoLogin(email, pass) {
+    //     try {
+    //         console.log('Auto Login');
+    //         const credentials = await signInWithEmailAndPassword(auth, email, pass);
+    //         const uid = credentials.user.uid;
+    //         const userRef = ref(db, 'UserAuthList/' + uid);
+    //         const snapshot = await get(userRef);
+    //         if (snapshot.exists()) {
+    //             CurrentUserId = uid;
+    //             ProceedDomChanging(await snapshot.val());
+
+    //             const LoginSignupPages = document.getElementById('LoginSignupPages');
+    //             LoginSignupPages.style.display = 'none';
+
+    //             const wholePage = document.getElementById('wholePage');
+    //             wholePage.style.display = 'flex';
+    //         }
+    //     } catch (error) {
+    //         console.error('Error during automatic sign-in:', error);
+    //     }
+    // }
+
+
+    if (localStorage.getItem('IsLogined') === 'true') {
+        CurrentUserId = localStorage.getItem('uid');
+        const jsonData = localStorage.getItem('userData');
+        const retrievedData = JSON.parse(jsonData);
+        console.log(retrievedData);
+        ProceedDomChanging(retrievedData)
+        const LoginSignupPages = document.getElementById('LoginSignupPages');
+        LoginSignupPages.style.display = 'none';
+
+        const wholePage = document.getElementById('wholePage');
+        wholePage.style.display = 'flex';
     }
 
 
@@ -93,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         createPopUpFromLeft('Error fetching user data after registration');
                     });
 
-                createPopUpFromLeft('Account Created Successfully. Now go to the login page', true); 
+                createPopUpFromLeft('Account Created Successfully. Now go to the login page', true);
                 const signupPage = document.getElementById('SignUpSection');
                 const LoginPage = document.getElementById('LoginSeciton');
                 signupPage.style.display = 'none';
@@ -108,7 +157,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var loginButton = document.getElementById('loginButton');
     if (loginButton) {
-        loginButton.addEventListener('click', SignInUser);
+        loginButton.addEventListener('click', (event) => {
+            SignInUser(event, LoginEmail.value, LoginPass.value);
+        });
     }
 
     var signupButton = document.getElementById('signupButton');
@@ -991,6 +1042,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                                     // Check if the tweet user is in the user's following list
                                     const tweetUserId = userId;
+                                    console.log(CurrentUserId);
                                     const followingList = jsObject[CurrentUserId].FollowingList || [];
 
                                     if (followingList.includes(tweetUserId)) {

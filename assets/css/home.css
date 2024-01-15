@@ -266,9 +266,12 @@
     border-bottom: 2px solid var(--grey);
 }
 
-.mid-ele-foryou a {
+.mid-ele-foryou button {
     text-decoration: none;
     color: var(--black);
+    border: none;
+    outline: none;
+    font-weight: 900;
     width: 50%;
     height: 3rem;
     display: flex;
