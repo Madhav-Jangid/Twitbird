@@ -1007,9 +1007,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return tweetDiv;
             }
 
-
             LoadTweetFromDataBase();
-
             async function LoadTweetFromDataBase() {
                 const userRef = ref(db, 'UserAuthList/');
                 try {
@@ -1071,29 +1069,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.error('Error fetching user data:', error);
                 }
             }
-
-            async function DeleteTweetFromDatabase(id) {
-
-                var nodeToDeleteRef = ref(db, `UserAuthList/${CurrentUserId}/Tweet_list/${id}`);
-                // console.log(nodeToDeleteRef);
-
-                var flag = confirm('Do You Really want to delete this Tweet ?');
-
-                if (flag) {
-                    // Use remove instead of removeValue
-                    remove(nodeToDeleteRef)
-                        .then(() => {
-                            LoadTweetFromDataBase()
-                            // console.log("Data deleted successfully!");
-                        })
-                        .catch((error) => {
-                            console.error("Error deleting data: ", error);
-                        });
-                }
-            }
-
-
-
 
             async function createMessageInDatabase(senderUid, receiverUid, messageToSend) {
                 const senderFieldToUpdate = `/Messages/${receiverUid}`;
@@ -1287,16 +1262,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     createPopUpFromLeft('An Error accured Please try again.', false);
                 }
-            }
-
-            function createUrlofDivToShare(divId) {
-                const div = document.getElementById(divId);
-                const tempContainer = document.createElement('div');
-                tempContainer.appendChild(div.cloneNode(true));
-                const divContent = encodeURIComponent(tempContainer.innerHTML);
-                const shareableUrl = window.location.origin + '/shareable.html?content=' + divContent;
-                window.open(shareableUrl);
-                return shareableUrl;
             }
         }
 
