@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.setItem('userData', jsonData);
                 document.querySelector('.loaderAnimation').style.display = 'none';
                 const retrievedData = JSON.parse(jsonData);
-                createPopUpFromLeft(`Welcome back ${retrievedData.Username}`,true);
+                createPopUpFromLeft(`Welcome back ${retrievedData.Username}`, true);
                 return true;
             } else {
                 createPopUpFromLeft('User data does not exist');
@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     if (localStorage.getItem('IsLogined') === 'true') {
+        document.querySelector('.loaderAnimation').style.display = 'flex';
         CurrentUserId = localStorage.getItem('uid');
         const jsonData = localStorage.getItem('userData');
         const retrievedData = JSON.parse(jsonData);
@@ -149,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var signupButton = document.getElementById('signupButton');
     var SignUpForm = document.getElementById('SignUpForm');
 
-    SignUpForm.addEventListener('submit',(event)=>{
+    SignUpForm.addEventListener('submit', (event) => {
         document.querySelector('.loaderAnimation').style.display = 'flex';
         registerUser(event);
     })
@@ -208,8 +209,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             var userData = snapshot.val();
                             Following.innerHTML = ''
                             Followers.innerHTML = ''
-                            Following.innerHTML = userData.FollowingList ? userData.FollowingList.length : '0';
-                            Followers.innerHTML = userData.FollowingList ? userData.FollowersList.length : '0';
+                            Following.innerHTML = userData.FollowingList ? userData.FollowingList.length : 0;
+                            Followers.innerHTML = userData.FollowersList ? userData.FollowersList.length : 0;
                         } else {
                             console.log('User data does not exist.');
                         }
@@ -367,17 +368,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 return searchedUserDiv;
             }
 
+            const searchedUserTweets = document.getElementById('searchedUserTweets');
 
             function DisplayUserInfo(uid, Name, Username) {
                 const userRef = ref(db, `UserAuthList/${uid}`);
                 get(userRef)
-                    .then((snapshot) => {
+                    .then(async (snapshot) => {
                         if (snapshot.exists()) {
                             const userData = snapshot.val();
                             const searchedFollowing = document.querySelector('searchedFollowing');
                             const searchedFollowers = document.querySelector('searchedFollowers');
-                            searchedFollowing.innerHTML = userData.Following || 0;
-                            searchedFollowers.innerHTML = userData.Followers || 0;
+                            searchedFollowing.innerHTML = userData.FollowingList ? userData.FollowingList.length : 0;
+                            searchedFollowers.innerHTML = userData.FollowersList ? userData.FollowersList.length : 0;
                             const NameOfuser = userData.Name;
                             const IdofUser = '@' + userData.Username;
                             const userName = document.querySelectorAll('.searchName');
@@ -401,7 +403,16 @@ document.addEventListener('DOMContentLoaded', function () {
                                 element.innerHTML = `<i onclick="Dispaly('explore')" class='bx bxs-left-arrow-alt'></i> ${'@' + userData.Username}`
                             });
                             Dispaly('Searcheduser');
-                            ShowSearchedUserTweets(uid, Name, Username)
+                            const tweetData = await ShowSearchedUserTweets(userData, uid);
+                            console.log(tweetData);
+                            searchedUserTweets.innerHTML = ''
+                            if(tweetData != 0){
+                                for (let twt in tweetData) {
+                                    searchedUserTweets.appendChild(tweetData[twt])
+                                }
+                            }else{
+                                searchedUserTweets.innerHTML = (`<h3 class='errorMessageSearcheduser'>${userData.Username} has not posted any tweet yet.<h3/>`);
+                            }
                         } else {
                             createPopUpFromLeft("User data not found", false);
                         }
@@ -412,26 +423,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
             }
 
-            const searchedUserTweets = document.getElementById('searchedUserTweets');
-            async function ShowSearchedUserTweets(uid, Name, Username) {
-                // console.log(uid, Name, Username);
-                const userRef = ref(db, `UserAuthList/${uid}/Tweet_list`);
-                try {
-                    const snapshot = await get(userRef);
-                    if (snapshot.exists()) {
-                        let TweetsofUser = snapshot.val();
-                        // console.log(TweetsofUser.length);
-                        for (var i = 0; i < TweetsofUser.length; i++) {
-                            const tweetElement = await createTweetElement(Username, TweetsofUser[i].Tweet, uid, i)
-                            searchedUserTweets.appendChild(tweetElement)
-                        }
-                    } else {
-                        console.error('User data does not exist');
+
+            async function ShowSearchedUserTweets(userData, uid) {
+                if (userData.Tweet_list) {
+                    const allTweets = userData.Tweet_list;
+                    let tweet;
+                    let RenderedTweets = [];
+                    for (tweet in allTweets) {
+                        const tweetofUser = await createTweetElement(userData.Username, allTweets[tweet].Tweet, uid, tweet);
+                        RenderedTweets.push(tweetofUser);
                     }
-                } catch (error) {
-                    console.error('Error fetching user data:', error);
+                    return RenderedTweets;
+                }else{
+                    return 0
                 }
             }
+
 
             var FlagToVerify = true;
             function updateFollowers(element) {
@@ -487,7 +494,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     get(userRef)
                         .then((snapshot) => {
                             if (snapshot.exists()) {
-                                var currentFollowers = snapshot.val().Followers || 0;
+                                var currentFollowers = snapshot.val().FollowersList.length || 0;
                                 var newValue
                                 if (currentFollowers == 0) {
                                     newValue = cnd ?
@@ -616,7 +623,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     get(userRef)
                         .then((snapshot) => {
                             if (snapshot.exists()) {
-                                const currentFollowers = snapshot.val().Following || 0;
+                                const currentFollowers = snapshot.val().FollowingList.length || 0;
                                 const newValue = cnd ? currentFollowers + 1 : currentFollowers - 1;
                                 update(userRef, { [fieldToUpdate]: newValue })
                                     .then(() => {
@@ -949,7 +956,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 heartIcon.id = tweetId;
                 tweetIntractionDiv.appendChild(likediv);
 
-                allTweetsbyuseranddb.appendChild(tweetDiv);
+                // allTweetsbyuseranddb.appendChild(tweetDiv);
 
                 const commentIcon = document.createElement('i');
                 const commentdivcommon = document.createElement('div');
@@ -971,18 +978,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 tweetDiv.appendChild(tweetIntractionDiv);
                 const uidToCheck = await GetIDbyUsername(false, username, true);
                 const followerUid = CurrentUserId;
-
-                if (allTweetsbyuseranddb && FollowingListTweets) {
+                
+                if (allTweetsbyuseranddb) {
                     const followingListRef = ref(db, `UserAuthList/${followerUid}/FollowingList`);
-                    get(followingListRef).then((snapshot) => {
+                    get(followingListRef)
+                    .then((snapshot) => {
                         if (snapshot.exists()) {
                             const followingList = snapshot.val();
                             if (followingList && Object.values(followingList).includes(uidToCheck)) {
-                                FollowingListTweets.innerHTML = '';
+                                    FollowingListTweets.innerHTML = '';
                                 FollowingListTweets.appendChild(tweetDiv);
                             }
                         }
-
+                    
                         // Regardless of the conditions, always append to allTweetsbyuseranddb
                         allTweetsbyuseranddb.appendChild(tweetDiv);
                     }).catch((error) => {
@@ -991,11 +999,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     console.error('Container element not found: FollowingListTweets or allTweetsbyuseranddb');
                 }
-
+                
                 shareIcon.addEventListener('click', function () {
                     shareTweet(userId, username, tweetText, tweetId)
                 });
-
+                
                 return tweetDiv;
             }
 
@@ -1051,16 +1059,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         const userTweets = tweetElements.filter((tweetElement) => tweetElement.id === CurrentUserId);
                         const userTweetsContainer = document.getElementById('alltweetsbyUserOnly');
                         userTweetsContainer.innerHTML = ''
-                        userTweets.forEach((userTweet, tweetId) => {
-                            const DeletButton = document.createElement('i');
-                            DeletButton.className = 'bx bx-trash';
-                            DeletButton.id = tweetId;
-                            userTweet.appendChild(DeletButton)
-                            userTweetsContainer.appendChild(userTweet);
-                            DeletButton.addEventListener('click', function () {
-                                // console.log(`click on ${DeletButton.id}`)
-                                DeleteTweetFromDatabase(DeletButton.id);
-                            })
+                        userTweets.forEach((element) => {
+                            userTweetsContainer.appendChild(element);
                         });
 
                         document.querySelector('.loaderAnimation').style.display = 'none';
