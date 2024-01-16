@@ -91,8 +91,8 @@ document.addEventListener('DOMContentLoaded', function () {
         CurrentUserId = localStorage.getItem('uid');
         const jsonData = localStorage.getItem('userData');
         const retrievedData = JSON.parse(jsonData);
-        console.log(retrievedData);
-        ProceedDomChanging(retrievedData)
+        CurrentUserName = retrievedData.Username;
+        ProceedDomChanging(retrievedData);
         const LoginSignupPages = document.getElementById('LoginSignupPages');
         LoginSignupPages.style.display = 'none';
 
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     .then((snapshot) => {
                         if (snapshot.exists()) {
                             let userData = snapshot.val();
-                            console.log(userData); // Log the user data
+                            // console.log(userData); // Log the user data
                         } else {
                             createPopUpFromLeft('User data does not exist after registration');
                         }
@@ -174,7 +174,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(async (snapshot) => {
                     if (snapshot.exists()) {
                         const data = (await snapshot.val());
-                        console.log(data);
                         if (userData.Tweet_list) {
                             TweetID = userData.Tweet_list.length;
                         }
@@ -221,8 +220,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             var userData = snapshot.val();
                             Following.innerHTML = ''
                             Followers.innerHTML = ''
-                            Following.innerHTML = userData.FollowingList.length || '0';
-                            Followers.innerHTML = userData.FollowersList.length || '0';
+                            Following.innerHTML = userData.FollowingList ? userData.FollowingList.length : '0';
+                            Followers.innerHTML = userData.FollowingList ? userData.FollowersList.length : '0';
                         } else {
                             console.log('User data does not exist.');
                         }
@@ -427,13 +426,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const searchedUserTweets = document.getElementById('searchedUserTweets');
             async function ShowSearchedUserTweets(uid, Name, Username) {
-                console.log(uid, Name, Username);
+                // console.log(uid, Name, Username);
                 const userRef = ref(db, `UserAuthList/${uid}/Tweet_list`);
                 try {
                     const snapshot = await get(userRef);
                     if (snapshot.exists()) {
                         let TweetsofUser = snapshot.val();
-                        console.log(TweetsofUser.length);
+                        // console.log(TweetsofUser.length);
                         for (var i = 0; i < TweetsofUser.length; i++) {
                             const tweetElement = await createTweetElement(Username, TweetsofUser[i].Tweet, uid, i)
                             searchedUserTweets.appendChild(tweetElement)
@@ -994,8 +993,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                 FollowingListTweets.innerHTML = '';
                                 FollowingListTweets.appendChild(tweetDiv);
                             }
-                        } else {
-                            console.warn(`The following list for ${followerUid} does not exist.`);
                         }
 
                         // Regardless of the conditions, always append to allTweetsbyuseranddb
@@ -1042,7 +1039,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                                     // Check if the tweet user is in the user's following list
                                     const tweetUserId = userId;
-                                    console.log(CurrentUserId);
+                                    // console.log(CurrentUserId);
                                     const followingList = jsObject[CurrentUserId].FollowingList || [];
 
                                     if (followingList.includes(tweetUserId)) {
@@ -1077,6 +1074,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                 DeleteTweetFromDatabase(DeletButton.id);
                             })
                         });
+                        
+                        document.querySelector('.loaderAnimation').style.display = 'none';
                     } else {
                         console.error('User data does not exist');
                     }
@@ -1088,7 +1087,7 @@ document.addEventListener('DOMContentLoaded', function () {
             async function DeleteTweetFromDatabase(id) {
 
                 var nodeToDeleteRef = ref(db, `UserAuthList/${CurrentUserId}/Tweet_list/${id}`);
-                console.log(nodeToDeleteRef);
+                // console.log(nodeToDeleteRef);
 
                 var flag = confirm('Do You Really want to delete this Tweet ?');
 
@@ -1097,7 +1096,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     remove(nodeToDeleteRef)
                         .then(() => {
                             LoadTweetFromDataBase()
-                            console.log("Data deleted successfully!");
+                            // console.log("Data deleted successfully!");
                         })
                         .catch((error) => {
                             console.error("Error deleting data: ", error);
@@ -1211,7 +1210,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     const parts = element.split('):=>');
                                     const partBefore = parts[0];
                                     const partAfter = parts[1];
-                                    console.log(partAfter, partBefore)
+                                    // console.log(partAfter, partBefore)
                                     h3.innerHTML = partAfter;
                                     if (partBefore == CurrentUserId) {
                                         h3.classList.add('sender')
@@ -1312,5 +1311,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 return shareableUrl;
             }
         }
+
+
+        return true
     }
 });

@@ -230,4 +230,3 @@ page('/Post', showPostPage);
 
 // Handle route changes
 page({ hashbang: true });
-
