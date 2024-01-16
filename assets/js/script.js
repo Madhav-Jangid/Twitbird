@@ -19,7 +19,6 @@ function changeRoute(sect) {
 
 var flag = false
 function ViewLeftNav() {
-    console.log('Left Nav')
     var leftNav = document.querySelector('#shortScreenNav');
     if (flag) {
         leftNav.style.display = 'none';

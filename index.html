@@ -40,24 +40,24 @@
         </div>
 
         <div id="LoginSeciton">
-            <div id="LoginForm">
+            <form class="form" id="LoginForm">
                 <h3 id="LoginHeading">Login</h3>
-                <input type="email" placeholder="Email" class="InputFeild" name="LoginEmail" id="LoginEmail">
-                <input type="password" placeholder="Password" class="InputFeild" name="LoginPass" id="LoginPass">
+                <input type="email" placeholder="Email" class="InputFeild" name="LoginEmail" id="LoginEmail" required>
+                <input type="password" placeholder="Password" class="InputFeild" name="LoginPass" id="LoginPass" required>
                 <button id="loginButton">Login</button>
-            </div>
+            </form>
             <h4>Create a new account <a href="/Register" id="toSignUpPage"> Sign-up</a></h4>
         </div>
 
         <div class="loginDiv" id="SignUpSection">
-            <div id="SignUpForm" method="POST">
+            <form class="form" id="SignUpForm" method="">
                 <h3 id="LoginHeading">Sign-Up</h3>
                 <input type="text" placeholder="Name" class="InputFeild" id="SignUpName" required>
                 <input type="text" placeholder="Username" class="InputFeild" id="SignUpUsername" required>
                 <input type="email" placeholder="Email" class="InputFeild" id="SignUpEmail" required>
                 <input type="password" placeholder="Password" class="InputFeild" id="SignUpPass" required>
                 <button id="signupButton">Sign-Up</button>
-            </div>
+            </form>
             <h4>Already have an account <a href="/SignIn" id="toLoginPage">Login</a></h4>
         </div>
     </div>

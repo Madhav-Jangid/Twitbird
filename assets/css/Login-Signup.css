@@ -49,7 +49,7 @@ i {
     justify-content: center;
 }
 
-#LoginSignupPages div div{
+#LoginSignupPages div .form{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,8 +58,8 @@ i {
     padding: 20px 0;
 }
 
-#LoginSignupPages div div input,
-#LoginSignupPages div div button{
+#LoginSignupPages div .form input,
+#LoginSignupPages div .form button{
     height: 3rem;
     width: 100%;
     margin: 3px 0;
@@ -72,7 +72,7 @@ i {
     color: var(--blue);
 }
 
-#LoginSignupPages div div button{
+#LoginSignupPages div .form button{
     color: #fff;
     background-color: var(--blue);
     outline: none;
@@ -80,11 +80,11 @@ i {
     margin: 20px 0;
 }
 
-#LoginSignupPages div div input:focus-within{
+#LoginSignupPages div .form input:focus-within{
     outline: 2px solid var(--blue);
 }
 
-#LoginSignupPages div div h3{
+#LoginSignupPages div .form h3{
     font-size: 50px;
     margin-bottom: 30px;
 }

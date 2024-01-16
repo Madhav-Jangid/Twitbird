@@ -170,7 +170,7 @@ body {
 .loaderAnimation{
     height: 100%;
     width: 100%;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     background-color: rgba(56, 56, 56, 0.522);

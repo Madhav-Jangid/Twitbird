@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Signing in.....');
         try {
             const credentials = await signInWithEmailAndPassword(auth, email, pass);
-            createPopUpFromLeft('Please wait for few minutes');
             const uid = credentials.user.uid;
             const userRef = ref(db, 'UserAuthList/' + uid);
             const snapshot = await get(userRef);
@@ -54,6 +53,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 const newData = await snapshot.val();
                 const jsonData = JSON.stringify(newData);
                 localStorage.setItem('userData', jsonData);
+                document.querySelector('.loaderAnimation').style.display = 'none';
+                const retrievedData = JSON.parse(jsonData);
+                createPopUpFromLeft(`Welcome back ${retrievedData.Username}`,true);
                 return true;
             } else {
                 createPopUpFromLeft('User data does not exist');
@@ -63,28 +65,6 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(err);
         }
     }
-
-    // async function autoLogin(email, pass) {
-    //     try {
-    //         console.log('Auto Login');
-    //         const credentials = await signInWithEmailAndPassword(auth, email, pass);
-    //         const uid = credentials.user.uid;
-    //         const userRef = ref(db, 'UserAuthList/' + uid);
-    //         const snapshot = await get(userRef);
-    //         if (snapshot.exists()) {
-    //             CurrentUserId = uid;
-    //             ProceedDomChanging(await snapshot.val());
-
-    //             const LoginSignupPages = document.getElementById('LoginSignupPages');
-    //             LoginSignupPages.style.display = 'none';
-
-    //             const wholePage = document.getElementById('wholePage');
-    //             wholePage.style.display = 'flex';
-    //         }
-    //     } catch (error) {
-    //         console.error('Error during automatic sign-in:', error);
-    //     }
-    // }
 
 
     if (localStorage.getItem('IsLogined') === 'true') {
@@ -132,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     .then((snapshot) => {
                         if (snapshot.exists()) {
                             let userData = snapshot.val();
-                            // console.log(userData); // Log the user data
+                            document.querySelector('.loaderAnimation').style.display = 'none';
                         } else {
                             createPopUpFromLeft('User data does not exist after registration');
                         }
@@ -155,17 +135,25 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    var LoginForm = document.getElementById('LoginForm');
     var loginButton = document.getElementById('loginButton');
-    if (loginButton) {
-        loginButton.addEventListener('click', (event) => {
+
+
+    if (LoginForm) {
+        LoginForm.addEventListener('submit', (event) => {
+            document.querySelector('.loaderAnimation').style.display = 'flex';
             SignInUser(event, LoginEmail.value, LoginPass.value);
         });
     }
 
     var signupButton = document.getElementById('signupButton');
-    if (signupButton) {
-        signupButton.addEventListener('click', registerUser);
-    }
+    var SignUpForm = document.getElementById('SignUpForm');
+
+    SignUpForm.addEventListener('submit',(event)=>{
+        document.querySelector('.loaderAnimation').style.display = 'flex';
+        registerUser(event);
+    })
+
 
     async function fetcData(CurrentUserId) {
         if (CurrentUserId) {
@@ -1074,7 +1062,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 DeleteTweetFromDatabase(DeletButton.id);
                             })
                         });
-                        
+
                         document.querySelector('.loaderAnimation').style.display = 'none';
                     } else {
                         console.error('User data does not exist');
