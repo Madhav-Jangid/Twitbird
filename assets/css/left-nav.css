@@ -37,18 +37,20 @@
     cursor: pointer;
     margin: 13px 0;
 }
-
-.nav-link:focus-within {
+.active {
     font-weight: 900;
-    font-size: 30px;
+    /* font-size: 30px; */
     color: var(--blue);
+    background: var(--white);
+    box-shadow: inset 5px 5px 9px var(--insetmorphDark),
+            inset -5px -5px 9px var(--morphLight);
 }
 
 #post-btn svg path{
     fill: var(--black);
 }
 
-.nav-link:focus-within svg path {
+.active svg path {
     stroke: var(--blue);
 }
 

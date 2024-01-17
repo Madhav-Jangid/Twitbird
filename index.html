@@ -24,6 +24,7 @@
     <script src="https://unpkg.com/page/page.js"></script>
 
 </head>
+
 <body>
     <div class="loaderAnimation">
         <div class="loaderCont">
@@ -43,7 +44,8 @@
             <form class="form" id="LoginForm">
                 <h3 id="LoginHeading">Login</h3>
                 <input type="email" placeholder="Email" class="InputFeild" name="LoginEmail" id="LoginEmail" required>
-                <input type="password" placeholder="Password" class="InputFeild" name="LoginPass" id="LoginPass" required>
+                <input type="password" placeholder="Password" class="InputFeild" name="LoginPass" id="LoginPass"
+                    required>
                 <button id="loginButton">Login</button>
             </form>
             <h4>Create a new account <a href="/Register" id="toSignUpPage"> Sign-up</a></h4>
@@ -65,25 +67,26 @@
         <section class="left-nav">
             <div class="main-top-buttons">
                 <button class="nav-link" id="menuLeftNav" onclick="ViewLeftNav()"><i class="bx bx-menu"></i></button>
-                <a href="/Home" class="nav-link" onclick="page('/Home'); return false;"><i
+                <a href="/Home" class="nav-link active" onclick="page('/Home'); activeNavLinks(); return false;"><i
                         class='bx bx-home-alt'></i><span class="nav-link-icon">Home</span></a>
-                <a href="/Explore" onclick="page('/Explore'); return false;" class="nav-link"><i
+                <a href="/Explore" onclick="page('/Explore'); activeNavLinks(); return false;" class="nav-link"><i
                         class='bx bx-search'></i><span class="nav-link-icon">Explore</span></a>
-                <a href="/Messages" onclick="page('/Messages'); return false;" class="nav-link"><i
+                <a href="/Messages" onclick="page('/Messages'); activeNavLinks(); return false;" class="nav-link"><i
                         class='bx bx-envelope'></i><span class="nav-link-icon">Messages</span></a>
-                <a href="/Notifications" onclick="page('/Notifications'); return false;" class="nav-link"><i
-                        class='bx bx-bell'></i><span class="nav-link-icon">Notifications</span></a>
-                <a href="/Premium" onclick="page('/Premium'); return false;" class="nav-link"><svg width="24"
-                        height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <a href="/Notifications" onclick="page('/Notifications'); activeNavLinks(); return false;"
+                    class="nav-link"><i class='bx bx-bell'></i><span class="nav-link-icon">Notifications</span></a>
+                <a href="/Premium" onclick="page('/Premium'); activeNavLinks(); return false;" class="nav-link"><svg
+                        width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M3 21L10.5484 13.4516M21 3L13.4516 10.5484M13.4516 10.5484L8 3H3L10.5484 13.4516M13.4516 10.5484L21 21H16L10.5484 13.4516"
                             stroke="var(--black)" stroke-width="1.5" stroke-linecap="" stroke-linejoin="round" />
                     </svg><span class="nav-link-icon">Premium</span></a>
-                <a href="/Profile" onclick="page('/Profile'); return false;" class="nav-link"><i
+                <a href="/Profile" onclick="page('/Profile'); activeNavLinks(); return false;" class="nav-link"><i
                         class='bx bx-user'></i><span class="nav-link-icon">Profile</i></span></button>
-                    <a href="/More" onclick="page('/More'); return false;" class="nav-link"><i
+                    <a href="/More" onclick="page('/More'); activeNavLinks(); return false;" class="nav-link"><i
                             class='bx bx-dots-horizontal-rounded'></i><span class="nav-link-icon">More</span></a>
-                    <a href="/Post" onclick="page('/Post'); return false;" class="nav-link" id="post-btn">
+                    <a href="/Home" onclick="page('/Home'); activeNavLinks(); return false;" class="nav-link"
+                        id="post-btn">
                         <p>Post</p>
                         <span>
                             <svg viewBox="0 0 24 24"
@@ -96,7 +99,7 @@
                             </svg>
                         </span>
                     </a>
-                    <div class="lastbutton nav-link" onclick="Dispaly('profile')">
+                    <div class="lastbutton nav-link" onclick="page('/Profile'); return false;">
                         <div class="imgBottom"><img src="/assets/images/X Profile Img.png" alt="User Image"></div>
                         <div class="username">
                             <h5 id="HomeUserName" class="ProfileTopNavName"><span></span>
@@ -104,13 +107,13 @@
                             <h6 class="useridhome"></h6>
                         </div>
                         <div style="z-index: 8988;" class="span" id="ThreeDotsProfileButton" onclick="Dispaly('more')">
-                            <i onclick="Dispaly('more')" class='bx bx-dots-horizontal-rounded'></i></div>
+                            <i onclick="Dispaly('more')" class='bx bx-dots-horizontal-rounded'></i>
+                        </div>
                     </div>
             </div>
         </section>
 
         <section class="mid-ele">
-
             <div id="commonTopNavForAll">
                 <label class="switch">
                     <span class="moon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
@@ -212,7 +215,8 @@
             </section>
 
             <section class="section" id="explore">
-                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>explore</h1>
+                <h1><a href="/Home" onclick="page('/Home'); return false;"><i
+                            class='bx bxs-left-arrow-alt'></i></a>explore</h1>
                 <div class="ExploreSearchDiv">
                     <input type="text" name="SearchExplore" id="ExploreSearch" placeholder="Explaore More People...">
                     <i class="bx bx-search" id="ExploreSearchBtn"></i>
@@ -222,13 +226,15 @@
             </section>
 
             <section class="section" id="notifications">
-                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>Notifications</h1>
+                <h1><a href="/Home" onclick="page('/Home'); return false;"><i
+                            class='bx bxs-left-arrow-alt'></i></a>Notifications</h1>
                 <div id="allNotifications">
                 </div>
             </section>
 
             <section class="section" id="messages">
-                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>messages</h1>
+                <h1><a href="/Home" onclick="page('/Home'); return false;"><i
+                            class='bx bxs-left-arrow-alt'></i></a>messages</h1>
                 <div class="ExploreSearchDiv">
                     <input type="text" name="SearchExplore" id="ExploreSearchMessages" placeholder="Find People..">
                     <i class="bx bx-search" id="ExploreSearchBtnMessages"></i>
@@ -239,8 +245,8 @@
             </section>
 
             <div class="section" id="ChatBlock">
-                <h1><i onclick="Dispaly('messages')" class='bx bxs-left-arrow-alt'></i><span id="ChatBlockH1"></span>
-                </h1>
+                <h1><a href="/Messages" onclick="page('/Messages'); return false;"><i
+                            class='bx bxs-left-arrow-alt'></i></a><span id="ChatBlockH1"></span></h1>
                 <div id="allMessagesFromDatabase">
                     No Messages Available Now
                 </div>
@@ -251,12 +257,14 @@
             </div>
 
             <section class="section" id="premium">
-                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>premium</h1>
+                <h1><a href="/Home" onclick="page('/Home'); return false;"><i
+                            class='bx bxs-left-arrow-alt'></i></a>premium</h1>
 
             </section>
 
             <section class="section" id="profile">
-                <h1 class="ProfileTopNavName"><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i></h1>
+                <h1 class="ProfileTopNavName"><a href="/Home" onclick="page('/Home'); return false;"><i
+                            class='bx bxs-left-arrow-alt'></i></a></h1>
                 <div class="profileBanner">
                     <img id="profileBanner" src="/assets/images/X Profile Img.png" alt="Profile Banner">
                     <h1 id="GreatingsHeadingProfile">Welcome <Span class="ProfileTopNavName" style="margin-left: 10px;">
@@ -283,8 +291,8 @@
             </section>
 
             <section class="section" id="Searcheduser">
-                <h1 class="ReachListNameTop"><i onclick="Dispaly('explore')" class='bx bxs-left-arrow-alt'></i>profile
-                </h1>
+                <h1 class="ReachListNameTop"><a href="/Explore" onclick="page('/Explore'); return false;"><i
+                            class='bx bxs-left-arrow-alt'></i></a>profile</h1>
                 <div class="profileBanner">
                     <img id="profileBanner" src="/assets/images/X Profile Img.png" alt="Profile Banner">
                     <img src="/assets/images/X Profile Img.png" id="ProfilePicture" alt="Profile Imgae">
@@ -306,16 +314,12 @@
                 </div>
                 <div id="searchedUserTweets">
                 </div>
-                
+
             </section>
 
             <section class="section" id="ReachList">
-                <h1 class="ReachListNameTop"><i onclick="Dispaly('Searcheduser')" class='bx bxs-left-arrow-alt'></i>
+                <h1 class="ReachListNameTop"><i onclick="page('/Profile')" class='bx bxs-left-arrow-alt'></i>
                 </h1>
-                <!-- <div class="topNavProfile">
-                    <i onclick="Dispaly('Searcheduser')" class='bx bxs-left-arrow-alt'></i>
-                    <h1 class="ProfileTopNavName" id="ProfileTopNavName"></h1>
-                </div> -->
                 <div id="followersOfUser" class="searchedHeading">
                 </div>
 
@@ -325,24 +329,55 @@
             </section>
 
             <section class="section" id="more">
-                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>more</h1>
+                <h1><a href="/Home" onclick="page('/Home'); return false;"><i class='bx bxs-left-arrow-alt'></i></a>more
+                </h1>
                 <button class="log-setButton" id="LogoutButton"><i class='bx bx-log-out'></i>Log-Out</button>
-                <button onclick="Dispaly('UpdateCredentials')" class="log-setButton" id="SettingsButton"><i
-                        class='bx bx-at'></i>Change Username</button>
-                <button onclick="Dispaly('UpdateCredentials')" class="log-setButton"><i
-                        class='bx bx-edit-alt'></i>Change Name</button>
-                <button onclick="Dispaly('UpdateCredentials')" class="log-setButton"><i class='bx bxl-gmail'></i>Change
-                    E-mail</button>
-                <button onclick="Dispaly('UpdateCredentials')" class="log-setButton"><i class='bx bx-key'></i>Change
-                    Password</button>
+                <a href="/More/username" class="log-setButton" id="SettingsButton"><i class='bx bx-at'></i>Change
+                    Username</a>
+                <a href="/More/Name" class="log-setButton"><i class='bx bx-edit-alt'></i>Change Name</a>
+                <a href="/More/email" class="log-setButton"><i class='bx bxl-gmail'></i>Change E-mail</a>
+                <a href="/More/password" class="log-setButton"><i class='bx bx-key'></i>Change Password</a>
             </section>
 
-            <section class="section" id="UpdateCredentials" style="display: none;">
-                <h1><i onclick="Dispaly('more')" class='bx bxs-left-arrow-alt'></i>Update Credentials</h1>
+            <section class="section" id="updateusername" style="display: none;">
+                <h1><a href="/More" onclick="page('/More'); return false;"><i class='bx bxs-left-arrow-alt'></i></a>Update Username</h1>
+                <form class="form" id="UsernameForm">
+                    <input type="text" class="InputFeild" name="Username" placeholder="Current Username" required>
+                    <input type="text" class="InputFeild" name="NewUsername" placeholder="New Username" required>
+                    <button type="submit">Change Username</button>
+                </form>
+            </section>
+
+            <section class="section" id="updatename" style="display: none;">
+                <h1><a href="/More" onclick="page('/More'); return false;"><i class='bx bxs-left-arrow-alt'></i></a>Update Name</h1>
+                <form class="form" id="NameForm">
+                    <input type="text" class="InputFeild" name="Name" placeholder="Current Name" required>
+                    <input type="text" class="InputFeild" name="NewName" placeholder="New Name" required>
+                    <button type="submit">Change Name</button>
+                </form>
+            </section>
+
+            <section class="section" id="updateemail" style="display: none;">
+                <h1><a href="/More" onclick="page('/More'); return false;"><i class='bx bxs-left-arrow-alt'></i></a>Update E-mail</h1>
+                <form class="form" id="EmailForm">
+                    <input type="text" class="InputFeild" name="Email" placeholder="Current E-mail" required>
+                    <input type="text" class="InputFeild" name="NewEmail" placeholder="New E-mail" required>
+                    <button type="submit">Change E-mail</button>
+                </form>
+            </section>
+
+            <section class="section" id="updatepassword" style="display: none;">
+                <h1><a href="/More" onclick="page('/More'); return false;"><i class='bx bxs-left-arrow-alt'></i></a>Update Password</h1>
+                <form class="form" id="PasswordForm">
+                    <input type="text" class="InputFeild" name="Password" placeholder="Current Password" required>
+                    <input type="text" class="InputFeild" name="NewPassword" placeholder="New Password" required>
+                    <button type="submit">Change Password</button>
+                </form>
             </section>
 
             <section class="section" id="post">
-                <h1><i onclick="Dispaly('home')" class='bx bxs-left-arrow-alt'></i>psot</h1>
+                <h1><a href="/Home" onclick="page('/Home'); return false;"><i class='bx bxs-left-arrow-alt'></i></a>psot
+                </h1>
             </section>
         </section>
 
@@ -360,21 +395,21 @@
 
 
                 <div class="hastag">
-                    <h6>cys</h6>
-                    <h4>dfsa</h4>
-                    <h6>fds</h6>
+                    <h6>Trending</h6>
+                    <h4>Technology as a service ?</h4>
+                    <!-- <h6>fds</h6> -->
                     <i class='bx bx-dots-horizontal-rounded'></i>
                 </div>
                 <div class="hastag">
-                    <h6>cys</h6>
-                    <h4>dfsa</h4>
-                    <h6>fds</h6>
+                    <h6>Trending</h6>
+                    <h4>Cyber security</h4>
+                    <!-- <h6>fds</h6> -->
                     <i class='bx bx-dots-horizontal-rounded'></i>
                 </div>
                 <div class="hastag">
-                    <h6>cys</h6>
-                    <h4>dfsa</h4>
-                    <h6>fds</h6>
+                    <h6>Trending</h6>
+                    <h4>Internet of things(IOT)</h4>
+                    <!-- <h6>fds</h6> -->
                     <i class='bx bx-dots-horizontal-rounded'></i>
                 </div>
                 <button class="hastag-more">Show More</button>

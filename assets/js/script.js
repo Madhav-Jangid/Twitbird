@@ -85,6 +85,17 @@ function HomeSectionDiv(sect) {
 }
 
 
+function activeNavLinks() {
+    const sectionclass = document.querySelectorAll('.nav-link');
+    sectionclass.forEach((item) => {
+        item.classList.remove('active');
+        item.addEventListener('click', function () {
+            item.classList.add('active');
+        })
+
+    })
+}
+
 const changeThemeButton = document.getElementById('changeThemeButton');
 
 var changeThemeButtonFlag = true;
@@ -215,6 +226,21 @@ function showMorePage(ctx) {
     Dispaly('more');
 }
 
+function showusernamePage(ctx) {
+    Dispaly('updateusername');
+}
+
+function shownamePage(ctx) {
+    Dispaly('updatename');
+}
+
+function showemailPage(ctx) {
+    Dispaly('updateemail');
+}
+
+function showpasswordPage(ctx) {
+    Dispaly('updatepassword');
+}
 
 page('/Register', showRegisterPage);
 page('/SignIn', showSignInPage);
@@ -227,5 +253,23 @@ page('/Profile', showprofilePage);
 page('/More', showMorePage);
 page('/Post', showPostPage);
 
-// Handle route changes
+page('/More/username', (ctx) => {
+    const subdomain = ctx.params.subdomain;
+    showusernamePage(subdomain);
+});
+page('/More/Name', (ctx) => {
+    const subdomain = ctx.params.subdomain;
+    shownamePage(subdomain);
+});
+page('/More/email', (ctx) => {
+    const subdomain = ctx.params.subdomain;
+    showemailPage(subdomain);
+});
+page('/More/password', (ctx) => {
+    const subdomain = ctx.params.subdomain;
+    showpasswordPage(subdomain);
+});
+
+
+
 page({ hashbang: true });

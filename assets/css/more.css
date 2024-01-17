@@ -12,7 +12,7 @@
     margin-bottom: 10px;
 } */
 
-#more a,#more button{
+#more .log-setButton{
     display: flex;
     align-items: center;
     color: var(--black);
@@ -31,12 +31,12 @@
     border: none;
 }
 
-#more a,#more button i{
+#more .log-setButton i{
     padding-right: 20px;
     font-size: 25px;
 }
 
-#more a:hover,#more button:hover{
+#more .log-setButton:hover{
     box-shadow: inset 5px 5px 9px var(--insetmorphDark),
     inset -5px -5px 9px var(--morphLight);
 }

@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const jsonData = JSON.stringify(newData);
                 localStorage.setItem('userData', jsonData);
                 document.querySelector('.loaderAnimation').style.display = 'none';
+
                 const retrievedData = JSON.parse(jsonData);
                 createPopUpFromLeft(`Welcome back ${retrievedData.Username}`, true);
                 return true;
@@ -325,6 +326,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const nameHeading = document.createElement('h3');
                 nameHeading.textContent = Name;
                 const usernameHeading = document.createElement('h5');
+                usernameHeading.classList.add('ProfileUserName')
                 usernameHeading.textContent = '@' + Username;
                 const followButton = document.createElement('button');
                 followButton.classList.add('FollowUser');
@@ -404,13 +406,12 @@ document.addEventListener('DOMContentLoaded', function () {
                             });
                             Dispaly('Searcheduser');
                             const tweetData = await ShowSearchedUserTweets(userData, uid);
-                            console.log(tweetData);
                             searchedUserTweets.innerHTML = ''
-                            if(tweetData != 0){
+                            if (tweetData != 0) {
                                 for (let twt in tweetData) {
                                     searchedUserTweets.appendChild(tweetData[twt])
                                 }
-                            }else{
+                            } else {
                                 searchedUserTweets.innerHTML = (`<h3 class='errorMessageSearcheduser'>${userData.Username} has not posted any tweet yet.<h3/>`);
                             }
                         } else {
@@ -434,7 +435,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         RenderedTweets.push(tweetofUser);
                     }
                     return RenderedTweets;
-                }else{
+                } else {
                     return 0
                 }
             }
@@ -465,8 +466,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const users = snapshot.val();
 
                     if (users) {
-                        const matchingUsers = Object.entries(users)
-                            .filter(([uid, userData]) => userData.Username.toLowerCase() === username);
+                        const matchingUsers = Object.entries(users).filter(([uid, userData]) => userData.Username.toLowerCase() === username);
 
                         if (matchingUsers.length > 0) {
                             const [uid, userData] = matchingUsers[0];
@@ -872,8 +872,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 var TweetMessage = tweetInput.value;
                 if (TweetMessage) {
                     try {
-                        let tweetDiv = await createTweetinDatabase(CurrentUserName, TweetMessage, CurrentUserId, TweetID);
-                        alltweetsbyUserOnly.appendChild(tweetDiv);
+                        alltweetsbyUserOnly.appendChild(await createTweetinDatabase(CurrentUserName, TweetMessage, CurrentUserId, TweetID));
                         createPopUpFromLeft('Tweet Posted Succesfully', true);
                     } catch (error) {
                         console.error('Error creating tweet:', error);
@@ -978,35 +977,37 @@ document.addEventListener('DOMContentLoaded', function () {
                 tweetDiv.appendChild(tweetIntractionDiv);
                 const uidToCheck = await GetIDbyUsername(false, username, true);
                 const followerUid = CurrentUserId;
-                
+
                 if (allTweetsbyuseranddb) {
                     const followingListRef = ref(db, `UserAuthList/${followerUid}/FollowingList`);
                     get(followingListRef)
-                    .then((snapshot) => {
-                        if (snapshot.exists()) {
-                            const followingList = snapshot.val();
-                            if (followingList && Object.values(followingList).includes(uidToCheck)) {
+                        .then((snapshot) => {
+                            if (snapshot.exists()) {
+                                const followingList = snapshot.val();
+                                if (followingList && Object.values(followingList).includes(uidToCheck)) {
                                     FollowingListTweets.innerHTML = '';
-                                FollowingListTweets.appendChild(tweetDiv);
+                                    FollowingListTweets.appendChild(tweetDiv);
+                                }
                             }
-                        }
-                    
-                        // Regardless of the conditions, always append to allTweetsbyuseranddb
-                        allTweetsbyuseranddb.appendChild(tweetDiv);
-                    }).catch((error) => {
-                        console.error("Error checking following list:", error);
-                    });
+
+                            // Regardless of the conditions, always append to allTweetsbyuseranddb
+                            allTweetsbyuseranddb.appendChild(tweetDiv);
+                        }).catch((error) => {
+                            console.error("Error checking following list:", error);
+                        });
                 } else {
                     console.error('Container element not found: FollowingListTweets or allTweetsbyuseranddb');
                 }
-                
+
                 shareIcon.addEventListener('click', function () {
                     shareTweet(userId, username, tweetText, tweetId)
                 });
-                
+
                 return tweetDiv;
             }
 
+
+            const userTweetsContainer = document.getElementById('alltweetsbyUserOnly');
             LoadTweetFromDataBase();
             async function LoadTweetFromDataBase() {
                 const userRef = ref(db, 'UserAuthList/');
@@ -1055,13 +1056,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         // Filter and append tweets posted by the user
                         const userTweets = tweetElements.filter((tweetElement) => tweetElement.id === CurrentUserId);
-                        const userTweetsContainer = document.getElementById('alltweetsbyUserOnly');
                         userTweetsContainer.innerHTML = ''
                         userTweets.forEach((element) => {
                             userTweetsContainer.appendChild(element);
                         });
 
                         document.querySelector('.loaderAnimation').style.display = 'none';
+                        // showUserByUsername();
                     } else {
                         console.error('User data does not exist');
                     }
@@ -1263,6 +1264,76 @@ document.addEventListener('DOMContentLoaded', function () {
                     createPopUpFromLeft('An Error accured Please try again.', false);
                 }
             }
+
+
+            function showUserByUsername() {
+                const userLink = document.querySelectorAll('.ProfileUserName');
+                userLink.forEach(element => {
+                });
+            }
+
+            const UsernameForm = document.getElementById('UsernameForm');
+            const NameForm = document.getElementById('NameForm');
+            const EmailForm = document.getElementById('EmailForm');
+            const PasswordForm = document.getElementById('PasswordForm');
+
+            UsernameForm.addEventListener('submit', (evt) => {
+                updateCredentials(evt, 'Username', UsernameForm);
+            })
+
+            NameForm.addEventListener('submit', (evt) => {
+                updateCredentials(evt, 'Name', NameForm);
+            })
+
+            EmailForm.addEventListener('submit', (evt) => {
+                updateCredentials(evt, 'Email', EmailForm);
+            })
+
+            PasswordForm.addEventListener('submit', (evt) => {
+                updateCredentials(evt, 'Password', PasswordForm);
+            })
+
+            function updateCredentials(evt, feild, form) {
+                evt.preventDefault();
+                const userRef = ref(db, `UserAuthList/${CurrentUserId}/${feild}`);
+                const userRef2 = ref(db, `UserAuthList/${CurrentUserId}`);
+                console.log(userRef);
+
+                get(userRef)
+                    .then(async (snapshot) => {
+                        if (snapshot.exists()) {
+                            const currentfeildValue = snapshot.val();
+                            const inputValue = form.elements[feild].value;
+                            const newValueToSet = form.elements['New' + feild].value;
+
+                            if (currentfeildValue == inputValue) {
+                                const updateData = {};
+                                updateData[feild] = newValueToSet;
+
+                                try {
+                                    await update(userRef2, updateData);
+                                    createPopUpFromLeft(`${feild} updated successfully!`, true);
+                                    const localData = JSON.parse(localStorage.getItem('userData'));
+                                    localData[feild] = newValueToSet;
+                                    localStorage.setItem('userData', JSON.stringify(localData));
+                                    form.elements[feild].value = '';
+                                    form.elements['New' + feild].value = '';
+                                    if(confirm('Reload site to see the changes ?')){
+                                        location.reload();
+                                    }
+                                } catch (error) {
+                                    console.error('Error updating user data:', error);
+                                }
+                            } else {
+                                createPopUpFromLeft(`Wrong ${feild}`);
+                            }
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error updating user data:', error);
+                    });
+            }
+
         }
 
 
