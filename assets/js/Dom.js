@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             const users = snapshot.val();
                             if (users) {
                                 const matchingUsers = Object.entries(users)
-                                    .filter(([uid, userData]) => userData.Username.toLowerCase() === TempName);
+                                    .filter(([uid, userData]) => userData.Username.toLowerCase() === TempName.toLowerCase());
                                 if (matchingUsers.length > 0) {
                                     const [uid, userData] = matchingUsers[0];
                                     createPopUpFromLeft(`Showing results for ${userData.Username}`, true);
