@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
         CurrentUserId = localStorage.getItem('uid');
         const jsonData = localStorage.getItem('userData');
         const retrievedData = JSON.parse(jsonData);
+        console.log(retrievedData);
         CurrentUserName = retrievedData.Username;
         ProceedDomChanging(retrievedData);
         const LoginSignupPages = document.getElementById('LoginSignupPages');
@@ -1026,6 +1027,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     const tweetId = key2;
                                     const tweet = tweetList[key2].Tweet;
                                     const userId = key;
+                                    console.log(userId);
 
                                     // Pass userId, tweetId, and tweet to createTweetElement function
                                     const tweetElement = await createTweetElement(jsObject[key].Username, tweet, userId, tweetId);
