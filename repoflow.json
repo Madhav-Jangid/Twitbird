@@ -1,0 +1,12 @@
+{
+    "image": "https://example.com/project-screenshot.png",
+    "tags": [
+        "React",
+        "TypeScript",
+        "Next.js"
+    ],
+    "priority": 1,
+    "description": "Custom project description for portfolio",
+    "showcase": true,
+    "demoUrl": "https://example.com/demo"
+}
